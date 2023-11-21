@@ -1,0 +1,319 @@
+# See the documentation on the wiki to learn how to edit this file.
+#-------------------------------
+[CAMPER,Liam]
+LoseText = A very good battle, indeed!
+Pokemon = DIGLETT,10
+Pokemon = BONSLY,11
+#-------------------------------
+[LEADER_Brock,Brock]
+Items = FULLRESTORE,FULLRESTORE
+LoseText = Very good.
+Pokemon = VENUSAUR,2
+    Gender = male
+    Moves = DEFENSECURL,HEADSMASH,ROCKPOLISH,ROCKTHROW
+    AbilityIndex = 0
+    Form=0
+    IV = 20,20,20,20,20,20
+Pokemon = GEODUDE,5
+    Gender = male
+    Moves = DEFENSECURL,HEADSMASH,ROCKPOLISH,ROCKTHROW
+    AbilityIndex = 0
+    Form=1
+    IV = 20,20,20,20,20,20
+Pokemon = MEOWTH,2
+    Gender = male
+    Moves = DEFENSECURL,HEADSMASH,ROCKPOLISH,ROCKTHROW
+    AbilityIndex = 0
+    Form=2
+    IV = 20,20,20,20,20,20
+Pokemon = ONIX,4
+    Name = Rocky
+    Gender = male
+    Shiny = yes
+    Moves = HEADSMASH,ROCKTHROW,RAGE,ROCKTOMB
+    AbilityIndex = 0
+    Item = SITRUSBERRY
+    IV = 20,20,20,20,20,20
+    Ball = HEAVYBALL
+Pokemon = DIGLETT,1
+Pokemon = BONSLY,1
+#-------------------------------
+[TEAMROCKET_M,Grunt,1]
+LoseText = You're too good for me!
+Pokemon = WEEPINBELL,21
+    Shadow = yes
+#-------------------------------
+[TEAMROCKET_F,Grunt,1]
+LoseText = You're too good for me!
+Pokemon = BURMY,19
+Pokemon = WINGULL,19
+Pokemon = ELECTABUZZ,20
+    Shadow = yes
+#-------------------------------
+[YOUNGSTER,Ben]
+LoseText = Aww, I lost.
+Pokemon = RATTATA,11
+Pokemon = EKANS,11
+Pokemon = RATTATA,11
+#-------------------------------
+[CAMPER,Jeff]
+LoseText = A very good battle, indeed!
+Pokemon = SPEAROW,16
+Pokemon = SENTRET,16
+#-------------------------------
+[CAMPER,Jeff,1]
+LoseText = You beat me again!
+Pokemon = FEAROW,29
+Pokemon = FURRET,29
+#-------------------------------
+[PICNICKER,Susie]
+LoseText = Defeated! Oh my!
+Pokemon = MEOWTH,18
+#-------------------------------
+[PICNICKER,Susie,1]
+LoseText = Defeated! Oh my!
+Pokemon = PERSIAN,32
+#-------------------------------
+[HIKER,Ford]
+LoseText = You're too good for me!
+Pokemon = MACHOP,19
+#-------------------------------
+[FISHERMAN,Andrew]
+LoseText = Washed out!
+Pokemon = MAGIKARP,14
+Pokemon = MAGIKARP,18
+#-------------------------------
+[BEAUTY,Bridget]
+LoseText = My Skitty!
+Pokemon = SKITTY,18
+#-------------------------------
+[LASS,Crissy]
+LoseText = You didn't have to win so convincingly!
+Pokemon = PLUSLE,17
+Pokemon = MINUN,17
+#-------------------------------
+[COOLCOUPLE,Alice & Bob]
+LoseText = Our teamwork failed!
+Pokemon = TURTWIG,19
+Pokemon = CHIMCHAR,19
+#-------------------------------
+[POKEMONTRAINER_May,May]
+LoseText = ...
+Pokemon = COMBUSKEN,19
+#-------------------------------
+[SWIMMER2_F,Ariel]
+LoseText = Washed out!
+Pokemon = STARYU,15
+Pokemon = GOLDEEN,11
+#-------------------------------
+[RIVAL1,Blue]
+LoseText = Not too shabby.
+Pokemon = PIDGEOTTO,17
+Pokemon = RATTATA,15
+Pokemon = BULBASAUR,18
+#-------------------------------
+[RIVAL1,Blue,1]
+LoseText = Not too shabby.
+Pokemon = PIDGEOTTO,17
+Pokemon = RATTATA,15
+Pokemon = CHARMANDER,18
+#-------------------------------
+[RIVAL1,Blue,2]
+LoseText = Not too shabby.
+Pokemon = PIDGEOTTO,17
+Pokemon = RATTATA,15
+Pokemon = SQUIRTLE,18
+#-------------------------------
+[CHAMPION,Blue]
+LoseText = A good battle indeed!
+Pokemon = VENUSAUR,63
+    Item = SITRUSBERRY
+Pokemon = CHARIZARD,63
+    Item = SITRUSBERRY
+Pokemon = BLASTOISE,63
+    Item = SITRUSBERRY
+#-------------------------------
+[GHOST,???]
+LoseText = ...
+Pokemon = DITTO,12
+Pokemon = DITTO,14
+Pokemon = DITTO,12
+Pokemon = DITTO,12
+Pokemon = DITTO,12
+Pokemon = DITTO,12
+#-------------------------------
+[YOUNGSTER,Mikey]
+LoseText = That's strange, I won before.
+Pokemon = PIDGEY,2
+Pokemon = RATTATA,4
+#-------------------------------
+[BUGCATCHER,Don]
+LoseText = Argh! You're too strong!
+Pokemon = CATERPIE,3
+Pokemon = CATERPIE,3
+#-------------------------------
+[YOUNGSTER,Joey]
+LoseText =No! My perfect Rattata...
+Pokemon = RATTATA,20
+	Item = SILKSCARF
+	Form = 2
+	Nature = JOLLY
+	IV = 31,31,31,31,31,31
+	EV = 0,252,4,252,0,0
+#-------------------------------
+[COOLTRAINER_M,Bob]
+LoseText = All this work for nothing...
+Pokemon = DIANCIE,100
+	Item = WEAKNESSPOLICY
+	Moves = DIAMONDSTORM,BODYPRESS,TRICKROOM,PROTECT
+	Ability = CLEARBODY
+	Nature = ADAMANT
+	IV = 31,31,31,31,31,31
+	EV = 252,156,0,0,0,100
+Pokemon = TYRANITAR,100
+	Item = ASSAULTVEST
+	Moves = ROCKSLIDE,CRUNCH,DRAGONTAIL,ICEPUNCH
+	Ability = SANDSTREAM
+	Nature = ADAMANT
+	IV = 31,31,31,31,31,31
+	EV = 252,176,0,80,0,0
+Pokemon = VOLCANION,100
+	Item = LEFTOVERS
+	Moves = STEAMERUPTION,HEATWAVE,SUBSTITUTE,PROTECT
+	Ability = WATERABSORB
+	Nature = MODEST
+	IV = 31,31,31,31,31,31
+	EV = 252,0,0,4,252,0
+Pokemon = RILLABOOM,100
+	Item = ASSAULTVEST
+	Moves = FAKEOUT,GRASSYGLIDE,HIGHHORSEPOWER,UTURN
+	Ability = GRASSYSURGE
+	Nature = ADAMANT
+	IV = 31,31,31,31,31,31
+	EV = 196,252,0,60,0,0
+Pokemon = GENESECT,100
+	Item = CHOICESCARF
+	Moves = ENERGYBALL,ICEBEAM,FLAMETHROWER,UTURN
+	Ability = DOWNLOAD
+	Nature = TIMID
+	IV = 31,31,31,31,31,31
+	EV = 0,4,0,252,252,0
+Pokemon = SALAMENCE,100
+	Item = SITRUSBERRY
+	Moves = TAILWIND,AIRSLASH,DRACOMETEOR,PROTECT
+	Ability = INTIMIDATE
+	Nature = CALM
+	IV = 31,31,31,31,31,31
+	EV = 204,0,124,36,20,124
+#-------------------------------
+[COOLTRAINER_F,Carla]
+LoseText = Impossible!
+Pokemon = INDEEDEE,100
+	Item = EJECTBUTTON
+	Moves = EXPANDINGFORCE,FOLLOWME,HEALPULSE,HELPINGHAND
+	Ability = PSYCHICSURGE
+	Form = 1
+	Nature = SASSY
+	IV = 31,31,31,31,31,31
+	EV = 252,0,240,0,0,16
+Pokemon = NECROZMA,100
+	Item = POWERHERB
+	Moves = EXPANDINGFORCE,METEORBEAM,TRICKROOM,PROTECT
+	Ability = PRISMARMOR
+	Nature = QUIET
+	IV = 31,31,31,31,31,31
+	EV = 252,0,4,0,252,0
+Pokemon = AMOONGUSS,100
+	Item = SITRUSBERRY
+	Moves = SPORE,RAGEPOWDER,CLEARSMOG,POLLENPUFF
+	Ability = REGENERATOR
+	Nature = SASSY
+	IV = 31,31,31,31,31,31
+	EV = 252,0,68,0,0,188
+Pokemon = HEATRAN,100
+	Item = CHARCOAL
+	Moves = ERUPTION,HEATWAVE,EARTHPOWER,PROTECT
+	Ability = FLASHFIRE
+	Nature = MODEST
+	IV = 31,31,31,31,31,31
+	EV = 224,0,0,32,252,0
+Pokemon = URSHIFU,100
+	Item = CHOICEBAND
+	Moves = CLOSECOMBAT,SURGINGSTRIKES,UTURN,ICEPUNCH
+	Ability = UNSEENFIST
+	Form = 1
+	Nature = JOLLY
+	IV = 31,31,31,31,31,31
+	EV = 0,252,0,252,0,4
+Pokemon = KARTANA,100
+	Item = WHITEHERB
+	Moves = LEAFBLADE,SACREDSWORD,TAILWIND,PROTECT
+	Ability = BEASTBOOST
+	Nature = JOLLY
+	IV = 31,31,31,31,31,31
+	EV = 0,72,0,252,0,184
+#-------------------------------
+[PROFESSOR,Oak]
+LoseText = Impressive. You are the first adult able to defeat me.
+Pokemon = NINETALES,100
+	Item = LIGHTCLAY
+	Moves = AURORAVEIL,BLIZZARD,MOONBLAST,PROTECT
+	Ability = SNOWWARNING
+	Form = 1
+	Nature = TIMID
+	IV = 31,31,31,31,31,31
+	EV = 0,0,4,252,252,0
+Pokemon = ZERAORA,100
+	Item = ASSAULTVEST
+	Moves = FAKEOUT,PLASMAFISTS,ELECTROWEB,CLOSECOMBAT
+	Ability = VOLTABSORB
+	Nature = JOLLY
+	IV = 31,31,31,31,31,31
+	EV = 0,252,4,252,0,0
+Pokemon = KYUREM,100
+	Item = MAGNET
+	Moves = DRAGONDANCE,FUSIONBOLT,ICICLESPEAR,PROTECT
+	Ability = TERAVOLT
+	Form = 2
+	Nature = JOLLY
+	IV = 31,31,31,31,31,31
+	EV = 0,252,4,252,0,0
+Pokemon = TAPUFINI,100
+	Item = LEFTOVERS
+	Moves = MUDDYWATER,MOONBLAST,CALMMIND,PROTECT
+	Ability = MISTYSURGE
+	Nature = BOLD
+	IV = 31,31,31,31,31,31
+	EV = 248,0,104,0,156,0
+Pokemon = HEATRAN,100
+	Item = CHARCOAL
+	Moves = ERUPTION,EARTHPOWER,HEATWAVE,PROTECT
+	Ability = FLASHFIRE
+	Nature = TIMID
+	IV = 31,31,31,31,31,31
+	EV = 0,0,40,252,216,0
+Pokemon = AMOONGUSS,100
+	Item = SITRUSBERRY
+	Moves = POLLENPUFF,RAGEPOWDER,SPORE,PROTECT
+	Ability = REGENERATOR
+	Nature = CALM
+	IV = 31,31,31,31,31,31
+	EV = 232,0,80,0,28,168
+#-------------------------------
+[COOLTRAINER_M,Bobby]
+Items = MEGARING
+LoseText = Well played.
+Pokemon = DITTO,10
+Pokemon = DITTO,10
+Pokemon = DITTO,10
+Pokemon = DITTO,10
+#-------------------------------
+[GENTLEMAN,Carl]
+Items = MEGARING
+LoseText = Nice fight.
+Pokemon = DITTO,10
+Pokemon = DITTO,10
+Pokemon = DITTO,10
+Pokemon = DITTO,10
+Pokemon = DITTO,10
+Pokemon = DITTO,10

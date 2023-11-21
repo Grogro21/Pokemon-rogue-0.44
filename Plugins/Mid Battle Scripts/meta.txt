@@ -1,0 +1,4 @@
+Name         = Mid Battle Dialogue
+Version      = 3.4.2
+Essentials   = 21.1
+Credits      = Golisopod User, Luka SJ, Grogro

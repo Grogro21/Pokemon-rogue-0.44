@@ -1,0 +1,25 @@
+#-------------------------------
+[GHOST]
+Name = ???
+Types = QMARKS
+BaseStats = 10,100,100,100,100,100
+GenderRatio = Genderless
+GrowthRate = Slow
+BaseExp = 250
+EVs = HP,3
+CatchRate = 3
+Happiness = 0
+Abilities = WONDERGUARD
+Moves = 1,UNKNOWNBEAM
+TutorMoves = UNKNOWNBEAM
+EggGroups = Undiscovered
+HatchSteps = 30720
+Height = 2.1
+Weight = 1.1
+Color = Green
+Shape = Bipedal
+Category = King
+Pokedex = ???
+Generation = 8
+Flags = Legendary
+#-------------------------------

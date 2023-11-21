@@ -1,0 +1,18 @@
+Name       = Level Based Mixed EV System and Allocator
+Version    = 1.0.2
+Essentials = 21.1
+Optional   = Essentials Deluxe,1.0
+Optional   = Enhanced UI,1.1.2
+Optional   = EVs and IVs in Summary v20,1.0
+Optional   = BW Summary Screen,1.0
+Website    = https://reliccastle.com/resources/1241/
+Credits    = DemICE
+#
+#-v1.0.2
+#------
+# Made the plugin compatible with the new Enhanced UI update
+# Incorporated a general improvement for the summary options from the Enhanced UI (which also doubles as a compatibility change)
+#
+#-v1.0.1
+#------
+# Fixed an important dumb error that was breaking battles when trying to switch.

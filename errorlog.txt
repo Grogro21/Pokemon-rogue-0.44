@@ -1,0 +1,1678 @@
+
+=================
+
+[2023-11-02 13:43:47 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.3]
+
+Error in Plugin: [Generate a Pokémon]
+Exception: SyntaxError
+Message: [Generate a Pokémon] regimap.rb:16: void value expression
+  return map[coord]
+  ^~~~~~~~~~~~~~~~~
+[Generate a Pokémon] regimap.rb:18: syntax error, unexpected end-of-input, expecting `end'
+
+Backtrace:
+Section008:635:in `eval'
+Section008:635:in `block (2 levels) in runPlugins'
+Section008:625:in `each'
+Section008:625:in `block in runPlugins'
+Section008:616:in `each'
+Section008:616:in `runPlugins'
+Section401:28:in `mainFunctionDebug'
+Section401:18:in `block in mainFunction'
+Section014:80:in `pbCriticalCode'
+Section401:18:in `mainFunction'
+
+=================
+
+[2023-11-07 20:01:24 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 6,10), map 82 (event)
+Exception: NoMethodError
+Message: undefined method `level' for nil:NilClass
+
+***Full script:
+$player.party[0].level<40
+Backtrace:
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:434:in `command_111'
+Interpreter_Commands:29:in `execute_command'
+Interpreter:130:in `block in update'
+Interpreter:86:in `loop'
+Interpreter:86:in `update'
+Scene_Map:167:in `block in update'
+Scene_Map:166:in `loop'
+
+=================
+
+[2023-11-07 20:02:13 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 11,10), map 82 (event)
+Exception: ArgumentError
+Message: Invalid argument passed to method.
+Expected nil to be one of [Symbol, GameData::Item, String], but got NilClass.
+
+***Full script:
+recMart
+
+Backtrace:
+Validation:29:in `validate'
+GameData:100:in `get'
+[Mart Recommendations] script.rb:54:in `block in recMart'
+[Mart Recommendations] script.rb:24:in `loop'
+[Mart Recommendations] script.rb:24:in `recMart'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+
+=================
+
+[2023-11-07 20:02:33 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 11,10), map 82 (event)
+Exception: ArgumentError
+Message: Invalid argument passed to method.
+Expected nil to be one of [Symbol, GameData::Item, String], but got NilClass.
+
+***Full script:
+recMart
+
+Backtrace:
+Validation:29:in `validate'
+GameData:100:in `get'
+[Mart Recommendations] script.rb:42:in `block in recMart'
+[Mart Recommendations] script.rb:24:in `loop'
+[Mart Recommendations] script.rb:24:in `recMart'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+
+=================
+
+[2023-11-07 20:27:36 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 11,10), map 82 (event)
+Exception: ArgumentError
+Message: Invalid argument passed to method.
+Expected nil to be one of [Symbol, GameData::Item, String], but got NilClass.
+
+***Full script:
+recMart
+
+Backtrace:
+Validation:29:in `validate'
+GameData:100:in `get'
+[Mart Recommendations] script.rb:42:in `block in recMart'
+[Mart Recommendations] script.rb:24:in `loop'
+[Mart Recommendations] script.rb:24:in `recMart'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+
+=================
+
+[2023-11-07 20:30:08 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 11,10), map 82 (event)
+Exception: ArgumentError
+Message: Invalid argument passed to method.
+Expected nil to be one of [Symbol, GameData::Item, String], but got NilClass.
+
+***Full script:
+recMart
+
+Backtrace:
+Validation:29:in `validate'
+GameData:100:in `get'
+[Mart Recommendations] script.rb:55:in `block in recMart'
+[Mart Recommendations] script.rb:24:in `loop'
+[Mart Recommendations] script.rb:24:in `recMart'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+
+=================
+
+[2023-11-14 15:31:57 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: NoMethodError
+Message: undefined method `fainted?' for nil:NilClass
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Mid Battle Dialogue] data.rb:865:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:180:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+Overworld_BattleStarting:401:in `block (2 levels) in start_core'
+Overworld_BattleIntroAnim:55:in `pbSceneStandby'
+
+=================
+
+[2023-11-14 15:34:30 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: TypeError
+Message: no implicit conversion of Array into Integer
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:27:in `curchoices'
+[Mid Battle Dialogue] data.rb:857:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:180:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+Overworld_BattleStarting:401:in `block (2 levels) in start_core'
+
+=================
+
+[2023-11-14 15:36:40 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: TypeError
+Message: no implicit conversion of String into Integer
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:27:in `curchoices'
+[Mid Battle Dialogue] data.rb:857:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:180:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+Overworld_BattleStarting:401:in `block (2 levels) in start_core'
+
+=================
+
+[2023-11-14 15:42:04 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: TypeError
+Message: no implicit conversion of Array into Integer
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:27:in `curchoices'
+[Mid Battle Dialogue] data.rb:857:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:180:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+Overworld_BattleStarting:401:in `block (2 levels) in start_core'
+
+=================
+
+[2023-11-14 15:43:37 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: TypeError
+Message: no implicit conversion of Array into Integer
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:27:in `curchoices'
+[Mid Battle Dialogue] data.rb:855:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:180:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+Overworld_BattleStarting:401:in `block (2 levels) in start_core'
+
+=================
+
+[2023-11-14 15:51:32 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: TypeError
+Message: no implicit conversion of Array into Integer
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:28:in `curchoices'
+[Mid Battle Dialogue] data.rb:855:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:180:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+Overworld_BattleStarting:401:in `block (2 levels) in start_core'
+
+=================
+
+[2023-11-14 15:53:59 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: TypeError
+Message: Argument 0: Expected string
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+SpriteWindow_text:1107:in `text_size'
+SpriteWindow_text:1107:in `block in getAutoDims'
+SpriteWindow_text:1106:in `each'
+SpriteWindow_text:1106:in `getAutoDims'
+SpriteWindow_text:1173:in `initialize'
+Battle_Scene:274:in `new'
+Battle_Scene:274:in `pbShowCommands'
+Battle:834:in `pbShowCommands'
+[Mid Battle Dialogue] data.rb:855:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+
+=================
+
+[2023-11-14 15:57:07 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: NoMethodError
+Message: undefined method `fainted?' for nil:NilClass
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Mid Battle Dialogue] data.rb:865:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:180:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+Overworld_BattleStarting:401:in `block (2 levels) in start_core'
+Overworld_BattleIntroAnim:55:in `pbSceneStandby'
+
+=================
+
+[2023-11-14 16:00:36 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: TypeError
+Message: Argument 0: Expected string
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+SpriteWindow_text:1107:in `text_size'
+SpriteWindow_text:1107:in `block in getAutoDims'
+SpriteWindow_text:1106:in `each'
+SpriteWindow_text:1106:in `getAutoDims'
+SpriteWindow_text:1173:in `initialize'
+Battle_Scene:274:in `new'
+Battle_Scene:274:in `pbShowCommands'
+Battle:834:in `pbShowCommands'
+[Mid Battle Dialogue] data.rb:858:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+
+=================
+
+[2023-11-14 16:05:38 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: ArgumentError
+Message: wrong number of arguments (given 3, expected 1..2)
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:27:in `[]'
+[Generate a Pokémon] regimap.rb:27:in `curchoices'
+[Mid Battle Dialogue] data.rb:856:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:180:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+
+=================
+
+[2023-11-14 16:08:37 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: NoMethodError
+Message: undefined method `fainted?' for nil:NilClass
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Mid Battle Dialogue] data.rb:868:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:180:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+Overworld_BattleStarting:401:in `block (2 levels) in start_core'
+Overworld_BattleIntroAnim:55:in `pbSceneStandby'
+
+=================
+
+[2023-11-14 16:10:47 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: ArgumentError
+Message: wrong number of arguments (given 3, expected 1..2)
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:27:in `[]'
+[Generate a Pokémon] regimap.rb:27:in `curchoices'
+[Mid Battle Dialogue] data.rb:856:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:180:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+
+=================
+
+[2023-11-14 16:11:49 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: TypeError
+Message: Argument 0: Expected string
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+SpriteWindow_text:1107:in `text_size'
+SpriteWindow_text:1107:in `block in getAutoDims'
+SpriteWindow_text:1106:in `each'
+SpriteWindow_text:1106:in `getAutoDims'
+SpriteWindow_text:1173:in `initialize'
+Battle_Scene:274:in `new'
+Battle_Scene:274:in `pbShowCommands'
+Battle:834:in `pbShowCommands'
+[Mid Battle Dialogue] data.rb:858:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+
+=================
+
+[2023-11-14 16:13:25 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: TypeError
+Message: Argument 0: Expected string
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+SpriteWindow_text:1107:in `text_size'
+SpriteWindow_text:1107:in `block in getAutoDims'
+SpriteWindow_text:1106:in `each'
+SpriteWindow_text:1106:in `getAutoDims'
+SpriteWindow_text:1173:in `initialize'
+Battle_Scene:274:in `new'
+Battle_Scene:274:in `pbShowCommands'
+Battle:834:in `pbShowCommands'
+[Mid Battle Dialogue] data.rb:858:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+
+=================
+
+[2023-11-14 16:15:33 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: NoMethodError
+Message: undefined method `fainted?' for nil:NilClass
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Mid Battle Dialogue] data.rb:867:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:180:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+Overworld_BattleStarting:401:in `block (2 levels) in start_core'
+Overworld_BattleIntroAnim:55:in `pbSceneStandby'
+
+=================
+
+[2023-11-14 16:18:49 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: NoMethodError
+Message: undefined method `battler' for #<Battle>
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Mid Battle Dialogue] data.rb:838:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:168:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+Overworld_BattleStarting:401:in `block (2 levels) in start_core'
+Overworld_BattleIntroAnim:55:in `pbSceneStandby'
+
+=================
+
+[2023-11-14 16:21:42 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 2 (coords 12,12), map 79 (Lobby)
+Exception: NoMethodError
+Message: undefined method `pbCallally' for DialogueModule:Module
+
+***Full script:
+setBattleRule("cannotRun")
+setBattleRule("2v1")
+BattleScripting.setInScript("turnStart0",:Reginit)
+pkmn = Pokemon.new(:REGIGIGAS, 60)
+pkmn.form=1
+pkmn.learn_move(:FLASHCANON)
+pkmn.learn_move(:PSYCHIC)
+pkmn.learn_move(:ENERGYBALL)
+pkmn.learn_move(:THUNDERBOLT)
+WildBattle.start(pkmn)
+
+Backtrace:
+[Mid Battle Dialogue] data.rb:838:in `block in <module:DialogueModule>'
+[Mid Battle Dialogue] MBD.rb:1173:in `display'
+[Mid Battle Dialogue] MBD.rb:168:in `block in pbBattleLoop'
+[Mid Battle Dialogue] MBD.rb:158:in `loop'
+[Mid Battle Dialogue] MBD.rb:158:in `pbBattleLoop'
+Battle_StartAndEnd:316:in `pbStartBattleCore'
+[Generate a Pokémon] move reminder.rb:29:in `pbStartBattle'
+[Generate a Pokémon] permadeath.rb:302:in `pbStartBattle'
+Overworld_BattleStarting:401:in `block (2 levels) in start_core'
+Overworld_BattleIntroAnim:55:in `pbSceneStandby'
+
+=================
+
+[2023-11-17 11:27:39 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Exception: RuntimeError
+Message: Undefined value Unknwown (expected one of: ["Male", "male", "M", "m", "0", "Female", "female", "F", "f", "1", "Unknown", "unknown", "Other", "other", "Mixed", "mixed", "X", "x", "2"])
+File PBS/trainer_types.txt, section MEWTWO, key Gender
+Unknwown
+
+
+
+Backtrace:
+Compiler:479:in `checkEnumField'
+[v21.1 Hotfixes] Compiler bug fixes.rb:53:in `cast_csv_value'
+Compiler:724:in `block (2 levels) in get_csv_record'
+Compiler:710:in `each'
+Compiler:710:in `block in get_csv_record'
+Compiler:708:in `loop'
+Compiler:708:in `get_csv_record'
+Compiler_CompilePBS:49:in `block (4 levels) in compile_PBS_file_generic'
+Compiler_CompilePBS:31:in `each_key'
+Compiler_CompilePBS:31:in `block (3 levels) in compile_PBS_file_generic'
+
+=================
+
+[2023-11-17 11:27:45 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Exception: RuntimeError
+Message: Unknown exception when compiling.
+
+Backtrace:
+Compiler:1104:in `rescue in main'
+Compiler:1031:in `main'
+Main:29:in `mainFunctionDebug'
+Main:18:in `block in mainFunction'
+Errors:80:in `pbCriticalCode'
+Main:18:in `mainFunction'
+Main:45:in `block in <main>'
+Main:44:in `loop'
+Main:44:in `<main>'
+-e:in `eval'
+
+=================
+
+[2023-11-17 11:28:39 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 7 (coords 16,12), map 79 (Lobby)
+Exception: NameError
+Message: undefined local variable or method `game_variables' for #<Interpreter @event_id: 7>
+
+***Full script:
+pbChangePlayer(3)
+game_variables[58]=$player.party.clone
+$player.party.clear
+pbAddPokemonSilent(:MEWTWO_3,70)
+
+Backtrace:
+(eval):2:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+Interpreter:86:in `loop'
+Interpreter:86:in `update'
+Scene_Map:167:in `block in update'
+Scene_Map:166:in `loop'
+
+=================
+
+[2023-11-17 11:29:30 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 7 (coords 16,12), map 79 (Lobby)
+Exception: RuntimeError
+Message: Unknown ID MEWTWO_3.
+
+***Full script:
+pbChangePlayer(3)
+$game_variables[58]=$player.party.clone
+$player.party.clear
+pbAddPokemonSilent(:MEWTWO_3,70)
+
+Backtrace:
+GameData:103:in `get'
+Pokemon:1160:in `initialize'
+Utilities_Pokemon:80:in `new'
+Utilities_Pokemon:80:in `pbAddPokemonSilent'
+(eval):4:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+
+=================
+
+[2023-11-17 16:22:25 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Error in Plugin: [Generate a Pokémon]
+Exception: SyntaxError
+Message: [Generate a Pokémon] regimap.rb:59: syntax error, unexpected local variable or method, expecting ']'
+  for dir in map[coord[0]coord[1]]
+                         ^~~~~
+[Generate a Pokémon] regimap.rb:59: syntax error, unexpected ']', expecting `end'
+...or dir in map[coord[0]coord[1]]
+...                              ^
+[Generate a Pokémon] regimap.rb:60: syntax error, unexpected local variable or method, expecting ']'
+    if !movemap[coord[0]coord[1]].include?(dir)
+                        ^~~~~
+[Generate a Pokémon] regimap.rb:60: syntax error, unexpected ']', expecting `end'
+...  if !movemap[coord[0]coord[1]].include?(dir)
+...                              ^
+[Generate a Pokémon] regimap.rb:63: syntax error, unexpected `end', expecting end-of-input
+  end
+  ^~~
+
+
+Backtrace:
+Section008:635:in `eval'
+Section008:635:in `block (2 levels) in runPlugins'
+Section008:625:in `each'
+Section008:625:in `block in runPlugins'
+Section008:616:in `each'
+Section008:616:in `runPlugins'
+Section401:28:in `mainFunctionDebug'
+Section401:18:in `block in mainFunction'
+Section014:80:in `pbCriticalCode'
+Section401:18:in `mainFunction'
+
+=================
+
+[2023-11-17 16:25:26 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Error in Plugin: [Generate a Pokémon]
+Exception: SyntaxError
+Message: [Generate a Pokémon] regimap.rb:59: syntax error, unexpected local variable or method, expecting ']'
+  for dir in map[coord[0]coord[1]]
+                         ^~~~~
+[Generate a Pokémon] regimap.rb:59: syntax error, unexpected ']', expecting `end'
+...or dir in map[coord[0]coord[1]]
+...                              ^
+[Generate a Pokémon] regimap.rb:60: syntax error, unexpected local variable or method, expecting ']'
+    if !movemap[coord[0]coord[1]].include?(dir)
+                        ^~~~~
+[Generate a Pokémon] regimap.rb:60: syntax error, unexpected ']', expecting `end'
+...  if !movemap[coord[0]coord[1]].include?(dir)
+...                              ^
+[Generate a Pokémon] regimap.rb:63: syntax error, unexpected `end', expecting end-of-input
+  end
+  ^~~
+
+
+Backtrace:
+Section008:635:in `eval'
+Section008:635:in `block (2 levels) in runPlugins'
+Section008:625:in `each'
+Section008:625:in `block in runPlugins'
+Section008:616:in `each'
+Section008:616:in `runPlugins'
+Section401:28:in `mainFunctionDebug'
+Section401:18:in `block in mainFunction'
+Section014:80:in `pbCriticalCode'
+Section401:18:in `mainFunction'
+
+=================
+
+[2023-11-17 16:26:24 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Error in Plugin: [Generate a Pokémon]
+Exception: NoMethodError
+Message: undefined method `[]' for nil:NilClass
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:44:in `<main>'
+Section008:635:in `eval'
+Section008:635:in `block (2 levels) in runPlugins'
+Section008:625:in `each'
+Section008:625:in `block in runPlugins'
+Section008:616:in `each'
+Section008:616:in `runPlugins'
+Section401:28:in `mainFunctionDebug'
+Section401:18:in `block in mainFunction'
+Section014:80:in `pbCriticalCode'
+
+=================
+
+[2023-11-17 16:26:45 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Error in Plugin: [Generate a Pokémon]
+Exception: NameError
+Message: undefined local variable or method `d' for main:Object
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:68:in `<main>'
+Section008:635:in `eval'
+Section008:635:in `block (2 levels) in runPlugins'
+Section008:625:in `each'
+Section008:625:in `block in runPlugins'
+Section008:616:in `each'
+Section008:616:in `runPlugins'
+Section401:28:in `mainFunctionDebug'
+Section401:18:in `block in mainFunction'
+Section014:80:in `pbCriticalCode'
+
+=================
+
+[2023-11-17 16:29:07 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: ArgumentError
+Message: wrong number of arguments (given 0, expected 1..2)
+
+***Full script:
+validlab(genmap(),[0,2])
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:82:in `[]'
+[Generate a Pokémon] regimap.rb:82:in `block in validlab'
+[Generate a Pokémon] regimap.rb:81:in `each'
+[Generate a Pokémon] regimap.rb:81:in `validlab'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+
+=================
+
+[2023-11-17 16:30:33 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NameError
+Message: undefined local variable or method `movemap' for #<Interpreter @event_id: 5>
+
+***Full script:
+validlab(genmap(),[0,2])
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:51:in `camefrom'
+[Generate a Pokémon] regimap.rb:93:in `validlab'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+Interpreter:86:in `loop'
+Interpreter:86:in `update'
+
+=================
+
+[2023-11-18 14:42:18 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Error in Plugin: [Generate a Pokémon]
+Exception: SyntaxError
+Message: [Generate a Pokémon] regimap.rb:86: syntax error, unexpected ')', expecting '='
+  return(map,bosscoord)
+                      ^
+[Generate a Pokémon] regimap.rb:105: syntax error, unexpected ')', expecting '='
+  return(map,bosscoord,exit)
+                           ^
+[Generate a Pokémon] regimap.rb:178: syntax error, unexpected ']', expecting `end'
+    mapbosscoord[0]][bosscoord[1]].delete("Up")
+                   ^
+[Generate a Pokémon] regimap.rb:178: syntax error, unexpected ']', expecting `end'
+... mapbosscoord[0]][bosscoord[1]].delete("Up")
+...                              ^
+[Generate a Pokémon] regimap.rb:180: syntax error, unexpected ']', expecting `end'
+    mapbosscoord[0]][bosscoord[1]].delete("Down")
+                   ^
+[Generate a Pokémon] regimap.rb:180: syntax error, unexpected ']', expecting `end'
+... mapbosscoord[0]][bosscoord[1]].delete("Down")
+...                              ^
+[Generate a Pokémon] regimap.rb:182: syntax error, unexpected ']', expecting `end'
+    mapbosscoord[0]][bosscoord[1]].delete("Left")
+                   ^
+[Generate a Pokémon] regimap.rb:182: syntax error, unexpected ']', expecting `end'
+... mapbosscoord[0]][bosscoord[1]].delete("Left")
+...                              ^
+[Generate a Pokémon] regimap.rb:184: syntax error, unexpected ']', expecting `end'
+    mapbosscoord[0]][bosscoord[1]].delete("Right"...
+                   ^
+[Generate a Pokémon] regimap.rb:184: syntax error, unexpected ']', expecting `end'
+... mapbosscoord[0]][bosscoord[1]].delete("Right") 
+...                              ^
+[Generate a Pokémon] regimap.rb:215: syntax error, unexpected end-of-input, expecting ')'
+
+Backtrace:
+Section008:635:in `eval'
+Section008:635:in `block (2 levels) in runPlugins'
+Section008:625:in `each'
+Section008:625:in `block in runPlugins'
+Section008:616:in `each'
+Section008:616:in `runPlugins'
+Section401:28:in `mainFunctionDebug'
+Section401:18:in `block in mainFunction'
+Section014:80:in `pbCriticalCode'
+Section401:18:in `mainFunction'
+
+=================
+
+[2023-11-18 14:43:42 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Error in Plugin: [Generate a Pokémon]
+Exception: SyntaxError
+Message: [Generate a Pokémon] regimap.rb:178: syntax error, unexpected ']', expecting `end'
+    mapbosscoord[0]][bosscoord[1]].delete("Up")
+                   ^
+[Generate a Pokémon] regimap.rb:178: syntax error, unexpected ']', expecting `end'
+... mapbosscoord[0]][bosscoord[1]].delete("Up")
+...                              ^
+[Generate a Pokémon] regimap.rb:180: syntax error, unexpected ']', expecting `end'
+    mapbosscoord[0]][bosscoord[1]].delete("Down")
+                   ^
+[Generate a Pokémon] regimap.rb:180: syntax error, unexpected ']', expecting `end'
+... mapbosscoord[0]][bosscoord[1]].delete("Down")
+...                              ^
+[Generate a Pokémon] regimap.rb:182: syntax error, unexpected ']', expecting `end'
+    mapbosscoord[0]][bosscoord[1]].delete("Left")
+                   ^
+[Generate a Pokémon] regimap.rb:182: syntax error, unexpected ']', expecting `end'
+... mapbosscoord[0]][bosscoord[1]].delete("Left")
+...                              ^
+[Generate a Pokémon] regimap.rb:184: syntax error, unexpected ']', expecting `end'
+    mapbosscoord[0]][bosscoord[1]].delete("Right"...
+                   ^
+[Generate a Pokémon] regimap.rb:184: syntax error, unexpected ']', expecting `end'
+... mapbosscoord[0]][bosscoord[1]].delete("Right") 
+...                              ^
+
+
+Backtrace:
+Section008:635:in `eval'
+Section008:635:in `block (2 levels) in runPlugins'
+Section008:625:in `each'
+Section008:625:in `block in runPlugins'
+Section008:616:in `each'
+Section008:616:in `runPlugins'
+Section401:28:in `mainFunctionDebug'
+Section401:18:in `block in mainFunction'
+Section014:80:in `pbCriticalCode'
+Section401:18:in `mainFunction'
+
+=================
+
+[2023-11-18 14:44:45 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NameError
+Message: undefined local variable or method `size' for #<Interpreter @event_id: 5>
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:116:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:103:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+Interpreter:86:in `loop'
+Interpreter:86:in `update'
+
+=================
+
+[2023-11-18 14:45:28 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NameError
+Message: undefined local variable or method `length' for #<Interpreter @event_id: 5>
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:122:in `block (3 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:119:in `each'
+[Generate a Pokémon] regimap.rb:119:in `block (2 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:118:in `each'
+[Generate a Pokémon] regimap.rb:118:in `block in createlabyrinth'
+[Generate a Pokémon] regimap.rb:117:in `each'
+[Generate a Pokémon] regimap.rb:117:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:103:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+
+=================
+
+[2023-11-18 14:50:43 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: TypeError
+Message: no implicit conversion of String into Integer
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:131:in `delete_at'
+[Generate a Pokémon] regimap.rb:131:in `block (3 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:119:in `each'
+[Generate a Pokémon] regimap.rb:119:in `block (2 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:118:in `each'
+[Generate a Pokémon] regimap.rb:118:in `block in createlabyrinth'
+[Generate a Pokémon] regimap.rb:117:in `each'
+[Generate a Pokémon] regimap.rb:117:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:103:in `regimap'
+(eval):1:in `execute_script'
+
+=================
+
+[2023-11-18 14:51:58 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `delete' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:129:in `block (3 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:119:in `each'
+[Generate a Pokémon] regimap.rb:119:in `block (2 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:118:in `each'
+[Generate a Pokémon] regimap.rb:118:in `block in createlabyrinth'
+[Generate a Pokémon] regimap.rb:117:in `each'
+[Generate a Pokémon] regimap.rb:117:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:103:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+
+=================
+
+[2023-11-18 14:52:52 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `delete' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:129:in `block (3 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:119:in `each'
+[Generate a Pokémon] regimap.rb:119:in `block (2 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:118:in `each'
+[Generate a Pokémon] regimap.rb:118:in `block in createlabyrinth'
+[Generate a Pokémon] regimap.rb:117:in `each'
+[Generate a Pokémon] regimap.rb:117:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:103:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+
+=================
+
+[2023-11-18 14:53:51 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `delete' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:128:in `block (3 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:120:in `each'
+[Generate a Pokémon] regimap.rb:120:in `block (2 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:119:in `each'
+[Generate a Pokémon] regimap.rb:119:in `block in createlabyrinth'
+[Generate a Pokémon] regimap.rb:118:in `each'
+[Generate a Pokémon] regimap.rb:118:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:104:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+
+=================
+
+[2023-11-18 14:54:24 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: ArgumentError
+Message: wrong number of arguments (given 1, expected 4)
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:192:in `validlab'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+Interpreter:86:in `loop'
+Interpreter:86:in `update'
+Scene_Map:167:in `block in update'
+
+=================
+
+[2023-11-18 14:56:56 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NameError
+Message: undefined local variable or method `map' for #<Interpreter @event_id: 5>
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:115:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:104:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+Interpreter:86:in `loop'
+Interpreter:86:in `update'
+
+=================
+
+[2023-11-18 14:57:30 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `delete' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:129:in `block (3 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:121:in `each'
+[Generate a Pokémon] regimap.rb:121:in `block (2 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:120:in `each'
+[Generate a Pokémon] regimap.rb:120:in `block in createlabyrinth'
+[Generate a Pokémon] regimap.rb:119:in `each'
+[Generate a Pokémon] regimap.rb:119:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:104:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+
+=================
+
+[2023-11-18 14:58:50 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `delete' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:131:in `block (3 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:121:in `each'
+[Generate a Pokémon] regimap.rb:121:in `block (2 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:120:in `each'
+[Generate a Pokémon] regimap.rb:120:in `block in createlabyrinth'
+[Generate a Pokémon] regimap.rb:119:in `each'
+[Generate a Pokémon] regimap.rb:119:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:104:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+
+=================
+
+[2023-11-18 15:10:34 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `delete' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:125:in `block (3 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:120:in `each'
+[Generate a Pokémon] regimap.rb:120:in `block (2 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:119:in `each'
+[Generate a Pokémon] regimap.rb:119:in `block in createlabyrinth'
+[Generate a Pokémon] regimap.rb:118:in `each'
+[Generate a Pokémon] regimap.rb:118:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:103:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+
+=================
+
+[2023-11-18 15:13:31 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `include?' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:52:in `camefrom'
+[Generate a Pokémon] regimap.rb:210:in `validlab'
+[Generate a Pokémon] regimap.rb:141:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:103:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+
+=================
+
+[2023-11-18 15:21:42 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `include?' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:53:in `camefrom'
+[Generate a Pokémon] regimap.rb:209:in `validlab'
+[Generate a Pokémon] regimap.rb:139:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:104:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+
+=================
+
+[2023-11-18 15:23:18 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `include?' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:57:in `camefrom'
+[Generate a Pokémon] regimap.rb:213:in `validlab'
+[Generate a Pokémon] regimap.rb:143:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:108:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+
+=================
+
+[2023-11-18 15:26:33 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `include?' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:56:in `camefrom'
+[Generate a Pokémon] regimap.rb:212:in `validlab'
+[Generate a Pokémon] regimap.rb:142:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:107:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+
+=================
+
+[2023-11-18 15:30:22 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `delete' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:128:in `block (3 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:124:in `each'
+[Generate a Pokémon] regimap.rb:124:in `block (2 levels) in createlabyrinth'
+[Generate a Pokémon] regimap.rb:123:in `each'
+[Generate a Pokémon] regimap.rb:123:in `block in createlabyrinth'
+[Generate a Pokémon] regimap.rb:122:in `each'
+[Generate a Pokémon] regimap.rb:122:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:107:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+
+=================
+
+[2023-11-18 15:31:18 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `include?' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:56:in `camefrom'
+[Generate a Pokémon] regimap.rb:213:in `validlab'
+[Generate a Pokémon] regimap.rb:143:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:107:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+
+=================
+
+[2023-11-18 15:33:09 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: ArgumentError
+Message: wrong number of arguments (given 0, expected 1)
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:72:in `basemap'
+[Generate a Pokémon] regimap.rb:89:in `basemap'
+[Generate a Pokémon] regimap.rb:104:in `regimap'
+(eval):1:in `execute_script'
+033:Interpreter:138:in `eval'
+033:Interpreter:138:in `execute_script'
+034:Interpreter_Commands:1177:in `command_355'
+034:Interpreter_Commands:116:in `execute_command'
+033:Interpreter:130:in `block in update'
+033:Interpreter:86:in `loop'
+
+=================
+
+[2023-11-18 15:34:14 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: ArgumentError
+Message: wrong number of arguments (given 0, expected 1)
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:72:in `basemap'
+[Generate a Pokémon] regimap.rb:89:in `basemap'
+[Generate a Pokémon] regimap.rb:104:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+Interpreter:86:in `loop'
+
+=================
+
+[2023-11-18 15:35:13 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: NoMethodError
+Message: undefined method `include?' for nil:NilClass
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:56:in `camefrom'
+[Generate a Pokémon] regimap.rb:215:in `validlab'
+[Generate a Pokémon] regimap.rb:145:in `createlabyrinth'
+[Generate a Pokémon] regimap.rb:109:in `regimap'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+
+=================
+
+[2023-11-18 15:36:31 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 5 (coords 14,9), map 96 (test)
+Exception: ArgumentError
+Message: wrong number of arguments (given 1, expected 4)
+
+***Full script:
+validlab(regimap(5))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:202:in `validlab'
+(eval):1:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+Interpreter:86:in `loop'
+Interpreter:86:in `update'
+Scene_Map:167:in `block in update'
+
+=================
+
+[2023-11-20 16:05:00 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 6 (coords 16,9), map 96 (test)
+Exception: TypeError
+Message: no implicit conversion of String into Integer
+
+***Full script:
+a=lootmapregi(5,[0,2])
+echoln(a)
+echoln(adjacent_rewards(a,[0,2]))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:268:in `[]'
+[Generate a Pokémon] regimap.rb:268:in `adjacent_rewards'
+(eval):3:in `execute_script'
+Interpreter:138:in `eval'
+Interpreter:138:in `execute_script'
+Interpreter_Commands:1177:in `command_355'
+Interpreter_Commands:116:in `execute_command'
+Interpreter:130:in `block in update'
+Interpreter:86:in `loop'
+Interpreter:86:in `update'
+
+=================
+
+[2023-11-20 16:05:35 +0100]
+[Pokémon Essentials version 21.1]
+[v21.1 Hotfixes 1.0.5]
+
+Script error in event 6 (coords 16,9), map 96 (test)
+Exception: TypeError
+Message: no implicit conversion of String into Integer
+
+***Full script:
+a=lootmapregi(5,[0,2])
+echoln(a)
+echoln(adjacent_rewards(a,[0,2]))
+
+Backtrace:
+[Generate a Pokémon] regimap.rb:268:in `[]'
+[Generate a Pokémon] regimap.rb:268:in `adjacent_rewards'
+(eval):3:in `execute_script'
+033:Interpreter:138:in `eval'
+033:Interpreter:138:in `execute_script'
+034:Interpreter_Commands:1177:in `command_355'
+034:Interpreter_Commands:116:in `execute_command'
+033:Interpreter:130:in `block in update'
+033:Interpreter:86:in `loop'
+033:Interpreter:86:in `update'

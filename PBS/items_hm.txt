@@ -1,0 +1,163 @@
+#-------------------------------------------------------------------------------
+[ROCKSMASHITEM]
+Name = Pickaxe
+NamePlural = Pickaxes
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = This can be used to smash rocks.
+#-------------------------------------------------------------------------------
+[CUTITEM]
+Name = Axe
+NamePlural = Axes
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = This can be used to cut trees.
+#-------------------------------------------------------------------------------
+[STRENGTHITEM]
+Name = Strength Gauntlet
+NamePlural = Strength Gauntlets
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = This can be used to push big objects.
+#-------------------------------------------------------------------------------
+[SURFITEM]
+Name = Flippers
+NamePlural = Flippers
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = This can be used to swim.
+#-------------------------------------------------------------------------------
+[FLYITEM]
+Name = Nimbus
+NamePlural = Nimbus
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = A flying cloud that can only be ridden by those with a pure heart.
+#-------------------------------------------------------------------------------
+[HEADBUTTITEM]
+Name = Punching Gloves
+NamePlural = Punching Gloves
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = Punch the tree to shake it.
+#-------------------------------------------------------------------------------
+[FLASHITEM]
+Name = Lantern
+NamePlural = Lanterns
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = This can be used to illuminate area.
+#-------------------------------------------------------------------------------
+[DIGITEM]
+Name = Used Shovel
+NamePlural = Used Shovels
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = It is a Shovel, it can dig holes. Used to belong to a great knight.
+#-------------------------------------------------------------------------------
+[DIVEITEM]
+Name = Scuba Gear
+NamePlural = Scuba Gears
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = It allows you breath under water.
+#-------------------------------------------------------------------------------
+[SWEETSCENTITEM]
+Name = Essence Mixture
+NamePlural = Essence Mixture
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = It allows you spread a sweet essence around you.
+#-------------------------------------------------------------------------------
+[TELEPORTITEM]
+Name = Disk of returning
+NamePlural = Disks of returning
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = This can be used to return to the last healing place.
+#-------------------------------------------------------------------------------
+[WATERFALLITEM]
+Name = Float Barclet
+NamePlural = Float Barclet
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = Unique barclet that allow the user to swim up a waterfall.
+#-------------------------------------------------------------------------------
+[WHIRLPOOLITEM]
+Name = Hand Paddles
+NamePlural = Hand Paddles
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = Unique paddles that allow the user to swim a cross a whirlpool.
+#-------------------------------------------------------------------------------
+[ROCKCLIMBITEM]
+Name = Climbing Gear
+NamePlural = Climbing Gears
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = This can be used to climb big ledges.
+#-------------------------------------------------------------------------------
+[ICEBARRIEREITEM]
+Name = Ice Pick
+NamePlural = Ice Picks
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = This can be used on ice barriers to break at ease.
+#-------------------------------------------------------------------------------
+[DEFOGITEM]
+Name = Magic Fan
+NamePlural = Magic Fans
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = A magic fan that can push fog away..
+#-------------------------------------------------------------------------------
+[WEATHERGADGETITEM]
+Name = Weather Gadget
+NamePlural = Weather Gadgets
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = Please put some other info here.
+#-------------------------------------------------------------------------------
+[CAMOUFLAGEITEM]
+Name = Cloak of Kecleon
+NamePlural = Cloaks of Kecleon
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = A wizard used to own this.
+#-------------------------------------------------------------------------------

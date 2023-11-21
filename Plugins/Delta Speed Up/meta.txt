@@ -1,0 +1,4 @@
+Name         = Delta Speed Up
+Version      = 1.0
+Essentials   = 21.1
+Credits      = Marin (og speed up script), Phantombass (19.1 version), Mashirosakura, Golisopod User, D0vid (v21.1 version)

@@ -1,0 +1,5 @@
+Name        = Mart Recommendations
+Version     = 1.0.1
+Credits     = LuxDiablo, TechSkylander518
+Essentials  = 20, 21, 21.1
+Link        = https://reliccastle.com/resources/396/

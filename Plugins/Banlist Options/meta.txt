@@ -1,0 +1,4 @@
+Name         = Banlist Options
+Version      = 1.2
+Essentials   = 21.1
+Credits      = Grogro

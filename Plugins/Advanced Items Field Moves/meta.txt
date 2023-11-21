@@ -1,0 +1,7 @@
+Name	   = Advanced Items - Field Moves
+Version    = 1.1.2
+Essentials = 21.1
+Conflicts  = Camouflage, 1.0.0
+Optional   = Following Pokemon EX
+Website    = https://reliccastle.com/resources/981/
+Credits    = Bergium, TechSkylander1518, Moyo, Marin

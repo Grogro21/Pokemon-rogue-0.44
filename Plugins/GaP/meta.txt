@@ -1,0 +1,4 @@
+Name         = Generate a Pokémon
+Version      = 1.3
+Essentials   = 21.1
+Credits      = Grogro

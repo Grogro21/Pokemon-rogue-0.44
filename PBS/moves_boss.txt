@@ -1,0 +1,62 @@
+#-------------------------------
+[UNKNOWNBEAM]
+Name = Unknown Beam
+Type = QMARKS
+Category = Special
+Power = 100
+Accuracy = 100
+TotalPP = 30
+Target = AllNearOthers
+FunctionCode = None
+Flags = CanProtect
+Description = ???
+#-------------------------------
+[DOOMESTDESIRE]
+Name = Doomest Desire
+Type = STEEL
+Category = Special
+Power = 120
+Accuracy = 100
+TotalPP = 10
+Target = NearOther
+Flags = CanProtect
+FunctionCode = None
+Description = The user blasts the target with a concentrated bundle of light.
+#-------------------------------
+[PRESENTSIGHT]
+Name = Present Sight
+Type = PSYCHIC
+Category = Special
+Power = 120
+Accuracy = 100
+TotalPP = 10
+Target = NearOther
+Flags = CanProtect
+FunctionCode = None
+Description = A hunk of psychic energy attacks the target.
+#-------------------------------
+[ENERGYROCKET]
+Name = Energy Rocket
+Type = GRASS
+Category = Special
+Power = 100
+Accuracy = 100
+TotalPP = 20
+Target = NearOther
+FunctionCode = LowerTargetSpDef1
+Flags = CanProtect,Bomb
+EffectChance = 25
+Description = The user draws power from nature and fires it at the target. It may also lower the target's Sp. Def.
+#-------------------------------
+[THUNDERSTRIKE]
+Name = Thunderstrike
+Type = ELECTRIC
+Category = Special
+Power = 100
+Accuracy = 100
+TotalPP = 25
+Target = NearOther
+FunctionCode = ParalyzeTarget
+Flags = CanProtect
+EffectChance = 25
+Description = A strong electric blast is loosed at the target. It may also leave the target with paralysis.

@@ -1,0 +1,48 @@
+#-------------------------------
+[KECLEON,1]
+FormName = Boss
+Abilities = PROTEAN
+BaseStats = 200,50,70,40,50,120
+#-------------------------------
+[PIPLUP,1]
+FormName = Micro-wave
+Types = WATER,FIRE
+Abilities = TORRENT
+HiddenAbilites = COMPETITIVE
+BaseStats = 70,101,80,111,115,85
+Moves = 0,AQUAJET,1,AQUAJET,1,METALCLAW,1,TACKLE,1,GROWL,1,BUBBLE,4,GROWL,8,BUBBLE,12,MISTYTERRAIN,15,PECK,19,BUBBLEBEAM,24,SWAGGER,28,FURYATTACK,30,DAZZLINGGLEAM,33,BRINE,39,FLASHCANNON,46,LIQUIDATION,49,MOONBLAST,52,DRILLPECK,59,HYDROPUMP,68,VCREATE
+Evolutions = PRINPLUP,None,
+#-------------------------------
+[PSYDUCK,1]
+FormName = Judge
+Types = WATER
+BaseStats = 100,100,100,100,100,100
+Moves = 0,AQUAJET,1,AQUAJET,1,METALCLAW,1,TACKLE,1,GROWL,1,BUBBLE,4,GROWL,8,BUBBLE,12,MISTYTERRAIN,15,PECK,19,BUBBLEBEAM,24,SWAGGER,28,FURYATTACK,30,DAZZLINGGLEAM,33,BRINE,39,FLASHCANNON,46,LIQUIDATION,49,MOONBLAST,52,DRILLPECK,59,HYDROPUMP,68,VCREATE
+Evolutions = GOLDUCK,None,
+#-------------------------------
+[JIRACHI,1]
+FormName = Boss
+BaseStats = 300,70,100,70,70,100
+#-------------------------------
+[RATTATA,2]
+FormName = Boss
+Abilities = SERENEGRACE
+BaseStats = 150,35,35,72,25,35
+Moves = 1,THUNDERFANG,1,FIREFANG,1,ICEFANG,1,BODYSLAM
+#-------------------------------
+[ARTICUNO,2]
+FormName = Boss
+BaseStats = 300,65,100,85,75,125
+#-------------------------------
+[ZAPDOS,2]
+FormName = Boss
+BaseStats = 300,70,85,100,85,90
+#-------------------------------
+[MOLTRES,2]
+FormName = Boss
+BaseStats = 300,70,90,90,85,85
+#-------------------------------
+[REGIGIGAS,1]
+FormName = Boss
+BaseStats = 10000,100,110,100,80,110
+#-------------------------------
