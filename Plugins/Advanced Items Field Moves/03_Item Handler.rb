@@ -19,7 +19,7 @@ end
 
 def pbCheckForBadge(badge)
   return true if badge - 1 < 0
-  return true if $Trainer.badges[badge - 1]
+  return true if $player.badges[badge - 1]
   return false
 end
 
@@ -93,7 +93,7 @@ if Item_RockSmash[:active]
     item_name = GameData::Item.get(Item_RockSmash[:internal_name]).name
     if pbConfirmMessage(_INTL("This rock appears to be breakable.\nWould you like to use the {1}?", item_name))
       $stats.rock_smash_count += 1
-      pbMessage(_INTL("{1} used the {2}!", $Trainer.name, item_name))
+      pbMessage(_INTL("{1} used the {2}!", $player.name, item_name))
       return true
     end
     return false
@@ -139,7 +139,7 @@ if Item_Cut[:active]
     item_name = GameData::Item.get(Item_Cut[:internal_name]).name
     if pbConfirmMessage(_INTL("This tree looks like it can be cut down!\nWould you like to use the {1}?", item_name))
       $stats.cut_count += 1
-      pbMessage(_INTL("{1} used the {2}!", $Trainer.name, item_name))
+      pbMessage(_INTL("{1} used the {2}!", $player.name, item_name))
       return true
     end
     return false
@@ -180,7 +180,7 @@ if Item_IceBarriere[:active]
     item_name = GameData::Item.get(Item_IceBarriere[:internal_name]).name
     if pbConfirmMessage(_INTL("This ice looks like it can be broken down.!\nWould you like to use the {1}?", item_name))
       $stats.ice_smash_count += 1
-      pbMessage(_INTL("{1} used the {2}!", $Trainer.name, item_name))
+      pbMessage(_INTL("{1} used the {2}!", $player.name, item_name))
       return true
     end
     return false
@@ -226,7 +226,7 @@ if Item_Headbutt[:active]
     item_name = GameData::Item.get(Item_Headbutt[:internal_name]).name
     if pbConfirmMessage(_INTL("A Pokémon could be in this tree. Would you like to use {1}?", item_name))
       $stats.headbutt_count += 1
-      pbMessage(_INTL("{1} used the {2}!", $Trainer.name, item_name))
+      pbMessage(_INTL("{1} used the {2}!", $player.name, item_name))
       pbHeadbuttEffect(event)
       return true
     end
@@ -312,7 +312,7 @@ if Item_SweetScent[:active]
     if pbConfirmMessage(_INTL("Would you like to use the {1}?", item_name))
       if !pbHiddenMoveAnimation(nil)
         item_name = GameData::Item.get(Item_SweetScent[:internal_name]).name
-        pbMessage(_INTL("{1} used {2}!", $Trainer.name, item_name))
+        pbMessage(_INTL("{1} used {2}!", $player.name, item_name))
       end
     end
     aiSweetScent
@@ -338,7 +338,7 @@ if Item_Strength[:active]
     pbMessage(_INTL("It's a big boulder, but an item may be able to push it aside."))
     item_name = GameData::Item.get(Item_Strength[:internal_name]).name
     if pbConfirmMessage(_INTL("Would you like to use the {1}?", item_name))
-      pbMessage(_INTL("{1} used the {2}!", $Trainer.name, item_name))
+      pbMessage(_INTL("{1} used the {2}!", $player.name, item_name))
       pbMessage(_INTL("The {1} made it possible to move boulders around!", item_name))
       $PokemonMap.strengthUsed = true
       return true
@@ -397,7 +397,7 @@ if Item_Flash[:active]
     darkness = $game_temp.darkness_sprite
     return false if !darkness || darkness.disposed?
     item_name = GameData::Item.get(Item_Flash[:internal_name]).name
-    pbMessage(_INTL("{1} used the {2}!", $Trainer.name, item_name))
+    pbMessage(_INTL("{1} used the {2}!", $player.name, item_name))
     $PokemonGlobal.flashUsed = true
     $stats.flash_count += 1
     radiusDiff = 8*20/Graphics.frame_rate
@@ -455,7 +455,7 @@ if Item_Defog[:active]
     if $game_screen.weather_type==:Fog
       item_name = GameData::Item.get(Item_Defog[:internal_name]).name
       if pbConfirmMessage(_INTL("This fog is very heavy.\nWould you like to use the {1}", item_name))
-        pbMessage(_INTL("{1} used the {2}!", $Trainer.name, item_name))
+        pbMessage(_INTL("{1} used the {2}!", $player.name, item_name))
         $game_screen.weather(:None, 9, 20)
         Graphics.update
         Input.update
@@ -756,7 +756,7 @@ end
 def checkVanish
   if $game_player.camouflage == true
     aifmVanish
-    pbMessage(_INTL("{1} broke the camouflage and turned visible!",$Trainer.name))
+    pbMessage(_INTL("{1} broke the camouflage and turned visible!",$player.name))
   end
 end
 
@@ -784,9 +784,9 @@ if Item_Camouflage[:active]
     aifmVanish
     if $game_player.camouflage == true
       item_name = GameData::Item.get(Item_Camouflage[:internal_name]).name
-      pbMessage(_INTL("{1} used {2} to turn invisible!",$Trainer.name ,item_name))
+      pbMessage(_INTL("{1} used {2} to turn invisible!",$player.name ,item_name))
     else
-      pbMessage(_INTL("{1} used {2} to turn visible!",$Trainer.name ,item_name))
+      pbMessage(_INTL("{1} used {2} to turn visible!",$player.name ,item_name))
     end
     next 1
   end)
@@ -808,12 +808,12 @@ if Item_Surf[:active]
     return false if !$game_player.can_ride_vehicle_with_follower?
     if !pbCanUseItem(Item_Surf)
       item_name = GameData::Item.get(Item_Surf[:internal_name]).name
-      pbMessage(_INTL("You can't the {1} yet.", item_name))
+      pbMessage(_INTL("You can't use the {1} yet.", item_name))
       return false
     end
     if pbConfirmMessage(_INTL("The water is a deep blue...\nWould you like to surf on it?"))
       item_name = GameData::Item.get(Item_Surf[:internal_name]).name
-      pbMessage(_INTL("{1} used the {2}!", $Trainer.name, item_name))
+      pbMessage(_INTL("{1} used the {2}!", $player.name, item_name))
       pbCancelVehicles
       surfbgm = GameData::Metadata.get.surf_BGM
       pbCueBGM(surfbgm, 0.5) if surfbgm
@@ -890,7 +890,7 @@ if Item_Dive[:active]
     end
     if pbConfirmMessage(_INTL("The sea is deep here. Would you like to use Dive?"))
       item_name = GameData::Item.get(Item_Dive[:internal_name]).name
-      pbMessage(_INTL("{1} used {2}!", $Trainer.name, item_name))
+      pbMessage(_INTL("{1} used {2}!", $player.name, item_name))
       pbHiddenMoveAnimation(nil)
       pbFadeOutIn {
         $game_temp.player_new_map_id    = map_metadata.dive_map_id
@@ -926,7 +926,7 @@ if Item_Dive[:active]
     end
     if pbConfirmMessage(_INTL("Light is filtering down from above. Would you like to use Dive?"))
       item_name = GameData::Item.get(Item_Dive[:internal_name]).name
-      pbMessage(_INTL("{1} used {2}!", $Trainer.name, item_name))
+      pbMessage(_INTL("{1} used {2}!", $player.name, item_name))
       pbHiddenMoveAnimation(nil)
       pbFadeOutIn {
         $game_temp.player_new_map_id    = surface_map_id
@@ -1056,7 +1056,7 @@ if Item_Waterfall[:active]
     if pbConfirmMessage(_INTL("It's a large waterfall. Would you like to use Waterfall?"))
       if !pbHiddenMoveAnimation(nil)
         item_name = GameData::Item.get(Item_Waterfall[:internal_name]).name
-        pbMessage(_INTL("{1} used {2}!", $Trainer.name, item_name))
+        pbMessage(_INTL("{1} used {2}!", $player.name, item_name))
         pbHiddenMoveAnimation(nil)
         pbAscendWaterfall
       end
@@ -1115,7 +1115,7 @@ if Item_Whirlpool[:active]
     end
     item_name = GameData::Item.get(Item_Whirlpool[:internal_name]).name
     if pbConfirmMessage(_INTL("It's a huge swirl of water.\nWould you like to use the {1}?", item_name))
-      pbMessage(_INTL("{1} used the {2}!", $Trainer.name, item_name))
+      pbMessage(_INTL("{1} used the {2}!", $player.name, item_name))
       terrain = $game_player.pbFacingTerrainTag
       return if !terrain.whirlpool
       $stats.whirlpool_cross_count += 1
@@ -1210,7 +1210,7 @@ if Item_Fly[:active]
     return false if $game_temp.fly_destination.nil?
     if !pbHiddenMoveAnimation(nil)
       item_name = GameData::Item.get(Item_Fly[:internal_name]).name
-      pbMessage(_INTL("{1} used {2}!", $Trainer.name, item_name))
+      pbMessage(_INTL("{1} used {2}!", $player.name, item_name))
     end
     $stats.fly_count += 1
     pbFadeOutIn {
@@ -1276,7 +1276,7 @@ if Item_Dig[:active]
       if escape
         if !pbHiddenMoveAnimation(nil)
           item_name = GameData::Item.get(Item_Dig[:internal_name]).name
-          pbMessage(_INTL("{1} used {2}!", $Trainer.name, item_name))
+          pbMessage(_INTL("{1} used {2}!", $player.name, item_name))
           $stats.dig_count += 1
           pbFadeOutIn {
             $game_temp.player_new_map_id    = escape[0]
@@ -1344,7 +1344,7 @@ if Item_Teleport[:active]
     if pbConfirmMessage(_INTL("Want to return to the healing spot used last in {1}?", mapname))
       if !pbHiddenMoveAnimation(nil)
         item_name = GameData::Item.get(Item_Teleport[:internal_name]).name
-        pbMessage(_INTL("{1} used {2}!", $Trainer.name, item_name))
+        pbMessage(_INTL("{1} used {2}!", $player.name, item_name))
         $stats.teleport_count += 1
         pbFadeOutIn {
           $game_temp.player_new_map_id    = healing[0]
@@ -1491,7 +1491,7 @@ if Item_RockClimb[:active]
     end
     item_name = GameData::Item.get(Item_RockClimb[:internal_name]).name
     if pbConfirmMessage(_INTL("The wall is very rocky.\nWould you like to use the {1}?", item_name))
-      pbMessage(_INTL("{1} used {2}!", $Trainer.name, item_name))
+      pbMessage(_INTL("{1} used {2}!", $player.name, item_name))
       pbHiddenMoveAnimation(nil)
       case $game_player.direction
       when 8 # Looking up

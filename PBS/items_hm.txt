@@ -99,8 +99,8 @@ Flags = KeyItem
 Description = This can be used to return to the last healing place.
 #-------------------------------------------------------------------------------
 [WATERFALLITEM]
-Name = Float Barclet
-NamePlural = Float Barclet
+Name = Float Bracelet
+NamePlural = Float Bracelets
 Pocket = 8
 Price = 0
 FieldUse = Direct
