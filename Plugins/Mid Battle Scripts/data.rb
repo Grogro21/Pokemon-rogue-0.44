@@ -812,6 +812,9 @@ module DialogueModule
 
 ####################Regi battle##########################################################
 	Reginit=Proc.new{|battle|
+		battle.scene.appearsprite("base","topping")
+		pbMessage("coucou!")
+		battle.scene.disappearsprite("base","topping")
 		battle.battlers[1].effects[PBEffects::BossProtect] = true
 		battle.battlers[1].effects[PBEffects::Lowhp] = true
 		pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
