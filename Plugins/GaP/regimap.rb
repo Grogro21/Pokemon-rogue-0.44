@@ -104,7 +104,6 @@ def regimap(size)
 	bosscoord=b[1]
 	exit=genexit(map,bosscoord)
 	createlabyrinth(map,bosscoord,exit)
-	echoln([map,bosscoord,exit])
 	return([map,bosscoord,exit])
 	#créer la basemap
 	#quand on active le boss, générer la sortie
@@ -219,7 +218,7 @@ def validlab(map,startpoint,consigne,exitcoord)
 end
 
 
-def gen_rarity(miniboss=false)
+def gen_reward(miniboss=false)
 	t=rand(100)
 	if t<5  #event
 			type="event"
@@ -233,18 +232,22 @@ def gen_rarity(miniboss=false)
 	else
 		trainer=false
 	end
-	return([type,trainer])
+	reward=genreward(type)
+	return([type,trainer,reward])
 end
 
 
-def lootmapregi(size,bosscoord)
+def lootmapregi(size,bosscoord,exit)
 	map=[]
 	for i in 0...size
 		map.push([])
 		for j in 0...size
-			map[i].push(gen_rarity())
+			map[i].push(gen_reward())
 			if [i,j]==bosscoord
 				map[i][j]=["boss","final"]
+			end
+			if [i,j]==exit
+				map[i][j]=["boss","exit"]
 			end					
 		end
 	end
@@ -265,22 +268,119 @@ def adjacent_rewards(lootmap,coord)
 	if coord[0]!=0
 		loots.push(lootmap[coord[0]-1][coord[1]])
 	else
-		loots.push(["nothing","nothing"])
+		loots.push(["nothing"])
 	end
 	if coord[1]!=lootmap.length-1
 		loots.push(lootmap[coord[0]][coord[1]+1])
 	else
-		loots.push(["nothing","nothing"])
+		loots.push(["nothing"])
 	end
 	if coord[0]!=lootmap.length-1
 		loots.push(lootmap[coord[0]+1][coord[1]])
 	else
-		loots.push(["nothing","nothing"])
+		loots.push(["nothing"])
 	end
 	if coord[1]!=0
 		loots.push(lootmap[coord[0]][coord[1]-1])
 	else
-		loots.push(["nothing","nothing"])
+		loots.push(["nothing"])
 	end
 end
 
+def visited_maps(size)
+	map=[]
+	for i in 0...size
+		map.push([])
+		for j in 0...size
+			map[i].push([])				
+		end
+	end
+	return map
+end
+
+def getreward(type=nil,item=nil,qty=1)
+	echoln($game_variables[36])
+	if (type=="item" || type=="tm" || type=="hm" || type=="potions" || type=="status" || type=="ppmax")
+		pbItemBall(item,qty)
+	elsif type=="gold"
+		$player.money+=qty
+		pbMessage(_INTL("You got {1}$!",qty))
+	elsif type=="randpokemon"
+		for i in 0...qty
+			pkmn1=pbChooseRandomPokemon(nil,"suggested",nil,true,nil)
+			pk1= Pokemon.new(pkmn1,$player.party[0].level)
+			pbRandomform(pk1)
+			pbAddPokemon(pk1)
+		end
+	elsif type=="pokemon"
+		for i in 0...qty
+			starter($player.party[0].level)
+		end
+	elsif type=="berries"
+		pbItemBall(:SITRUSBERRY,qty)
+		pbItemBall(:LUMBERRY,qty)
+	elsif type=="mint"
+		mint=[:LONELYMINT,:ADAMANTMINT,:NAUGHTYMINT,:BRAVEMINT,
+		:BOLDMINT,:IMPISHMINT,:LAXMINT,:RELAXEDMINT,:MODESTMINT,
+		:MILDMINT,:RASHMINT,:QUIETMINT,:CALMMINT,:GENTLEMINT,
+		:CAREFULMINT,:SASSYMINT,:TIMIDMINT,:HASTYMINT,
+		:JOLLYMINT,:NAIVEMINT,:SERIOUSMINT]
+		for i in 0...qty
+			pbItemBall(mint.sample)
+		end
+	else
+		pbItemBall(:PPUP,qty)
+	end
+end
+
+=begin
+#initial
+$game_variables[63]=regimap(5)  #map,bosscoord,exit
+$game_variables[64]=lootmapregi(5,$game_variables[63][1],$game_variables[63][2])  #lootmap
+$game_variables[55]=[0,2]  # coord
+$game_variables[64][$game_variables[55][0]][$game_variables[55][1]]=["normal",false,["pokemon",nil,1]] #details initial reward
+$game_variables[65]=adjacent_rewards($game_variables[64],$game_variables[55]) #rewards in adjacent rooms
+$game_variables[66]=visited_maps(5) #generating empty map
+
+
+#in room
+if $game_variables[66][$game_variables[55][0]][$game_variables[55][1]]!="visited"
+	if $game_variables[64][$game_variables[55][0]][$game_variables[55][1]][0]!="boss"
+		if $game_variables[64][$game_variables[55][0]][$game_variables[55][1]][2] #trainer
+		#fight trainer
+			getreward[pbGet(64)[2][0],pbGet(64)[2][1],pbGet(64)[2][2]]
+			getreward[pbGet(64)[2][0],pbGet(64)[2][1],pbGet(64)[2][2]]
+		else
+			getreward[pbGet(64)[2][0],pbGet(64)[2][1],pbGet(64)[2][2]]	#get your rewards
+	
+		end
+		$game_variables[66][$game_variables[55][0]][$game_variables[55][1]]="visited" #mark this map as visited
+	end
+end
+
+#going left
+if $game_variables[63][0][$game_variables[55][0]][$game_variables[55][1]].include?("Left")
+	$game_variables[55][1]-=1 #moving left
+	$game_variables[65]=adjacent_rewards($game_variables[64],$game_variables[55])
+	
+	
+
+
+
+$game_variables[66][$game_variables[55][0]][$game_variables[55][1]]="visited"
+def movement(choice,coord)
+	if choice=="Up"
+		coord[0]-=1
+	elsif choice=="Down"
+		coord[0]+=1
+	elsif choice=="Left"
+		coord[1]-=1
+	elsif choice=="Right"
+		coord[1]+=1
+	else
+		echoln("invalid choice")
+	end
+	return coord
+end
+
+=end

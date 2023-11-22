@@ -812,9 +812,6 @@ module DialogueModule
 
 ####################Regi battle##########################################################
 	Reginit=Proc.new{|battle|
-		battle.scene.appearsprite("base","topping")
-		pbMessage("coucou!")
-		battle.scene.disappearsprite("base","topping")
 		battle.battlers[1].effects[PBEffects::BossProtect] = true
 		battle.battlers[1].effects[PBEffects::Lowhp] = true
 		pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
@@ -856,6 +853,8 @@ module DialogueModule
 	}
 	
 	Choiceroom=Proc.new{|battle|
+		battle.scene.appearsprite([])
+		battle.scene.disappearsprite([])
 		pbMessage("\\f"+$game_variables[55].to_s+"You are here.\\wt[60]")
 		if curchoices($game_variables[55],$game_variables[56])==["exit"]
 			battle.scene.pbRecall(0)
