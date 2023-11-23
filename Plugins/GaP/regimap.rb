@@ -100,10 +100,13 @@ end
 
 def regimap(size)
 	b=basemap(size)
+	echoln("basemap done")
 	map=b[0]
 	bosscoord=b[1]
 	exit=genexit(map,bosscoord)
+	echoln("exit done")
 	createlabyrinth(map,bosscoord,exit)
+	echoln("labyrinth done")
 	return([map,bosscoord,exit])
 	#créer la basemap
 	#quand on active le boss, générer la sortie
@@ -121,7 +124,7 @@ def createlabyrinth(basemap,bosscoord,exit)
 			for j in 0...size
 				for k in 0...map[i][j].length
 					if ((bosscoord[0]-i).abs+(bosscoord[1]-j).abs)>1
-						if rand(100)<25
+						if rand(100)<0
 							if map[i][j][-1-k]=="Right"
 								map[i][j+1].delete("Left")
 							elsif map[i][j][-1-k]=="Left"
@@ -138,8 +141,10 @@ def createlabyrinth(basemap,bosscoord,exit)
 			end
 		end
 		valid=validlab(map,bosscoord,250,exit)
-		#echoln(valid)
-		
+		if valid==false
+			echoln("map not valid")	
+			echoln(map)
+		end
 	end
 end
 def genmap(size)	
@@ -299,7 +304,9 @@ def visited_maps(size)
 end
 
 def getreward(type=nil,item=nil,qty=1)
-	echoln($game_variables[36])
+	echoln(type)
+	echoln(item)
+	echoln(qty)
 	if (type=="item" || type=="tm" || type=="hm" || type=="potions" || type=="status" || type=="ppmax")
 		pbItemBall(item,qty)
 	elsif type=="gold"
@@ -332,55 +339,3 @@ def getreward(type=nil,item=nil,qty=1)
 		pbItemBall(:PPUP,qty)
 	end
 end
-
-=begin
-#initial
-$game_variables[63]=regimap(5)  #map,bosscoord,exit
-$game_variables[64]=lootmapregi(5,$game_variables[63][1],$game_variables[63][2])  #lootmap
-$game_variables[55]=[0,2]  # coord
-$game_variables[64][$game_variables[55][0]][$game_variables[55][1]]=["normal",false,["pokemon",nil,1]] #details initial reward
-$game_variables[65]=adjacent_rewards($game_variables[64],$game_variables[55]) #rewards in adjacent rooms
-$game_variables[66]=visited_maps(5) #generating empty map
-
-
-#in room
-if $game_variables[66][$game_variables[55][0]][$game_variables[55][1]]!="visited"
-	if $game_variables[64][$game_variables[55][0]][$game_variables[55][1]][0]!="boss"
-		if $game_variables[64][$game_variables[55][0]][$game_variables[55][1]][2] #trainer
-		#fight trainer
-			getreward[pbGet(64)[2][0],pbGet(64)[2][1],pbGet(64)[2][2]]
-			getreward[pbGet(64)[2][0],pbGet(64)[2][1],pbGet(64)[2][2]]
-		else
-			getreward[pbGet(64)[2][0],pbGet(64)[2][1],pbGet(64)[2][2]]	#get your rewards
-	
-		end
-		$game_variables[66][$game_variables[55][0]][$game_variables[55][1]]="visited" #mark this map as visited
-	end
-end
-
-#going left
-if $game_variables[63][0][$game_variables[55][0]][$game_variables[55][1]].include?("Left")
-	$game_variables[55][1]-=1 #moving left
-	$game_variables[65]=adjacent_rewards($game_variables[64],$game_variables[55])
-	
-	
-
-
-
-$game_variables[66][$game_variables[55][0]][$game_variables[55][1]]="visited"
-def movement(choice,coord)
-	if choice=="Up"
-		coord[0]-=1
-	elsif choice=="Down"
-		coord[0]+=1
-	elsif choice=="Left"
-		coord[1]-=1
-	elsif choice=="Right"
-		coord[1]+=1
-	else
-		echoln("invalid choice")
-	end
-	return coord
-end
-
-=end
