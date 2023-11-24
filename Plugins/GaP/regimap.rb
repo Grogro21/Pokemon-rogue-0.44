@@ -98,14 +98,14 @@ def genexit(map,bosscoord)
 	return exitcoord
 end
 
-def regimap(size)
+def regimap(size,percentage)
 	b=basemap(size)
 	echoln("basemap done")
 	map=b[0]
 	bosscoord=b[1]
 	exit=genexit(map,bosscoord)
 	echoln("exit done")
-	createlabyrinth(map,bosscoord,exit)
+	createlabyrinth(map,bosscoord,exit,percentage)
 	echoln("labyrinth done")
 	return([map,bosscoord,exit])
 	#créer la basemap
@@ -115,16 +115,34 @@ def regimap(size)
 	#et c'est parti
 end
 
-def createlabyrinth(basemap,bosscoord,exit)
+def createlabyrinth(basemap,bosscoord,exit,percentage)
 	size=basemap.length
 	valid=false	
 	while valid==false
-		map=basemap.clone
+		map=[]
+		for i in 0...size
+			map.push([])
+			for j in 0...size
+				map[i].push(["Right","Left","Down","Up"])
+				if i==0
+					map[i][j].delete("Up")
+				end
+				if i==size-1
+					map[i][j].delete("Down")
+				end
+				if j==0
+					map[i][j].delete("Left")
+				end
+				if j==size-1
+					map[i][j].delete("Right") 
+				end			
+			end
+		end	
 		for i in 0...size
 			for j in 0...size
 				for k in 0...map[i][j].length
 					if ((bosscoord[0]-i).abs+(bosscoord[1]-j).abs)>1
-						if rand(100)<0
+						if rand(100)<percentage
 							if map[i][j][-1-k]=="Right"
 								map[i][j+1].delete("Left")
 							elsif map[i][j][-1-k]=="Left"
@@ -141,10 +159,6 @@ def createlabyrinth(basemap,bosscoord,exit)
 			end
 		end
 		valid=validlab(map,bosscoord,250,exit)
-		if valid==false
-			echoln("map not valid")	
-			echoln(map)
-		end
 	end
 end
 def genmap(size)	
