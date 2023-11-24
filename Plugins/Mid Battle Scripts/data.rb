@@ -630,6 +630,7 @@ module DialogueModule
 						end
 			elsif moltres.fainted? && articuno.fainted?	#zapdos ult
 				battle.pbStartTerrain(zapdos, :Electric)
+				battle.pbAnimation(:THUNDER,zapdos,battle.battlers[2])
 				for i in allies
 					if !battle.battlers[i].fainted?
 						if battle.battlers[i].status==:PARALYSIS
@@ -713,8 +714,8 @@ module DialogueModule
 		if !articuno.fainted?
 			if battle.turnCount.remainder(3)==1 && !(moltres.fainted? && zapdos.fainted?)  #Articuno basic ability
 				battle.pbStartWeather(articuno,:Hail)
-				battle.pbAnimation(:HAIL,articuno,battle.battlers[2])
-				pbMessage("Your Pokémons are pelted by the hail!")
+				battle.pbAnimation(:BLIZZARD,articuno,battle.battlers[2])
+				pbMessage("You are freezing to death!")
 				for i in allies
 				    if !battle.battlers[i].fainted?
 						if rand(100)<10
@@ -748,6 +749,7 @@ module DialogueModule
 				if battle.turnCount.remainder(3)==0
 					pbMessage("Oh! A rainbow!")
 					articuno.pbOwnSide.effects[PBEffects::Rainbow] = 3
+					battle.pbAnimation(:HEATWAVE,moltres,battle.battlers[2])
 					pbMessage("Such temperature changes hurt your Pokémons!")
 					for i in allies
 						if !battle.battlers[i].fainted?
@@ -767,6 +769,7 @@ module DialogueModule
 		if !moltres.fainted?		
 			if battle.turnCount.remainder(3)==2 && !(articuno.fainted? && zapdos.fainted?)  #Moltres basic ability
 				battle.pbStartWeather(moltres,:Sun)
+				battle.pbAnimation(:HEATWAVE,moltres,battle.battlers[2])
 				pbMessage("The sun shines bright!")
 				for i in allies
 				    if !battle.battlers[i].fainted?
@@ -793,6 +796,7 @@ module DialogueModule
 			if articuno.fainted? && zapdos.fainted?   #moltres ulti
 				battle.pbStartWeather(moltres,:Sun)
 				moltres.pbOwnSide.effects[PBEffects::Rainbow] = 3
+				battle.pbAnimation(:HEATWAVE,moltres,battle.battlers[2])
 				pbMessage("It's too hot here!")
 				for i in allies
 					if !battle.battlers[i].fainted?
