@@ -317,6 +317,25 @@ def visited_maps(size)
 	return map
 end
 
+def baseimage(coord)
+	loot=pbGet(64)[pbGet(55)[0]][pbGet(55)[1]]
+	if loot[0]=="normal" || loot[0]=="rare" || loot[1]=="exit"
+			image="encounter"
+	elsif loot[0]=="boss"
+		for pkmn in [:REGIROCK,:REGICE,:REGISTEEL,:REGIDRAGO,:REGIELEKI]
+			if loot[1]==pkmn
+				image=pkmn.to_s
+			end
+		end
+	end
+	if loot[1]=="exit"
+		exit="exit"
+	else
+		exit="void"
+	end
+	return([image,exit])
+end
+
 def getreward(type=nil,item=nil,qty=1)
 	echoln(type)
 	echoln(item)
@@ -353,3 +372,4 @@ def getreward(type=nil,item=nil,qty=1)
 		pbItemBall(:PPUP,qty)
 	end
 end
+
