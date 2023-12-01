@@ -376,7 +376,6 @@ end
 
 
 def secretmap(map,coord)
-	$game_variables[MOVELIST]=[:EXPLOSION]
 	if $game_variables[MOVELIST].include?(:EXPLOSION) || $game_variables[MOVELIST].include?(:SELFDESTRUCT)		
 		sizemap=map.length
 		map[coord[0]][coord[1]].clear
@@ -396,18 +395,18 @@ def secretmap(map,coord)
 		end	
 		size=map[coord[0]][coord[1]].length
 		for k in 0...size
-			if map[coord[0]][coord[1]][size-1-k]=="Right"
+			if map[coord[0]][coord[1]][size-1-k]=="Right" && coord[1]!=sizemap-1
 				map[coord[0]][coord[1]+1].push("Left")
 				map[coord[0]][coord[1]+1]=map[coord[0]][coord[1]+1].uniq
-			elsif map[coord[0]][coord[1]][size-1-k]=="Left"
+			elsif map[coord[0]][coord[1]][size-1-k]=="Left" && coord[1]!=0
 				map[coord[0]][coord[1]-1].push("Right")
 				map[coord[0]][coord[1]-1]=map[coord[0]][coord[1]-1].uniq
-			elsif map[coord[0]][coord[1]][size-1-k]=="Up"
-				map[coord[0]-1][coord[1]+1].push("Down")
-				map[coord[0]-1][coord[1]+1]=map[coord[0]-1][coord[1]+1].uniq
-			elsif map[coord[0]][coord[1]][size-1-k]=="Down"
-				map[coord[0]+1][coord[1]+1].push("Up")
-				map[coord[0]+1][coord[1]+1]=map[coord[0]+1][coord[1]+1].uniq
+			elsif map[coord[0]][coord[1]][size-1-k]=="Up" && coord[0]!=0
+				map[coord[0]-1][coord[1]].push("Down")
+				map[coord[0]-1][coord[1]]=map[coord[0]-1][coord[1]].uniq
+			elsif map[coord[0]][coord[1]][size-1-k]=="Down" && coord[0]!=sizemap-1
+				map[coord[0]+1][coord[1]].push("Up")
+				map[coord[0]+1][coord[1]]=map[coord[0]+1][coord[1]].uniq
 			end
 		end		
 	end

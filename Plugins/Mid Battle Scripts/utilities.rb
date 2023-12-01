@@ -68,15 +68,14 @@ end
 
 
 ##########Battle pictures######################################
-##########Hello Bob!###########################################
+
 class Battle::Scene
   def appearsprite(spritenames)
-    pbAddSprite("bob",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[0],@viewport)
-	pbAddSprite("bob2",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[1],@viewport)
-	pbAddSprite("bob3",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[2],@viewport)
-	pbAddSprite("bob4",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[3],@viewport)
-	pbAddSprite("bob5",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[4],@viewport)
-	pbAddSprite("bob6",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[5],@viewport)
+    pbAddSprite("bob",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritename1,@viewport)
+	pbAddSprite("bob2",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritename2,@viewport)
+	pbAddSprite("bob3",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritename2,@viewport)
+	pbAddSprite("bob4",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritename2,@viewport)
+	pbAddSprite("bob5",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritename2,@viewport)
     unfadeAnim = SpriteAppearAnimation.new(@sprites,@viewport,@battle.battlers.length)
     @animations.push(unfadeAnim)
     loop do
@@ -87,7 +86,7 @@ class Battle::Scene
     unfadeAnim.dispose
   end
   
-  def disappearsprite
+  def disappearsprite(spritename1,spritename2)
     unfadeAnim = SpriteDisappearAnimation.new(@sprites,@viewport,@battle.battlers.length)
     @animations.push(unfadeAnim)
     loop do
@@ -143,13 +142,6 @@ class SpriteAppearAnimation < Battle::Scene::Animation
     topBar5.setXY(0,Graphics.width,0)
     topBar5.moveXY(delay,10,(Graphics.width-toMoveTop2),0)
 	
-	toMoveTop6 = [@sprites["bob6"].bitmap.width,Graphics.width].max
-    topBar6 = addSprite(@sprites["bob6"],PictureOrigin::TOP_LEFT)
-    topBar6.setZ(0,200)
-    topBar6.setOpacity(0,255)
-    topBar6.setXY(0,Graphics.width,0)
-    topBar6.moveXY(delay,10,(Graphics.width-toMoveTop2),0)
-	
     for i in 0...@battlers
       if @sprites["dataBox_#{i}"]
         boxes[i]= addSprite(@sprites["dataBox_#{i}"])
@@ -177,8 +169,6 @@ class SpriteDisappearAnimation < Battle::Scene::Animation
 	topBar = addSprite(@sprites["bob4"],PictureOrigin::TOP_LEFT)
     topBar.setZ(0,200)
 	topBar = addSprite(@sprites["bob5"],PictureOrigin::TOP_LEFT)
-    topBar.setZ(0,200)
-	topBar = addSprite(@sprites["bob6"],PictureOrigin::TOP_LEFT)
     topBar.setZ(0,200)
     topBar.moveOpacity(delay,8,0)
     topBar.moveOpacity(delay,8,0)

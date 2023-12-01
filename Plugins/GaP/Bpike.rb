@@ -229,13 +229,15 @@ def genreward(type,exclude=nil)
 		end
 	end
 	if type=="rare"
-		reward=["pokemon","potions","item","gold","mint","ppmax","hm","tm"]
+		reward=["pokemon","potions","item","gold","mint","ppmax","hm","tm","bomb"]
 		reward.delete(exclude) if exclude!=nil #if you want to get 2 different results
 		r=reward.sample
 		if r=="pokemon"
-			return(["pokemon",nil,2])
+			return(["pokemon",nil,1])
 		elsif r=="potions"
 			return(["item",:FULLRESTORE,2])
+		elsif r=="bomb"
+			return(["item",:BOMB,1])
 		elsif r=="item"
 			item=[:EVIOLITE,:ROCKYHELMET,:ASSAULTVEST,:HEAVYDUTYBOOTS,:CHOICEBAND,
 			:CHOICESCARF,:CHOICESPECS,:LEFTOVERS,:LIFEORB,:EXPERTBELT,:FOCUSSASH]
@@ -257,40 +259,6 @@ def genreward(type,exclude=nil)
 	end
 end
 
-def getreward(type=nil,item=nil,qty=1)
-	echoln($game_variables[36])
-	if (type=="item" || type=="tm" || type=="hm" || type=="potions" || type=="status" || type=="ppmax")
-		pbItemBall(item,qty)
-	elsif type=="gold"
-		$player.money+=qty
-		pbMessage(_INTL("You got {1}$!",qty))
-	elsif type=="randpokemon"
-		for i in 0...qty
-			pkmn1=pbChooseRandomPokemon(nil,"suggested",nil,true,nil)
-			pk1= Pokemon.new(pkmn1,$player.party[0].level)
-			pbRandomform(pk1)
-			pbAddPokemon(pk1)
-		end
-	elsif type=="pokemon"
-		for i in 0...qty
-			starter($player.party[0].level)
-		end
-	elsif type=="berries"
-		pbItemBall(:SITRUSBERRY,qty)
-		pbItemBall(:LUMBERRY,qty)
-	elsif type=="mint"
-		mint=[:LONELYMINT,:ADAMANTMINT,:NAUGHTYMINT,:BRAVEMINT,
-		:BOLDMINT,:IMPISHMINT,:LAXMINT,:RELAXEDMINT,:MODESTMINT,
-		:MILDMINT,:RASHMINT,:QUIETMINT,:CALMMINT,:GENTLEMINT,
-		:CAREFULMINT,:SASSYMINT,:TIMIDMINT,:HASTYMINT,
-		:JOLLYMINT,:NAIVEMINT,:SERIOUSMINT]
-		for i in 0...qty
-			pbItemBall(mint.sample)
-		end
-	else
-		pbItemBall(:PPUP,qty)
-	end
-end
 
 def gen_type_rooms
 	if $game_variables[36].remainder(5)!=0

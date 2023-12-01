@@ -1,0 +1,10 @@
+#-------------------------------
+[BOMB]
+Name = Bomb
+NamePlural = Bombs
+Pocket = 1
+Price = 5000
+FieldUse = Direct
+Flags = Fling_150
+Description = An item that destroys walls. High damages if you fling it.
+#-------------------------------
