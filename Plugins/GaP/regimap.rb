@@ -105,9 +105,9 @@ def regimap(size,percentage)
 	bosscoord=b[1]
 	exit=genexit(map,bosscoord)
 	echoln("exit done")
-	vmap=createlabyrinth(map,bosscoord,exit,percentage)
+	createlabyrinth(map,bosscoord,exit,percentage)
 	echoln("labyrinth done")
-	return([vmap,bosscoord,exit])
+	return([map,bosscoord,exit])
 	#créer la basemap
 	#quand on active le boss, générer la sortie
 	#créer le labyrinthe
@@ -160,7 +160,6 @@ def createlabyrinth(basemap,bosscoord,exit,percentage)
 		end
 		valid=validlab(map,bosscoord,250,exit)
 	end
-	return(map)
 end
 def genmap(size)	
 	map=[]
@@ -318,25 +317,6 @@ def visited_maps(size)
 	return map
 end
 
-def baseimage(coord)
-	loot=pbGet(64)[pbGet(55)[0]][pbGet(55)[1]]
-	if loot[0]=="normal" || loot[0]=="rare" || loot[1]=="exit"
-			image="encounter"
-	elsif loot[0]=="boss"
-		for pkmn in [:REGIROCK,:REGICE,:REGISTEEL,:REGIDRAGO,:REGIELEKI]
-			if loot[1]==pkmn
-				image=pkmn.to_s
-			end
-		end
-	end
-	if loot[1]=="exit"
-		exit="exit"
-	else
-		exit="void"
-	end
-	return([image,exit])
-end
-
 def getreward(type=nil,item=nil,qty=1)
 	echoln(type)
 	echoln(item)
@@ -371,44 +351,5 @@ def getreward(type=nil,item=nil,qty=1)
 		end
 	else
 		pbItemBall(:PPUP,qty)
-	end
-end
-
-
-def secretmap(map,coord)
-	$game_variables[MOVELIST]=[:EXPLOSION]
-	if $game_variables[MOVELIST].include?(:EXPLOSION) || $game_variables[MOVELIST].include?(:SELFDESTRUCT)		
-		sizemap=map.length
-		map[coord[0]][coord[1]].clear
-		map[coord[0]][coord[1]].push("Right")
-		map[coord[0]][coord[1]].push("Left")
-		map[coord[0]][coord[1]].push("Down")
-		map[coord[0]][coord[1]].push("Up")
-		map[coord[0]][coord[1]]=map[coord[0]][coord[1]].uniq
-		if coord[0]==0
-			map[coord[0]][coord[1]].delete("Up")
-		elsif coord[0]==sizemap-1
-			map[coord[0]][coord[1]].delete("Down")
-		elsif coord[1]==0
-			map[coord[0]][coord[1]].delete("Left")
-		elsif coord[1]==sizemap-1
-			map[coord[0]][coord[1]].delete("Right") 
-		end	
-		size=map[coord[0]][coord[1]].length
-		for k in 0...size
-			if map[coord[0]][coord[1]][size-1-k]=="Right"
-				map[coord[0]][coord[1]+1].push("Left")
-				map[coord[0]][coord[1]+1]=map[coord[0]][coord[1]+1].uniq
-			elsif map[coord[0]][coord[1]][size-1-k]=="Left"
-				map[coord[0]][coord[1]-1].push("Right")
-				map[coord[0]][coord[1]-1]=map[coord[0]][coord[1]-1].uniq
-			elsif map[coord[0]][coord[1]][size-1-k]=="Up"
-				map[coord[0]-1][coord[1]+1].push("Down")
-				map[coord[0]-1][coord[1]+1]=map[coord[0]-1][coord[1]+1].uniq
-			elsif map[coord[0]][coord[1]][size-1-k]=="Down"
-				map[coord[0]+1][coord[1]+1].push("Up")
-				map[coord[0]+1][coord[1]+1]=map[coord[0]+1][coord[1]+1].uniq
-			end
-		end		
 	end
 end
