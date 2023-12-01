@@ -94,6 +94,7 @@ module DialogueModule
 		battle.scene.appearBar
 		pbMessage("\\bGive it back immediately!")
 		battle.scene.disappearBar
+		pbMessage("The opponents are immune to status moves and stat drop.")
 		battle.battlers[1].effects[PBEffects::BossProtect] = true
 		battle.battlers[3].effects[PBEffects::BossProtect] = true
 		battle.battlers[1].pbRaiseStatStage(:SPEED,2,battle.battlers[1])
@@ -812,140 +813,17 @@ module DialogueModule
 			end
 		end
 		}
-####################Regice battle##########################################################
-	Regicinit=Proc.new{|battle|
-		battle.battlers[1].effects[PBEffects::BossProtect] = true
-		pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
-		pbWait(1)
-		pbSEPlay("Battle damage normal")
-		pbMessage("The doors have just closed!")
-		battle.pbAnimation(:BLIZZARD,battle.battlers[1],battle.battlers[0])
-		pbMessage("The temperature drops!")
-		battle.pbStartWeather(battle.battlers[1],:Hail)
-		}
-		
-	Regicexplode1=Proc.new{|battle|
-		pbMessage("\\bCRITICAL FAILURE!")
-		pbWait(1)
-		pbMessage("\\bSTARTING SAFETY PROCESS!")
-		}	
-	
-	Regicexplode2=Proc.new{|battle|
-		pbMessage("\\bBOOOM!")
-		battle.pbAnimation(:EXPLOSION,battle.battlers[1],battle.battlers[0])
-		battle.pbLowerHP(battle.battlers[0],1)
-		battle.pbLowerHP(battle.battlers[1],1)
-		}
 
-####################Regirock battle##########################################################
-	Regirockinit=Proc.new{|battle|
-		battle.battlers[1].effects[PBEffects::BossProtect] = true
-		pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
-		pbWait(1)
-		pbSEPlay("Battle damage normal")
-		pbMessage("The doors have just closed!")
-		battle.pbAnimation(:STEALTHROCK,battle.battlers[1],battle.battlers[0])
-		battle.battlers[1].pbOpposingSide.effects[PBEffects::StealthRock]=true
-		pbMessage("Pointed rocks are scattered everywhere!")
-		}
-		
-	Regirockexplode1=Proc.new{|battle|
-		pbMessage("\\bCRITICAL FAILURE!")
-		pbWait(1)
-		pbMessage("\\bSTARTING SAFETY PROCESS!")
-		}	
-	
-	Regirockexplode2=Proc.new{|battle|
-		pbMessage("\\bBOOOM!")
-		battle.pbAnimation(:EXPLOSION,battle.battlers[1],battle.battlers[0])
-		battle.pbLowerHP(battle.battlers[0],1)
-		battle.pbLowerHP(battle.battlers[1],1)
-		}
-		
-####################Registeel battle##########################################################
-	Registeelinit=Proc.new{|battle|
-		battle.battlers[1].effects[PBEffects::BossProtect] = true
-		pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
-		pbWait(1)
-		pbSEPlay("Battle damage normal")
-		pbMessage("The doors have just closed!")
-		battle.pbAnimation(:IRONDEFENSE,battle.battlers[1],battle.battlers[0])
-		battle.battlers[1].pbRaiseStatStage(:DEFENSE,1,battle.battlers[1])
-		battle.battlers[1].pbRaiseStatStage(:SPECIAL_DEFENSE,1,battle.battlers[1])
-		}
-		
-	Registeelexplode1=Proc.new{|battle|
-		pbMessage("\\bCRITICAL FAILURE!")
-		pbWait(1)
-		pbMessage("\\bSTARTING SAFETY PROCESS!")
-		}	
-	
-	Registeelexplode2=Proc.new{|battle|
-		pbMessage("\\bBOOOM!")
-		battle.pbAnimation(:EXPLOSION,battle.battlers[1],battle.battlers[0])
-		battle.pbLowerHP(battle.battlers[0],1)
-		battle.pbLowerHP(battle.battlers[1],1)
-		}
-
-####################Regieleki battle##########################################################
-	Regielekinit=Proc.new{|battle|
-		battle.battlers[1].effects[PBEffects::BossProtect] = true
-		pbMessage("\\bINTRUDER DETECTED! STARTING ERADICATION PROTOCOL!")
-		pbWait(1)
-		pbSEPlay("Battle damage normal")
-		pbMessage("The doors have just closed!")
-		battle.pbStartTerrain(battle.battlers[1], :Electric)
-		}
-		
-	Regielekexplode1=Proc.new{|battle|
-		pbMessage("\\bCRITICAL FAILURE!")
-		pbWait(1)
-		pbMessage("\\bSTARTING SAFETY PROCESS!")
-		}	
-	
-	Regielekexplode2=Proc.new{|battle|
-		pbMessage("\\bBOOOM!")
-		battle.pbAnimation(:EXPLOSION,battle.battlers[1],battle.battlers[0])
-		battle.pbLowerHP(battle.battlers[0],1)
-		battle.pbLowerHP(battle.battlers[1],1)
-		}
-		
-####################Regidrago battle##########################################################
-	Regidragoinit=Proc.new{|battle|
-		battle.battlers[1].effects[PBEffects::BossProtect] = true
-		pbMessage("\\bINTRUDER DETECTED! STARTING ERADICATION PROTOCOL!")
-		pbWait(1)
-		pbSEPlay("Battle damage normal")
-		pbMessage("The doors have just closed!")
-		battle.battlers[1].pbRaiseStatStage(:SPEED,1,battle.battlers[1])
-		}
-		
-	Regidragoexplode1=Proc.new{|battle|
-		pbMessage("\\bCRITICAL FAILURE!")
-		pbWait(1)
-		pbMessage("\\bSTARTING SAFETY PROCESS!")
-		}	
-	
-	Regidragoexplode2=Proc.new{|battle|
-		pbMessage("\\bBOOOM!")
-		battle.pbAnimation(:EXPLOSION,battle.battlers[1],battle.battlers[0])
-		battle.pbLowerHP(battle.battlers[0],1)
-		battle.pbLowerHP(battle.battlers[1],1)
-		}
-		
 ####################Regi battle##########################################################
 	Reginit=Proc.new{|battle|
 		battle.battlers[1].effects[PBEffects::BossProtect] = true
 		battle.battlers[1].effects[PBEffects::Lowhp] = true
 		pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
-		battle.pbAnimation(:STEALTHROCK,battle.battlers[1],battle.battlers[0])
-		battle.battlers[1].pbOpposingSide.effects[PBEffects::StealthRock]=true
-		pbMessage("Pointed rocks are scattered everywhere!")
 		pbWait(1)
 		pbMessage("\\rThe guardian looks too strong for you... You better run!")
-		battle.pbAnimation(:STEALTHROCK,battle.battlers[1],battle.battlers[0])
-		battle.battlers[1].pbOpposingSide.effects[PBEffects::StealthRock]=true
-		pbMessage("Pointed rocks are scattered everywhere!")
+		$game_variables[56]=rand(3)   #layout version
+		$game_variables[55]=[0,2]
+		$game_variables[57]=nil
 		$PokemonTemp.excludedialogue=[3]  #exclude summoned mons from lowlife dialogues
 		for i in 0...50
 			BattleScripting.setInScript("turnStart#{i+1}",:Regturn)
@@ -954,65 +832,43 @@ module DialogueModule
 		}
 		
 	Regturn=Proc.new{|battle|
-		if rand(100)<50
+		if rand(100)<50 && !$game_switches[77]
 			pbMessage("Regigigas picked up a big rock!")
 			$game_switches[77]=true
 		else
 			$game_switches[77]=false
 		end
-		regilist=pbGet(71)
-		if battle.turnCount.remainder(3)==1
+		if battle.turnCount==1
 			pbMessage("\\bCALLING REINFORCEMENTS!")
-			if regilist!=[]
-				species=regilist.sample()
-				regilist.delete(species)
-				battle.pbCallally(battle.battlers[1],species,60)
-			else
-				pbMessage("\\bFIRING MY LASER!")
-				battle.pbAnimation(:HYPERBEAM,battle.battlers[1],battle.battlers[0])
-				battle.pbLowerHP(battle.battlers[0],3)
-				battle.pbLowerHP(battle.battlers[2],3)
-			end
+			battle.pbCallally(battle.battlers[1],:REGIROCK,60)
+		elsif battle.turnCount==4
+			pbMessage("\\bCALLING REINFORCEMENTS!")
+			battle.pbCallally(battle.battlers[1],:REGICE,60)
+		elsif battle.turnCount==7
+			pbMessage("\\bCALLING REINFORCEMENTS!")
+			battle.pbCallally(battle.battlers[1],:REGISTEEL,60)
+		elsif battle.turnCount==10
+			pbMessage("\\bCALLING REINFORCEMENTS!")
+			battle.pbCallally(battle.battlers[1],:REGIDRAGO,60)
+		elsif battle.turnCount==13
+			pbMessage("\\bCALLING REINFORCEMENTS!")
+			battle.pbCallally(battle.battlers[1],:REGIELEKI,60)
 		end
 	}
 	
 	Choiceroom=Proc.new{|battle|
-		b=baseimage($game_variables[55])
-		base=b[0]
-		exit=b[1]
-		if $game_variables[69].include?("Left")
-			imageleft="left"
-		else
-			imageleft="void"
-		end
-		if $game_variables[69].include?("Up")
-			imageup="up"
-		else
-			imageup="void"
-		end
-		if $game_variables[69].include?("Right")
-			imageright="right"
-		else
-			imageright="void"
-		end
-		if $game_variables[69].include?("Down")
-			imagedown="down"
-		else
-			imagedown="void"
-		end
-		battle.scene.appearsprite([base,imageup,imageright,imagedown,imageleft,exit])
-		#pbMessage("\\f"+$game_variables[55].to_s+"You are here.\\wt[60]")
-		if $game_variables[55].include?("exit")
+		battle.scene.appearsprite([])
+		battle.scene.disappearsprite([])
+		pbMessage("\\f"+$game_variables[55].to_s+"You are here.\\wt[60]")
+		if curchoices($game_variables[55],$game_variables[56])==["exit"]
 			battle.scene.pbRecall(0)
 			battle.scene.pbRecall(2)
 			pbMessage("\\rYou reached the exit! Well played!")
 			battle.decision=3
 		end
-		cmd= battle.pbShowCommands("Which direction are you chosing?",pbGet(69))
-		battle.scene.disappearsprite
-		move=pbGet(69)[cmd]	#direction chosen
+		cmd= battle.pbShowCommands("Which direction are you chosing?",curchoices($game_variables[55],$game_variables[56]))
+		move=curchoices($game_variables[55],$game_variables[56])[cmd]	#direction chosen
 		$game_variables[55]=movement(move,$game_variables[55])	#changing coord
-		pbSEPlay("Door exit")
 		if $game_switches[77]
 			pbMessage("Regigigas is throwing his rock!")
 			if move==$game_variables[57]
@@ -1022,7 +878,6 @@ module DialogueModule
 			else
 			pbMessage("But it missed!")
 			end
-			$game_switches[77]=false
 		end
 		$game_variables[57]=move
 		if battle.battlers[3]!=nil
