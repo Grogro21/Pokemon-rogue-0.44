@@ -256,7 +256,6 @@ def gen_reward(miniboss=false)
 	return([type,trainer,reward])
 end
 
-pbGet(64)[pbGet(55)[0]][pbGet(55)[1]-1][1]
 def lootmapregi(size,bosscoord,exit)
 	map=[]
 	for i in 0...size
