@@ -1,4 +1,4 @@
-def curchoices(coord,schema)
+def curchoices(coord,schema) #obsolete
 	u="Up"
 	r="Right"
 	l="Left"
@@ -109,7 +109,7 @@ def regimap(size,percentage)
 	echoln("labyrinth done")
 	return([vmap,bosscoord,exit])
 	#créer la basemap
-	#quand on active le boss, générer la sortie
+	#générer la sortie
 	#créer le labyrinthe
 	#check si ça marche
 	#et c'est parti
@@ -256,7 +256,7 @@ def gen_reward(miniboss=false)
 	return([type,trainer,reward])
 end
 
-
+pbGet(64)[pbGet(55)[0]][pbGet(55)[1]-1][1]
 def lootmapregi(size,bosscoord,exit)
 	map=[]
 	for i in 0...size
@@ -264,7 +264,7 @@ def lootmapregi(size,bosscoord,exit)
 		for j in 0...size
 			map[i].push(gen_reward())
 			if [i,j]==bosscoord
-				map[i][j]=["boss","final"]
+				map[i][j]=["boss",:REGIGIGAS]
 			end
 			if [i,j]==exit
 				map[i][j]=["boss","exit"]
