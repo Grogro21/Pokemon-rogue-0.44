@@ -255,7 +255,11 @@ def genreward(type,exclude=nil)
 		end
 	end
 	if type=="event"
-		return(["event",nil,1])
+		r=rand(10)
+		return(["event",nil,r])
+	end
+	if type=="boss"
+		return(["boss","nothing",1])
 	end
 end
 
