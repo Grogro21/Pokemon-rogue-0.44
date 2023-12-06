@@ -304,6 +304,7 @@ def adjacent_rewards(lootmap,coord)
 	else
 		loots.push(["nothing"])
 	end
+	return(loots)
 end
 
 def visited_maps(size)
