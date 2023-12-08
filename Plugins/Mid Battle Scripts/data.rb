@@ -857,15 +857,20 @@ module DialogueModule
 	}
 	
 	Choiceroom=Proc.new{|battle|
-		battle.scene.appearsprite([])
-		battle.scene.disappearsprite([])
-		pbMessage("\\f"+$game_variables[55].to_s+"You are here.\\wt[60]")
-		if curchoices($game_variables[55],$game_variables[56])==["exit"]
+		pictures=roomtype()
+		door=isdoors()
+		for i in 0...door.lentgh
+			pictures.push(door[i])
+		end
+		battle.scene.appearsprite([pictures])
+		battle.scene.disappearsprite([pictures])
+		if pbGet(64)[pbGet(55)[0]][pbGet(55)[1]].length==4
 			battle.scene.pbRecall(0)
 			battle.scene.pbRecall(2)
 			pbMessage("\\rYou reached the exit! Well played!")
 			battle.decision=3
 		end
+		pbMessage("\\f"+$game_variables[55].to_s+"You are here.\\wt[60]")			
 		cmd= battle.pbShowCommands("Which direction are you chosing?",curchoices($game_variables[55],$game_variables[56]))
 		move=curchoices($game_variables[55],$game_variables[56])[cmd]	#direction chosen
 		$game_variables[55]=movement(move,$game_variables[55])	#changing coord
