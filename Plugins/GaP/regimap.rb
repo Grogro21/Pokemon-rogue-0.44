@@ -411,3 +411,32 @@ def secretmap(map,coord)
 		end		
 	end
 end
+
+def roomtype(lootmap=pbGet(64),coord=pbGet(55))
+	if lootmap[coord[0]][coord[1]].length==4
+		return("exit")
+	end
+	if adjacent_rewards(lootmap,coord)[3][0]=="boss"
+		pkmn=adjacent_rewards(lootmap,coord)[3][1].to_s
+		return(pkmn.substring(1,pkmn.length)
+	else
+		return("base")
+	end
+end
+
+def isdoors(map=pbGet(63)[0],coord=pbGet(55))
+	directions=map[coord[0]][coord[1]]
+	if !directions.include?("Left")
+		directions.push("void")
+	end
+	if !directions.include?("Up")
+		directions.push("void")
+	end
+	if !directions.include?("Right")
+		directions.push("void")
+	end
+	if !directions.include?("Down")
+		directions.push("void")
+	end
+	return directions
+end
