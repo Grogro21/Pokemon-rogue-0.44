@@ -935,11 +935,12 @@ battle.pbAnimation(:EXPLOSION,battle.battlers[1],battle.battlers[0])
 battle.pbLowerHP(battle.battlers[0],1)
 battle.pbLowerHP(battle.battlers[1],1)
 }
-
+####################Regigigas battle##########################################################
 	Reginit=Proc.new{|battle|
 		battle.battlers[1].effects[PBEffects::BossProtect] = true
 		battle.battlers[1].effects[PBEffects::Lowhp] = true
 		pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
+		battle.pbAnimation(:EARTHQUAKE,battle.battlers[1],battle.battlers[0])
 		battle.pbAnimation(:STEALTHROCK,battle.battlers[1],battle.battlers[0])
 		battle.battlers[1].pbOpposingSide.effects[PBEffects::StealthRock]=true
 		pbMessage("Pointed rocks are scattered everywhere!")
@@ -1002,6 +1003,11 @@ battle.pbLowerHP(battle.battlers[1],1)
 	else
 		imagedown="void"
 	end
+	if $game_variables[55].include?("exit") 
+		exit="exit"
+	else
+		exit="void"
+	end
 	battle.scene.appearsprite([base,imageup,imageright,imagedown,imageleft,exit])
 	#pbMessage("\\f"+$game_variables[55].to_s+"You are here.\\wt[60]")
 		if $game_variables[55].include?("exit")
@@ -1037,6 +1043,33 @@ battle.pbLowerHP(battle.battlers[1],1)
 			battle.pbLowerHP(battle.battlers[0],1.5)
 		  end
 		end
+	}
+
+###############Mewtwo############################################################
+Mewtwoinit=Proc.new{|battle|
+		battle.battlers[0].effects[PBEffects::BossProtect] = true
+		battle.battlers[1].effects[PBEffects::Midhp] = true
+		
+	}
+
+MewtwoPsywave=Proc.new{|battle|
+		battle.pbAnimation(:PSYWAVE,battle.battlers[0],battle.battlers[1])
+		pbMessage("You radiate psychic energy!")
+		dmg=rand(3,10)
+		battle.pbLowerHP(battle.battlers[1],dmg)
+		if rand(100)<10
+			battle.battlers[1].pbConfuse if pbCanConfuse?(battle.battlers[1],false)
+		end
+	}
+
+MewtwoRockthrow=Proc.new{|battle|
+	battle.pbAnimation(:FUTURESIGHT,battle.battlers[0],battle.battlers[1])
+	battle.pbAnimation(:ROCKTHROW,battle.battlers[0],battle.battlers[1])
+	battle.pbLowerHP(battle.battlers[1],4)
+	}
+Mewtwomid=Proc.new{|battle|
+	battle.pbAnimation(:HOWL,battle.battlers[0],battle.battlers[1])
+
 	}
 ##############Test######################################################
 	Lmusic=Proc.new{|battle|
