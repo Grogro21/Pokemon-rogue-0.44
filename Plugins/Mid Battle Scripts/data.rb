@@ -1048,14 +1048,24 @@ battle.pbLowerHP(battle.battlers[1],1)
 ###############Mewtwo############################################################
 Mewtwoinit=Proc.new{|battle|
 		battle.battlers[0].effects[PBEffects::BossProtect] = true
-		battle.battlers[1].effects[PBEffects::Midhp] = true
+		battle.battlers[0].effects[PBEffects::Midhp] = true
+		battle.battlers[0].effects[PBEffects::MagnetRise] = 50
+		pbMessage("You are levitating!")
+		for i in 0...50
+			if rand(100)<20
+				BattleScripting.setInScript("turnEnd#{i}",:MewtwoRockthrow)
+			else
+				BattleScripting.setInScript("turnEnd#{i}",:MewtwoPsywave)
+			end
+		end
+
 		
 	}
 
 MewtwoPsywave=Proc.new{|battle|
 		battle.pbAnimation(:PSYWAVE,battle.battlers[0],battle.battlers[1])
 		pbMessage("You radiate psychic energy!")
-		dmg=rand(3,10)
+		dmg=rand(3,11)
 		battle.pbLowerHP(battle.battlers[1],dmg)
 		if rand(100)<10
 			battle.battlers[1].pbConfuse if pbCanConfuse?(battle.battlers[1],false)
@@ -1068,7 +1078,9 @@ MewtwoRockthrow=Proc.new{|battle|
 	battle.pbLowerHP(battle.battlers[1],4)
 	}
 Mewtwomid=Proc.new{|battle|
-	battle.pbAnimation(:HOWL,battle.battlers[0],battle.battlers[1])
+	battle.pbAnimation(:GROWL,battle.battlers[0],battle.battlers[1])
+	battle.battlers[0].effects[PBEffects::MagnetRise] = 0
+	battle.pbStartTerrain(battle.battlers[0], :Psychic)
 
 	}
 ##############Test######################################################
