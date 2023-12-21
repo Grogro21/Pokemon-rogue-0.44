@@ -445,7 +445,7 @@ def roomtype(lootmap=pbGet(64),coord=pbGet(55))
 	end
 	if adjacent_rewards(lootmap,coord)[3][0]=="boss"
 		pkmn=adjacent_rewards(lootmap,coord)[3][1].to_s
-		return(pkmn.substring(1,pkmn.length)
+		return(pkmn.substring(1,pkmn.length))
 	else
 		return("base")
 	end
