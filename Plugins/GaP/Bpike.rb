@@ -27,6 +27,43 @@ def starter(lvl)
 	end
 end
 
+def choixpkmn(blacklist=[],whitelist=[],rarity="normal")
+	if whitelist!=[]
+		pkmns=[pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil),pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil),pbChooseRandomPokemon(nil,"suggested",whitelist,false,nil),pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil),pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil)]
+	else
+		echoln("your whitelist is empty!")
+		return
+	end
+	if rarity=="normal"
+		pkmn=pkmns.sample()
+		pk=Pokemon.new(pkmn,pbBalancedLevel($player.party))
+		pbRandomform(pk) 
+		setNewStage(pk)
+		pbAddPokemon(pk)
+	else
+		cmd=0
+		cmd= pbMessage("Which Pokémon do you want?",[pkmns[0].name,pkmns[1].name,pkmns[2].name],0,nil,0)			
+		if cmd==0
+				pk1= Pokemon.new(pkmns[0],pbBalancedLevel($player.party))
+				pbRandomform(pk1) 
+				setNewStage(pk1)
+				pbAddPokemon(pk1)
+		end
+		if cmd==1
+				pk2= Pokemon.new(pkmns[1]@,pbBalancedLevel($player.party))
+				pbRandomform(pk2) 
+				setNewStage(pk2)
+				pbAddPokemon(pk2)
+		end
+		if cmd==2
+				pk3= Pokemon.new(pkmns[2],pbBalancedLevel($player.party))
+				pbRandomform(pk3) 
+				setNewStage(pk3)
+				pbAddPokemon(pk3)
+		end
+	end
+end
+
 def pbRandomform(pkmn) 
   forms = [0]
   namelist=["Alolan","Galarian","Female","10%","Cloak","Kyurem",
@@ -180,7 +217,7 @@ def get_hm
 	end
 end
 
-def genreward(type,exclude=nil)
+def genreward(type,exclude=nil) 
 	if type=="normal"
 		reward=["status","potions","gold","item","berries","randpokemon"]
 		reward.delete(exclude) if exclude!=nil #if you want to get 2 different results
@@ -266,6 +303,63 @@ def genreward(type,exclude=nil)
 	end
 end
 
+def getreward(type=nil,item=nil,qty=1)
+	if (type=="item" || type=="tm" || type=="hm" || type=="potions" || type=="status" || type=="ppmax")
+		pbItemBall(item,qty)
+	elsif type=="gold"
+		$player.money+=qty
+		pbMessage(_INTL("You got {1}$!",qty))
+	elsif type=="randpokemon"
+		whitelist=[]
+		if $game_variables[45]<1  #à compléter quand les whitelist suivantes seront faites
+			whitelist=Whitelistroute
+		end
+		choixpkmn([],whitelist,rarity="normal")
+	elsif type=="pokemon"
+		whitelist=[]
+		if $game_variables[45]<1  #à compléter quand les whitelist suivantes seront faites
+			whitelist=Whitelistroute
+		end
+		choixpkmn([],whitelist,rarity="rare")
+	elsif type=="berries"
+		pbItemBall(:SITRUSBERRY,qty)
+		pbItemBall(:LUMBERRY,qty)
+	elsif type=="mint"
+		mint=[:LONELYMINT,:ADAMANTMINT,:NAUGHTYMINT,:BRAVEMINT,
+		:BOLDMINT,:IMPISHMINT,:LAXMINT,:RELAXEDMINT,:MODESTMINT,
+		:MILDMINT,:RASHMINT,:QUIETMINT,:CALMMINT,:GENTLEMINT,
+		:CAREFULMINT,:SASSYMINT,:TIMIDMINT,:HASTYMINT,
+		:JOLLYMINT,:NAIVEMINT,:SERIOUSMINT]
+		for i in 0...qty
+			pbItemBall(mint.sample)
+		end
+	elsif type=="secret"
+		if $game_variables[45]<=4
+			tier=["PU","PU","NU","NU","RU","UU"]
+			order=tier.shuffle()
+		elsif $game_variables[45]==5
+			tier=["NU","NU","NU","RU","RU","UU"]
+			order=tier.shuffle()
+		elsif $game_variables[45]==6
+			tier=["RU","RU","RU","RU","UU","UU"]
+			order=tier.shuffle()
+		elsif $game_variables[45]==7
+			tier=["RU","RU","RU","UU","UU","OU"]
+			order=tier.shuffle()
+		elsif $game_variables[45]==8
+			tier=["RU","UU","UU","UU","OU","OU"]
+			order=tier.shuffle()
+		else $game_variables[45]==9
+			tier=["UU","UU","UU","OU","OU","OU"]
+			order=tier.shuffle()
+		end
+		pk=genrandpkmn("Data/Rand_trainer/"+order[0]+".txt")
+		pk.level=pbBalancedLevel($player.party)
+		pbAddPokemon(pk)
+	else
+		pbItemBall(:PPUP,qty)
+	end
+end
 
 def gen_type_rooms
 	if $game_variables[36].remainder(5)!=0
