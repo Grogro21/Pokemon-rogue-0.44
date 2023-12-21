@@ -341,66 +341,6 @@ def baseimage(coord)
 	return([image,exit])
 end
 
-def getreward(type=nil,item=nil,qty=1)
-	echoln(type)
-	echoln(item)
-	echoln(qty)
-	if (type=="item" || type=="tm" || type=="hm" || type=="potions" || type=="status" || type=="ppmax")
-		pbItemBall(item,qty)
-	elsif type=="gold"
-		$player.money+=qty
-		pbMessage(_INTL("You got {1}$!",qty))
-	elsif type=="randpokemon"
-		for i in 0...qty
-			pkmn1=pbChooseRandomPokemon(nil,"suggested",nil,true,nil)
-			pk1= Pokemon.new(pkmn1,$player.party[0].level)
-			pbRandomform(pk1)
-			pbAddPokemon(pk1)
-		end
-	elsif type=="pokemon"
-		for i in 0...qty
-			starter($player.party[0].level)
-		end
-	elsif type=="berries"
-		pbItemBall(:SITRUSBERRY,qty)
-		pbItemBall(:LUMBERRY,qty)
-	elsif type=="mint"
-		mint=[:LONELYMINT,:ADAMANTMINT,:NAUGHTYMINT,:BRAVEMINT,
-		:BOLDMINT,:IMPISHMINT,:LAXMINT,:RELAXEDMINT,:MODESTMINT,
-		:MILDMINT,:RASHMINT,:QUIETMINT,:CALMMINT,:GENTLEMINT,
-		:CAREFULMINT,:SASSYMINT,:TIMIDMINT,:HASTYMINT,
-		:JOLLYMINT,:NAIVEMINT,:SERIOUSMINT]
-		for i in 0...qty
-			pbItemBall(mint.sample)
-		end
-	elsif type=="secret"
-		if $game_variables[45]<=4
-			tier=["PU","PU","NU","NU","RU","UU"]
-			order=tier.shuffle()
-		elsif $game_variables[45]==5
-			tier=["NU","NU","NU","RU","RU","UU"]
-			order=tier.shuffle()
-		elsif $game_variables[45]==6
-			tier=["RU","RU","RU","RU","UU","UU"]
-			order=tier.shuffle()
-		elsif $game_variables[45]==7
-			tier=["RU","RU","RU","UU","UU","OU"]
-			order=tier.shuffle()
-		elsif $game_variables[45]==8
-			tier=["RU","UU","UU","UU","OU","OU"]
-			order=tier.shuffle()
-		else $game_variables[45]==9
-			tier=["UU","UU","UU","OU","OU","OU"]
-			order=tier.shuffle()
-		end
-		pk=genrandpkmn("Data/Rand_trainer/"+order[0]+".txt")
-		pk.level=pbBalancedLevel($player.party)
-		pbAddPokemon(pk)
-	else
-		pbItemBall(:PPUP,qty)
-	end
-end
-
 
 def secretmap(map,coord)
 	if ($game_variables[MOVELIST].include?(:EXPLOSION) || $game_variables[MOVELIST].include?(:SELFDESTRUCT)) && $game_switches[81]		
