@@ -238,7 +238,7 @@ def validlab(map,startpoint,consigne,exitcoord)
 end
 
 
-def gen_reward(miniboss=false)
+def gen_reward(miniboss=false,coord=nil)
 	t=rand(100)
 	if t<5  #event
 			type="event"
@@ -262,6 +262,10 @@ def lootmapregi(size,bosscoord,exit)
 		map.push([])
 		for j in 0...size
 			map[i].push(gen_reward())
+			vmap=$game_variables[64]
+			if vmap[i,j]==[]
+				map[i].push("secret")
+			end
 			if [i,j]==bosscoord
 				map[i][j]=["boss",:REGIGIGAS]
 			end
@@ -369,6 +373,29 @@ def getreward(type=nil,item=nil,qty=1)
 		for i in 0...qty
 			pbItemBall(mint.sample)
 		end
+	elsif type=="secret"
+		if $game_variables[45]<=4
+			tier=["PU","PU","NU","NU","RU","UU"]
+			order=tier.shuffle()
+		elsif $game_variables[45]==5
+			tier=["NU","NU","NU","RU","RU","UU"]
+			order=tier.shuffle()
+		elsif $game_variables[45]==6
+			tier=["RU","RU","RU","RU","UU","UU"]
+			order=tier.shuffle()
+		elsif $game_variables[45]==7
+			tier=["RU","RU","RU","UU","UU","OU"]
+			order=tier.shuffle()
+		elsif $game_variables[45]==8
+			tier=["RU","UU","UU","UU","OU","OU"]
+			order=tier.shuffle()
+		else $game_variables[45]==9
+			tier=["UU","UU","UU","OU","OU","OU"]
+			order=tier.shuffle()
+		end
+		pk=genrandpkmn("Data/Rand_trainer/"+order[0]+".txt")
+		pk.level=pbBalancedLevel($player.party)
+		pbAddPokemon(pk)
 	else
 		pbItemBall(:PPUP,qty)
 	end
@@ -376,7 +403,7 @@ end
 
 
 def secretmap(map,coord)
-	if $game_variables[MOVELIST].include?(:EXPLOSION) || $game_variables[MOVELIST].include?(:SELFDESTRUCT)		
+	if ($game_variables[MOVELIST].include?(:EXPLOSION) || $game_variables[MOVELIST].include?(:SELFDESTRUCT)) && $game_switches[81]		
 		sizemap=map.length
 		map[coord[0]][coord[1]].clear
 		map[coord[0]][coord[1]].push("Right")

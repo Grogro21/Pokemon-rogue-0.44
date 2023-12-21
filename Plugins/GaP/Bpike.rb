@@ -261,6 +261,9 @@ def genreward(type,exclude=nil)
 	if type=="boss"
 		return(["boss","nothing",1])
 	end
+	if type=="secret"
+		return(["secret",nil,1])
+	end
 end
 
 
