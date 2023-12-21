@@ -84,38 +84,38 @@ class PokemonPartyScreen
           @scene.pbSelect(old_party_idx)
           pbRefresh
 		elsif [:SELFDESTRUCT, :EXPLOSION].include?(move.id)
-		  $game_variables[MOVELIST]=[:EXPLOSION]
-		  pbMapInterpreter.pbSetSelfSwitch(1, "A", false)
-		  pbMapInterpreter.pbSetSelfSwitch(5, "A", false)
-		  pbMapInterpreter.pbSetSelfSwitch(6, "A", false)
-		  pbMapInterpreter.pbSetSelfSwitch(7, "A", false)
-		  if $game_switches[81]
-			movename = move.name
-			pbDisplay(_INTL("{1} used {2}!", pkmn.name, movename))
-			for pkmn in @party
-				amt = [(pkmn.totalhp / 4).floor, 1].max
-				pkmn.hp -= amt
-			end
-			secretmap(pbGet(63)[0],pbGet(55))
-			directions=pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]]
-			if !directions.include?("Left")
-				pbMapInterpreter.pbSetSelfSwitch(1, "A", true)
-			end
-			if !directions.include?("Up")
-				pbMapInterpreter.pbSetSelfSwitch(5, "A", true)
-			end
-			if !directions.include?("Right")
-				pbMapInterpreter.pbSetSelfSwitch(6, "A", true)
-			end
-			if !directions.include?("Down")
-				pbMapInterpreter.pbSetSelfSwitch(7, "A", true)
-			end
-			$game_map.refresh
-			Graphics.update
+      if $game_switches[81]
+		    $game_variables[MOVELIST]=[:EXPLOSION]
+		    pbMapInterpreter.pbSetSelfSwitch(1, "A", false)
+		    pbMapInterpreter.pbSetSelfSwitch(5, "A", false)
+		    pbMapInterpreter.pbSetSelfSwitch(6, "A", false)
+		    pbMapInterpreter.pbSetSelfSwitch(7, "A", false)
+			  movename = move.name
+			  pbDisplay(_INTL("{1} used {2}!", pkmn.name, movename))
+			  for pkmn in @party
+				  amt = [(pkmn.totalhp / 4).floor, 1].max
+				  pkmn.hp -= amt
+			  end
+			  secretmap(pbGet(63)[0],pbGet(55))
+			  directions=pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]]
+			  if !directions.include?("Left")
+			  	pbMapInterpreter.pbSetSelfSwitch(1, "A", true)
+			  end
+			  if !directions.include?("Up")
+				  pbMapInterpreter.pbSetSelfSwitch(5, "A", true)
+			  end
+			  if !directions.include?("Right")
+				  pbMapInterpreter.pbSetSelfSwitch(6, "A", true)
+			  end
+			  if !directions.include?("Down")
+				  pbMapInterpreter.pbSetSelfSwitch(7, "A", true)
+			  end
+			  $game_map.refresh
+			  Graphics.update
 		  else
 			pbDisplay("You can't explode here.")
 		  end
-        elsif pbCanUseHiddenMove?(pkmn, move.id)
+      elsif pbCanUseHiddenMove?(pkmn, move.id)
           if pbConfirmUseHiddenMove(pkmn, move.id)
             @scene.pbEndScene
             if move.id == :FLY
@@ -143,12 +143,12 @@ end
 
 
 def pbboom
-		  $game_variables[MOVELIST]=[:EXPLOSION]
+  if $game_switches[81]
 		  pbMapInterpreter.pbSetSelfSwitch(1, "A", false)
 		  pbMapInterpreter.pbSetSelfSwitch(5, "A", false)
 		  pbMapInterpreter.pbSetSelfSwitch(6, "A", false)
 		  pbMapInterpreter.pbSetSelfSwitch(7, "A", false)
-		  if $game_switches[81]
+		  
 			secretmap(pbGet(63)[0],pbGet(55))
 			directions=pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]]
 			if !directions.include?("Left")
@@ -165,13 +165,13 @@ def pbboom
 			end
 			$game_map.refresh
 			Graphics.update
-		  else
+	else
 			pbDisplay("You can't explode here.")
-		  end
+	end
 end
 
 ItemHandlers::UseInField.add(:BOMB, proc { |item|  
-    if $game_switches[81]
+  if $game_switches[81]
 	  pbboom
 	else
 		pbMessage("You can't use a bomb here!")
