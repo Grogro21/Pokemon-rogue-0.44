@@ -1080,8 +1080,11 @@ MewtwoRockthrow=Proc.new{|battle|
 Mewtwomid=Proc.new{|battle|
 	battle.pbAnimation(:GROWL,battle.battlers[0],battle.battlers[1])
 	battle.battlers[0].effects[PBEffects::MagnetRise] = 0
+	pbMessage("You can't keep levitating.")
 	battle.pbStartTerrain(battle.battlers[0], :Psychic)
-
+	battle.battlers[0].pbRaiseStatStage(:SPECIAL_ATTACK,1,battle.battlers[0])
+	battle.battlers[0].effects[PBEffects::Midhp] = false
+	
 	}
 ##############Test######################################################
 	Lmusic=Proc.new{|battle|
