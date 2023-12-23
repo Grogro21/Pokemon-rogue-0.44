@@ -27,13 +27,8 @@ def starter(lvl)
 	end
 end
 
-def choixpkmn(blacklist=[],whitelist=[],rarity="normal")
-	if whitelist!=[]
-		pkmns=[pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil),pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil),pbChooseRandomPokemon(nil,"suggested",whitelist,false,nil),pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil),pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil)]
-	else
-		echoln("your whitelist is empty!")
-		return
-	end
+def choixpkmn(blacklist=nil,whitelist=nil,rarity="normal")
+	pkmns=[pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil),pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil),pbChooseRandomPokemon(nil,"suggested",whitelist,false,nil),pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil),pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil)]
 	if rarity=="normal"
 		pkmn=pkmns.sample()
 		pk=Pokemon.new(pkmn,pbBalancedLevel($player.party))
@@ -50,7 +45,7 @@ def choixpkmn(blacklist=[],whitelist=[],rarity="normal")
 				pbAddPokemon(pk1)
 		end
 		if cmd==1
-				pk2= Pokemon.new(pkmns[1]@,pbBalancedLevel($player.party))
+				pk2= Pokemon.new(pkmns[1],pbBalancedLevel($player.party))
 				pbRandomform(pk2) 
 				setNewStage(pk2)
 				pbAddPokemon(pk2)
@@ -310,17 +305,17 @@ def getreward(type=nil,item=nil,qty=1)
 		$player.money+=qty
 		pbMessage(_INTL("You got {1}$!",qty))
 	elsif type=="randpokemon"
-		whitelist=[]
+		whitelist=nil
 		if $game_variables[45]<1  #à compléter quand les whitelist suivantes seront faites
 			whitelist=Whitelistroute
 		end
-		choixpkmn([],whitelist,rarity="normal")
+		choixpkmn(nil,whitelist,rarity="normal")
 	elsif type=="pokemon"
-		whitelist=[]
+		whitelist=nil
 		if $game_variables[45]<1  #à compléter quand les whitelist suivantes seront faites
 			whitelist=Whitelistroute
 		end
-		choixpkmn([],whitelist,rarity="rare")
+		choixpkmn(nil,whitelist,rarity="rare")
 	elsif type=="berries"
 		pbItemBall(:SITRUSBERRY,qty)
 		pbItemBall(:LUMBERRY,qty)

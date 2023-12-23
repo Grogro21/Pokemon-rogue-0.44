@@ -262,7 +262,7 @@ def lootmapregi(size,bosscoord,exit)
 		map.push([])
 		for j in 0...size
 			map[i].push(gen_reward())
-			vmap=$game_variables[64]
+			vmap=pbGet(63)[0]
 			if vmap[i,j]==[]
 				map[i].push("secret")
 			end
