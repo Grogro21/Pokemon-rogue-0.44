@@ -31,7 +31,7 @@ def choixpkmn(blacklist=nil,whitelist=nil,rarity="normal")
 	pkmns=[pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil),pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil),pbChooseRandomPokemon(nil,"suggested",whitelist,false,nil),pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil),pbChooseRandomPokemon(whitelist,"suggested",blacklist,false,nil)]
 	if rarity=="normal"
 		pkmn=pkmns.sample()
-		pk=Pokemon.new(pkmn,pbBalancedLevel($player.party))
+		pk=Pokemon.new(pkmn,$player.party[0].level)
 		pbRandomform(pk) 
 		setNewStage(pk)
 		pbAddPokemon(pk)
@@ -39,19 +39,19 @@ def choixpkmn(blacklist=nil,whitelist=nil,rarity="normal")
 		cmd=0
 		cmd= pbMessage("Which Pokémon do you want?",[pkmns[0].name,pkmns[1].name,pkmns[2].name],0,nil,0)			
 		if cmd==0
-				pk1= Pokemon.new(pkmns[0],pbBalancedLevel($player.party))
+				pk1= Pokemon.new(pkmns[0],$player.party[0].level)
 				pbRandomform(pk1) 
 				setNewStage(pk1)
 				pbAddPokemon(pk1)
 		end
 		if cmd==1
-				pk2= Pokemon.new(pkmns[1],pbBalancedLevel($player.party))
+				pk2= Pokemon.new(pkmns[1],$player.party[0].level)
 				pbRandomform(pk2) 
 				setNewStage(pk2)
 				pbAddPokemon(pk2)
 		end
 		if cmd==2
-				pk3= Pokemon.new(pkmns[2],pbBalancedLevel($player.party))
+				pk3= Pokemon.new(pkmns[2],$player.party[0].level)
 				pbRandomform(pk3) 
 				setNewStage(pk3)
 				pbAddPokemon(pk3)
@@ -133,7 +133,7 @@ def randomstatus
 	if r<35	#poison 35%
 		for pkmn in $player.party
 			if pkmn.canInflictStatus?(:POISON)
-				if rand(100)<75
+				if rand(100)<35
 					pkmn.inflictStatus(:POISON,1)
 				end
 			end
@@ -144,7 +144,7 @@ def randomstatus
 	elsif r<60 #paralysis 25%
 		for pkmn in $player.party
 			if pkmn.canInflictStatus?(:PARALYSIS)
-				if rand(100)<50
+				if rand(100)<35
 					pkmn.inflictStatus(:PARALYSIS)
 				end
 			end
@@ -155,7 +155,7 @@ def randomstatus
 	elsif r<80 #burn 20%
 		for pkmn in $player.party
 			if pkmn.canInflictStatus?(:BURN)
-				if rand(100)<40
+				if rand(100)<20
 					pkmn.inflictStatus(:BURN)
 				end
 			end
@@ -166,7 +166,7 @@ def randomstatus
 	elsif r<90 #Sleep 10%
 		for pkmn in $player.party
 			if pkmn.canInflictStatus?(:SLEEP)
-				if rand(100)<33
+				if rand(100)<15
 					pkmn.inflictStatus(:SLEEP)
 				end
 			end
@@ -177,7 +177,7 @@ def randomstatus
 	else #Freeze 10%
 		for pkmn in $player.party
 			if pkmn.canInflictStatus?(:FREEZE)
-				if rand(100)<20
+				if rand(100)<10
 					pkmn.inflictStatus(:FREEZE)
 				end
 			end
@@ -349,7 +349,7 @@ def getreward(type=nil,item=nil,qty=1)
 			order=tier.shuffle()
 		end
 		pk=genrandpkmn("Data/Rand_trainer/"+order[0]+".txt")
-		pk.level=pbBalancedLevel($player.party)
+		pk.level=$player.party[0].level
 		pbAddPokemon(pk)
 	else
 		pbItemBall(:PPUP,qty)
@@ -381,7 +381,7 @@ def gen_type_rooms
 	return([type,trainer])
 end
 
-def display_next_room
+def display_next_room #bientot obsolete
 	$game_variables[37]=$game_variables[38]
 	#current room
 
@@ -460,13 +460,13 @@ def pkmnmerchant
 	cmd= pbMessage("\\GDo you want to buy one of my Pokémons?",["Porygon 1000$","Dratini 3000$","Dreepy 3000$","Grookey 5000$","Honedge 2000$","Dracozolt 3000$","Hawlucha 3000$","Lucario 5000$","Beldum 3000$","Leave"],10,nil,0)
 	if cmd==0
 		if $player.money>=1000
-			pbAddPokemon(:PORYGON,pbBalancedLevel($player.party))
+			pbAddPokemon(:PORYGON,$player.party[0].level)
 		else
 			pbMessage("You don't have enough money.")
 		end
 	elsif cmd==1
 		if $player.money>=3000
-			pkmn = Pokemon.new(:DRATINI,pbBalancedLevel($player.party))
+			pkmn = Pokemon.new(:DRATINI,$player.party[0].level)
 			pkmn.ability_index=2
 			pbAddPokemon(pkmn)
 		else
@@ -474,13 +474,13 @@ def pkmnmerchant
 		end
 	elsif cmd==2
 		if $player.money>=3000
-			pbAddPokemon(:DREEPY,pbBalancedLevel($player.party))
+			pbAddPokemon(:DREEPY,$player.party[0].level)
 		else
 			pbMessage("You don't have enough money.")
 		end
 	elsif cmd==3
 		if $player.money>=5000
-			pkmn = Pokemon.new(:GROOKEY, pbBalancedLevel($player.party))
+			pkmn = Pokemon.new(:GROOKEY, $player.party[0].level)
 			pkmn.learn_move(:GRASSYGLIDE)
 			pkmn.ability_index=2
 			pbAddPokemon(pkmn)
@@ -488,20 +488,20 @@ def pkmnmerchant
 			pbMessage("You don't have enough money.")
 		end
 	elsif cmd==4
-		if $player.money>=2000
-			pbAddPokemon(:HONEDGE,pbBalancedLevel($player.party))
+		if $player.money>=3000
+			pbAddPokemon(:HONEDGE,$player.party[0].level)
 		else
 			pbMessage("You don't have enough money.")
 		end
 	elsif cmd==5
-		if $player.money>=3000
-			pbAddPokemon(:DRACOZOLT,pbBalancedLevel($player.party))
+		if $player.money>=5000
+			pbAddPokemon(:DRACOZOLT,$player.party[0].level)
 		else
 			pbMessage("You don't have enough money.")
 		end
 	elsif cmd==6
-		if $player.money>=3000
-			pkmn = Pokemon.new(:HAWLUCHA,pbBalancedLevel($player.party))
+		if $player.money>=5000
+			pkmn = Pokemon.new(:HAWLUCHA,$player.party[0].level)
 			pkmn.ability_index=1
 			pbAddPokemon(pkmn)
 		else
@@ -509,13 +509,13 @@ def pkmnmerchant
 		end
 	elsif cmd==7
 		if $player.money>=5000
-			pbAddPokemon(:LUCARIO,pbBalancedLevel($player.party))
+			pbAddPokemon(:LUCARIO,$player.party[0].level)
 		else
 			pbMessage("You don't have enough money.")
 		end
 	elsif cmd==8
-		if $player.money>=3000
-			pbAddPokemon(:BELDUM,pbBalancedLevel($player.party))
+		if $player.money>=2000
+			pbAddPokemon(:BELDUM,$player.party[0].level)
 		else
 			pbMessage("You don't have enough money.")
 		end
