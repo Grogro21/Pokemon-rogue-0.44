@@ -11,6 +11,15 @@ def starter(lvl)
 	pk1= Pokemon.new(pkmn1,lvl)
 	pk2= Pokemon.new(pkmn2,lvl)
 	pk3= Pokemon.new(pkmn3,lvl)
+	setNewStage(pk1)
+	pk1.reset_moves
+	pk1.calc_stats
+	setNewStage(pk2)
+	pk2.reset_moves
+	pk2.calc_stats
+	setNewStage(pk3)
+	pk3.reset_moves
+	pk3.calc_stats
 	pbRandomform(pk1) 
 	pbRandomform(pk2) 
 	pbRandomform(pk3) 
@@ -34,6 +43,8 @@ def choixpkmn(blacklist=nil,whitelist=nil,rarity="normal")
 		pk=Pokemon.new(pkmn,$player.party[0].level)
 		pbRandomform(pk) 
 		setNewStage(pk)
+		pk.reset_moves
+		pk.calc_stats
 		pbAddPokemon(pk)
 	else
 		cmd=0
@@ -42,18 +53,24 @@ def choixpkmn(blacklist=nil,whitelist=nil,rarity="normal")
 				pk1= Pokemon.new(pkmns[0],$player.party[0].level)
 				pbRandomform(pk1) 
 				setNewStage(pk1)
+				pk1.reset_moves
+				pk1.calc_stats
 				pbAddPokemon(pk1)
 		end
 		if cmd==1
 				pk2= Pokemon.new(pkmns[1],$player.party[0].level)
 				pbRandomform(pk2) 
 				setNewStage(pk2)
+				pk2.reset_moves
+				pk2.calc_stats
 				pbAddPokemon(pk2)
 		end
 		if cmd==2
 				pk3= Pokemon.new(pkmns[2],$player.party[0].level)
 				pbRandomform(pk3) 
 				setNewStage(pk3)
+				pk3.reset_moves
+				pk3.calc_stats
 				pbAddPokemon(pk3)
 		end
 	end
@@ -308,12 +325,32 @@ def getreward(type=nil,item=nil,qty=1)
 		whitelist=nil
 		if $game_variables[45]<1  #à compléter quand les whitelist suivantes seront faites
 			whitelist=Whitelistroute
+		elsif $game_variables[45]<2
+			whitelist=Whitelistforet
+		elsif $game_variables[45]<3
+			whitelist=Whitelistgrotte
+		elsif $game_variables[45]<4
+			whitelist=Whitelistile
+		elsif $game_variables[45]<5
+			whitelist=Whitelistruines
+		elsif $game_variables[45]<6
+			whitelist=Whitelistlabo
 		end
 		choixpkmn(nil,whitelist,rarity="normal")
 	elsif type=="pokemon"
 		whitelist=nil
 		if $game_variables[45]<1  #à compléter quand les whitelist suivantes seront faites
 			whitelist=Whitelistroute
+		elsif $game_variables[45]<2
+			whitelist=Whitelistforet
+		elsif $game_variables[45]<3
+			whitelist=Whitelistgrotte
+		elsif $game_variables[45]<4
+			whitelist=Whitelistile
+		elsif $game_variables[45]<5
+			whitelist=Whitelistruines
+		elsif $game_variables[45]<6
+			whitelist=Whitelistlabo
 		end
 		choixpkmn(nil,whitelist,rarity="rare")
 	elsif type=="berries"
