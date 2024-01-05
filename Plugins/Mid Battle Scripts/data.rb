@@ -980,32 +980,32 @@ battle.pbLowerHP(battle.battlers[1],1)
 	}
 	
 	Choiceroom=Proc.new{|battle|
-	b=baseimage($game_variables[55])
+	echoln(pbGet(55))
+	b=baseimage(pbGet(64)[pbGet(55)[0]][pbGet(55)[1]])
+	echoln(b)
 	base=b[0]
 	exit=b[1]
-	if $game_variables[69].include?("Left")
+	if !pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]].include?("Left")
 		imageleft="left"
 	else
 		imageleft="void"
 	end
-	if $game_variables[69].include?("Up")
+	if !pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]].include?("Up")
 		imageup="up"
 	else
 		imageup="void"
 	end
-	if $game_variables[69].include?("Right")
+	if !pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]].include?("Right")
 		imageright="right"
 	else
 		imageright="void"
 	end
-	if $game_variables[69].include?("Down")
+	if !pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]].include?("Down")
 		imagedown="down"
 	else
 		imagedown="void"
 	end
-	if $game_variables[55].include?("exit") 
-		exit="exit"
-	else
+	if exit!="exit"
 		exit="void"
 	end
 	battle.scene.appearsprite([base,imageup,imageright,imagedown,imageleft,exit])
@@ -1016,10 +1016,10 @@ battle.pbLowerHP(battle.battlers[1],1)
 			pbMessage("\\rYou reached the exit! Well played!")
 			battle.decision=3
 		end
-		pbMessage("\\f"+$game_variables[55].to_s+"You are here.\\wt[60]")			
-		cmd= battle.pbShowCommands("Which direction are you chosing?",pbGet(69))
+		#pbMessage("\\f"+$game_variables[55].to_s+"You are here.\\wt[60]")			
+		cmd= battle.pbShowCommands("Which direction are you chosing?",pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]])
 		battle.scene.disappearsprite
-		move=pbGet(69)[cmd]	#direction chosen
+		move=pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]][cmd]	#direction chosen
 		$game_variables[55]=movement(move,$game_variables[55])	#changing coord
 		pbSEPlay("Door exit")
 		if $game_switches[77]
