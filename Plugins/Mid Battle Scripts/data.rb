@@ -81,7 +81,7 @@ module DialogueModule
 		battle.scene.pbHideOpponent
 		battle.scene.disappearBar
 		battle.battlers[1].pbRaiseStatStage(:ATTACK,2,battle.battlers[1]) if battle.battlers[1].pbCanRaiseStatStage?(:ATTACK)
-		BattleScripting.set("turnStart#{battle.turnCount+1}",Proc.new{|battle|
+		BattleScripting.set("turnStart#{battle.turnCount+2}",Proc.new{|battle|
 			pbMessage("Joey gave too much Proteins to his perfect Rattata!")
 			battle.battlers[1].pbConfuse(_INTL("{1} became confused due to the overdose!", battle.battlers[1].name))
 			battle.battlers[1].pbLowerStatStage(:ATTACK,3,battle.battlers[1])

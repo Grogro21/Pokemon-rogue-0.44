@@ -284,7 +284,7 @@ def genreward(type,exclude=nil)
 		if r=="pokemon"
 			return(["pokemon",nil,1])
 		elsif r=="potions"
-			return(["item",:FULLRESTORE,2])
+			return(["item",:FULLRESTORE,1])
 		elsif r=="bomb"
 			return(["item",:BOMB,1])
 		elsif r=="item"
