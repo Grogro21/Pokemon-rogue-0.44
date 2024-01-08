@@ -723,21 +723,30 @@ def sacreward(bossnumber)
 			reward=[:DARKPLATE,:TM79,:DUSKSTONE]
 			pbItemBall(reward.sample,1)
 		end
-	elsif bossnumber==2
-		item=sacitem
-		$bag.remove(item)
-		return if item==nil
-		if rareitem.include?(item) 
+	elsif bossnumber==2	
+		itemsymb=sacitem
+		item=nil
+	    GameData::Item.each do |i|
+			if i.id==itemsymb			
+				item=i
+			end
+		end	
+		if item==nil
+			pbMessage("No item, no fun!")
+			return
+		end
+		$bag.remove(itemsymb)
+		if rareitem.include?(item.id) 
 			pbMessage("Oh, that's a nice item. You can take those TM's as a reward.")
 			pbItemBall(getrandomtm,1)
 			pbItemBall(getrandomtm,1)
 			pbItemBall(getrandomtm,1)
-		elsif item.include?(TM) || item.include?(HM)
+		elsif item.is_TM? || item.is_TR?
 			pbMessage("A TM? Hmm... Destruction tool it is!")
 			pbItemBall(get_hm,1)
-		elsif commonitem.include?(item)
+		elsif commonitem.include?(item.id)
 			pbMessage("That's not what I wanted... I guess you can take this thing...")
-			pbItemBall(getreward(rareitem.sample,1))
+			pbItemBall(rareitem.sample,1)
 		else
 			pbMessage("If I wanted this kind of item, I could just steal it from a shop!")
 		end

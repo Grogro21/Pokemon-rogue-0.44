@@ -164,15 +164,13 @@ def pbboom
 			end
 			$game_map.refresh
 			Graphics.update
+			return true
 	else
-			pbDisplay("You can't explode here.")
+			pbMessage(_INTL("Can't use that here."))
+			return false
 	end
 end
 
 ItemHandlers::UseInField.add(:BOMB, proc { |item|  
-  if $game_switches[81]
-	  pbboom
-	else
-		pbMessage("You can't use a bomb here!")
-	end
+	  next pbboom
 })
