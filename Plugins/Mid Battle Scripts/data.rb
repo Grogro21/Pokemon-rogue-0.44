@@ -110,8 +110,7 @@ module DialogueModule
 							choice=throwitem(battle.battlers[0])
 							pbMessage(_INTL("Kecleon threw a {1} at your {2}!",battle.battlers[0].item.name,battle.battlers[0].name))
 							battle.scene.disappearBar
-						end
-						if battle.battlers[0].fainted? 
+						else
 							pbMessage("\\bTake this, thief!")
 							battle.pbAnimation(:FLING,battle.battlers[1],battle.battlers[2])
 							choice=throwitem(battle.battlers[2])
@@ -128,13 +127,12 @@ module DialogueModule
 				else
 					if !battle.battlers[3].fainted?
 						if !battle.battlers[2].fainted? 
-						pbMessage("\\bTake this, thief!")
-						battle.pbAnimation(:FLING,battle.battlers[3],battle.battlers[2])
-						choice=throwitem(battle.battlers[2])
-						pbMessage(_INTL("Kecleon threw a {1} at your {2}!",battle.battlers[2].item.name,battle.battlers[2].name))
-						battle.scene.disappearBar
-						end
-						if battle.battlers[2].fainted? 
+							pbMessage("\\bTake this, thief!")
+							battle.pbAnimation(:FLING,battle.battlers[3],battle.battlers[2])
+							choice=throwitem(battle.battlers[2])
+							pbMessage(_INTL("Kecleon threw a {1} at your {2}!",battle.battlers[2].item.name,battle.battlers[2].name))
+							battle.scene.disappearBar
+						else
 							pbMessage("\\bTake this, thief!")
 							battle.pbAnimation(:FLING,battle.battlers[3],battle.battlers[0])
 							choice=throwitem(battle.battlers[0])
@@ -947,7 +945,6 @@ battle.pbLowerHP(battle.battlers[1],1)
 		pbWait(1)
 		pbMessage("\\rThe guardian looks too strong for you... You better run!")
 		$game_variables[56]=rand(3)   #layout version
-		$game_variables[55]=[0,2]
 		$game_variables[57]=nil
 		$PokemonTemp.excludedialogue=[3]  #exclude summoned mons from lowlife dialogues
 		for i in 0...50

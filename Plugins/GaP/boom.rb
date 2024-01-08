@@ -85,7 +85,6 @@ class PokemonPartyScreen
           pbRefresh
 		elsif [:SELFDESTRUCT, :EXPLOSION].include?(move.id)
       if $game_switches[81]
-		    $game_variables[MOVELIST]=[:EXPLOSION]
 		    pbMapInterpreter.pbSetSelfSwitch(1, "A", false)
 		    pbMapInterpreter.pbSetSelfSwitch(5, "A", false)
 		    pbMapInterpreter.pbSetSelfSwitch(6, "A", false)

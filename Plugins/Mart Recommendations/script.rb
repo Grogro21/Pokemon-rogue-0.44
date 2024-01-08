@@ -8,9 +8,11 @@
 WELCOME_MESSAGE = _INTL("Hiya! I'm taking suggestions for what to sell in my shop!")
 DEFAULT_MART = [:POTION]
 BLACKLIST = [:MASTERBALL]
+RECMART=80
 
 def recMart
-  $RecArray = DEFAULT_MART if !$RecArray
+  $RecArray=$game_variables[RECMART]
+  $RecArray = DEFAULT_MART if pbGet(RECMART)==0
   commands = []
   cmdBuy  = -1
   cmdRecommend = -1
@@ -44,7 +46,7 @@ def recMart
 		else
 			pbMessage(_INTL("A {1}? Good choice! I'll add it to my list!", itemdata.name))
 			$game_variables[60] += 1
-			$RecArray.push(recItem)
+			$game_variables[RECMART].push(recItem)
 		end
 	  end
 	 end

@@ -732,7 +732,7 @@ def sacreward(bossnumber)
 			pbItemBall(getrandomtm,1)
 			pbItemBall(getrandomtm,1)
 			pbItemBall(getrandomtm,1)
-		elsif item.is_TM? || item.is_TR?
+		elsif item.include?(TM) || item.include?(HM)
 			pbMessage("A TM? Hmm... Destruction tool it is!")
 			pbItemBall(get_hm,1)
 		elsif commonitem.include?(item)

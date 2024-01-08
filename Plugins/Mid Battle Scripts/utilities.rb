@@ -63,7 +63,7 @@ def throwitem(pkmn)
 	list=[:STICKYBARB,:IRONBALL,:CHOICEBAND,:CHOICESCARF,:CHOICESPECS,:BLACKSLUDGE,:EJECTBUTTON,:FLAMEORB,:TOXICORB,:FULLINCENSE,:LAGGINGTAIL,:MACHOBRACE,:RINGTARGET,:LEFTOVERS]
 	if pkmn.item!=nil
 		if list.include?(pkmn.item.id)
-			battle.pbLowerHP(pkmn,8)
+			pbLowerHP(pkmn,8)
 		end
 	end
 	choice=list.sample
@@ -78,10 +78,10 @@ end
 class Battle::Scene
   def appearsprite(spritenames)
     pbAddSprite("bob",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[0],@viewport)
-	pbAddSprite("bob2",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[1],@viewport)
-	pbAddSprite("bob3",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[2],@viewport)
-	pbAddSprite("bob4",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[3],@viewport)
-	pbAddSprite("bob5",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[4],@viewport)
+	  pbAddSprite("bob2",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[1],@viewport)
+	  pbAddSprite("bob3",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[2],@viewport)
+	  pbAddSprite("bob4",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[3],@viewport)
+	  pbAddSprite("bob5",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[4],@viewport)
     pbAddSprite("bob6",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[5],@viewport)
     unfadeAnim = SpriteAppearAnimation.new(@sprites,@viewport,@battle.battlers.length)
     @animations.push(unfadeAnim)
@@ -195,5 +195,16 @@ class SpriteDisappearAnimation < Battle::Scene::Animation
       end
     end
     topBar.setXY(delay+5,Graphics.width,0)
+  end
+
+  def disappearsprite
+    unfadeAnim = SpriteDisappearAnimation.new(@sprites,@viewport,@battle.battlers.length)
+    @animations.push(unfadeAnim)
+    loop do
+      unfadeAnim.update
+      pbUpdate
+      break if unfadeAnim.animDone?
+    end
+    unfadeAnim.dispose
   end
 end
