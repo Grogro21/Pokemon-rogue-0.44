@@ -185,6 +185,7 @@ def randomstatus
 			if pkmn.canInflictStatus?(:SLEEP)
 				if rand(100)<15
 					pkmn.inflictStatus(:SLEEP)
+					pkmn.statusCount=2
 				end
 			end
 		end
