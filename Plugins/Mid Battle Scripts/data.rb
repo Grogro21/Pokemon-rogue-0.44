@@ -1058,18 +1058,20 @@ Mewtwoinit=Proc.new{|battle|
 			else
 				BattleScripting.setInScript("turnEnd#{i}",:MewtwoPsywave)
 			end
-		end
-
-		
+		end		
 	}
 
 MewtwoPsywave=Proc.new{|battle|
 		battle.pbAnimation(:PSYWAVE,battle.battlers[0],battle.battlers[1])
 		pbMessage("You radiate psychic energy!")
 		dmg=rand(3,11)
-		battle.pbLowerHP(battle.battlers[1],dmg)
-		if rand(100)<10
-			battle.battlers[1].pbConfuse if pbCanConfuse?(battle.battlers[1],false)
+		battle.pbLowerHP(battle.battlers[1],dmg) if !battle.battlers[1].fainted?
+		battle.pbLowerHP(battle.battlers[3],dmg) if !battle.battlers[3].fainted?
+		if rand(100)<10 && !battle.battlers[1].fainted? && pbCanConfuse?(battle.battlers[1],false)
+			battle.battlers[1].pbConfuse
+		end
+		if rand(100)<10 && !battle.battlers[3].fainted? && pbCanConfuse?(battle.battlers[3],false)
+			battle.battlers[3].pbConfuse 
 		end
 	}
 
@@ -1088,7 +1090,18 @@ Mewtwomid=Proc.new{|battle|
 	battle.pbStartTerrain(battle.battlers[0], :Psychic)
 	battle.battlers[0].pbRaiseStatStage(:SPECIAL_ATTACK,1,battle.battlers[0])
 	battle.battlers[0].effects[PBEffects::Midhp] = false
-	
+	battle.battlers[0].effects[PBEffects::Lowhp] = true
+	}
+
+Mewtwolow=Proc.new{|battle|
+	battle.pbAnimation(:GROWL,battle.battlers[0],battle.battlers[1])
+	pbMessage("Your pain is so high!")
+	battle.battlers[0].pbRaiseStatStage(:SPECIAL_ATTACK,1,battle.battlers[0])
+	battle.battlers[0].effects[PBEffects::Lowhp] = false
+	battle.battlers[0].effects[PBEffects::FocusEnergy] = 99
+	battle.battlers[0].pbLowerStatStage(:DEFENSE,2,battle.battlers[0])
+	battle.battlers[0].pbLowerStatStage(:SPECIAL_DEFENSE,2,battle.battlers[0])
+
 	}
 ##############Test######################################################
 	Lmusic=Proc.new{|battle|
