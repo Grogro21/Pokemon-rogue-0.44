@@ -51,7 +51,7 @@ class Battle
 			end
 		end
 		if pbAbleCount(0)==0
-			@decision=2  #loss in 0 able pokémon
+			@decision=2  #loss if you have no able pokémon left
 		end
     if pbAbleCount(1)==0
       @decision=1 #win if the opponent has 0 pkmn left

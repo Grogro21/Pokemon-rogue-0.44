@@ -230,15 +230,11 @@ def validlab(map,startpoint,consigne,exitcoord)
 		movemap=camefrom(movemap,choice,coord)
 		i+=1
 	end	
-	if i<consigne
-		return true 
-	else
-		return false
-	end
+	return i<consigne
 end
 
 
-def gen_reward(miniboss=false,coord=nil)
+def gen_reward(miniboss=false,coord=nil) #génère le type de salle et leur récompense
 	t=rand(100)
 	if t<5  #event
 			type="event"
@@ -332,13 +328,15 @@ def baseimage(coord)
 				image=pkmn.to_s
 			end
 		end
+	else
+		image="encounter"
 	end
 	if loot[1]=="exit"
-		exit="exit"
+		ex="exit"
 	else
-		exit="void"
+		ex="void"
 	end
-	return([image,exit])
+	return([image,ex])
 end
 
 

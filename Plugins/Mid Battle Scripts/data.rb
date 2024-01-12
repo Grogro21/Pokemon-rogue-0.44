@@ -329,7 +329,7 @@ module DialogueModule
 						battle.scene.appearDatabox
 						pbMessage("The opposing Jirachi threw a Light Ball at you.")
 						if battle.battlers[0].pbCanParalyze?(battle.battlers[1],false) && rand(100)<50
-							battle.battlers[0].pbParalyse
+							battle.battlers[0].pbParalyze
 						else 
 							battle.pbLowerHP(battle.battlers[0],8)
 						end	
@@ -832,10 +832,11 @@ pbMessage("\\bSTARTING SAFETY PROCESS!")
 }	
 
 Regicexplode2=Proc.new{|battle|
-pbMessage("\\bBOOOM!")
+pbMessage("BOOOM!")
 battle.pbAnimation(:EXPLOSION,battle.battlers[1],battle.battlers[0])
-battle.pbLowerHP(battle.battlers[0],1)
 battle.pbLowerHP(battle.battlers[1],1)
+battle.pbLowerHP(battle.battlers[0],1)
+battle.decision=1
 }
 
 ####################Regirock battle##########################################################
@@ -857,10 +858,11 @@ pbMessage("\\bSTARTING SAFETY PROCESS!")
 }	
 
 Regirockexplode2=Proc.new{|battle|
-pbMessage("\\bBOOOM!")
+pbMessage("BOOOM!")
 battle.pbAnimation(:EXPLOSION,battle.battlers[1],battle.battlers[0])
-battle.pbLowerHP(battle.battlers[0],1)
 battle.pbLowerHP(battle.battlers[1],1)
+battle.pbLowerHP(battle.battlers[0],1)
+battle.decision=1
 }
 
 ####################Registeel battle##########################################################
@@ -871,7 +873,6 @@ pbWait(1)
 pbSEPlay("Battle damage normal")
 pbMessage("The doors have just closed!")
 battle.pbAnimation(:IRONDEFENSE,battle.battlers[1],battle.battlers[0])
-battle.battlers[1].pbRaiseStatStage(:DEFENSE,1,battle.battlers[1])
 battle.battlers[1].pbRaiseStatStage(:SPECIAL_DEFENSE,1,battle.battlers[1])
 }
 
@@ -882,10 +883,11 @@ pbMessage("\\bSTARTING SAFETY PROCESS!")
 }	
 
 Registeelexplode2=Proc.new{|battle|
-pbMessage("\\bBOOOM!")
+pbMessage("BOOOM!")
 battle.pbAnimation(:EXPLOSION,battle.battlers[1],battle.battlers[0])
-battle.pbLowerHP(battle.battlers[0],1)
 battle.pbLowerHP(battle.battlers[1],1)
+battle.pbLowerHP(battle.battlers[0],1)
+battle.decision=1
 }
 
 ####################Regieleki battle##########################################################
@@ -905,10 +907,11 @@ pbMessage("\\bSTARTING SAFETY PROCESS!")
 }	
 
 Regielekexplode2=Proc.new{|battle|
-pbMessage("\\bBOOOM!")
+pbMessage("BOOOM!")
 battle.pbAnimation(:EXPLOSION,battle.battlers[1],battle.battlers[0])
-battle.pbLowerHP(battle.battlers[0],1)
 battle.pbLowerHP(battle.battlers[1],1)
+battle.pbLowerHP(battle.battlers[0],1)
+battle.decision=1
 }
 
 ####################Regidrago battle##########################################################
@@ -928,10 +931,11 @@ pbMessage("\\bSTARTING SAFETY PROCESS!")
 }	
 
 Regidragoexplode2=Proc.new{|battle|
-pbMessage("\\bBOOOM!")
+pbMessage("BOOOM!")
 battle.pbAnimation(:EXPLOSION,battle.battlers[1],battle.battlers[0])
-battle.pbLowerHP(battle.battlers[0],1)
 battle.pbLowerHP(battle.battlers[1],1)
+battle.pbLowerHP(battle.battlers[0],1)
+battle.decision=1
 }
 ####################Regigigas battle##########################################################
 	Reginit=Proc.new{|battle|
@@ -981,7 +985,7 @@ battle.pbLowerHP(battle.battlers[1],1)
 	b=baseimage(pbGet(64)[pbGet(55)[0]][pbGet(55)[1]])
 	echoln(b)
 	base=b[0]
-	exit=b[1]
+	ex=b[1]
 	if !pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]].include?("Left")
 		imageleft="left"
 	else
@@ -1002,10 +1006,10 @@ battle.pbLowerHP(battle.battlers[1],1)
 	else
 		imagedown="void"
 	end
-	if exit!="exit"
-		exit="void"
+	if ex!="exit"
+		ex="void"
 	end
-	battle.scene.appearsprite([base,imageup,imageright,imagedown,imageleft,exit])
+	battle.scene.appearsprite([base,imageup,imageright,imagedown,imageleft,ex])
 	#pbMessage("\\f"+$game_variables[55].to_s+"You are here.\\wt[60]")
 		if $game_variables[55].include?("exit")
 			battle.scene.pbRecall(0)
@@ -1073,6 +1077,9 @@ MewtwoRockthrow=Proc.new{|battle|
 	battle.pbAnimation(:FUTURESIGHT,battle.battlers[0],battle.battlers[1])
 	battle.pbAnimation(:ROCKTHROW,battle.battlers[0],battle.battlers[1])
 	battle.pbLowerHP(battle.battlers[1],4)
+	if rand(100)<20
+		battle.battlers[1].pbParalyze if pbCanParalyze?(battle.battlers[1],false)
+	end
 	}
 Mewtwomid=Proc.new{|battle|
 	battle.pbAnimation(:GROWL,battle.battlers[0],battle.battlers[1])
