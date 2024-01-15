@@ -85,9 +85,8 @@ EventHandlers.add(:on_trainer_load, :simple_scaling,
 			elsif $game_variables[36]<20
 				trainer.party.pop()
 				trainer.party.pop()
-			elsif $game_variables[36]<30
+      else
 				trainer.party.pop()
-			else
 			end
 			for pkmn in trainer.party
 				pkmn.species=pbChooseRandomPokemon(nil,"suggested",nil,true,nil)
