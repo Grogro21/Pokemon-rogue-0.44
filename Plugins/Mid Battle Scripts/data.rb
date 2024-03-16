@@ -974,8 +974,8 @@ battle.decision=1
 			else
 				pbMessage("\\bFIRING MY LASER!")
 				battle.pbAnimation(:HYPERBEAM,battle.battlers[1],battle.battlers[0])
-				battle.pbLowerHP(battle.battlers[0],3)
-				battle.pbLowerHP(battle.battlers[2],3)
+				battle.pbLowerHP(battle.battlers[0],4)
+				battle.pbLowerHP(battle.battlers[2],4)
 			end
 		end
 	}

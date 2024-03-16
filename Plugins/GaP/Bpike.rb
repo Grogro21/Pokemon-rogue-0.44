@@ -720,7 +720,7 @@ def sacreward(bossnumber)
 			$player.money+=10000
 			pbMessage("You gained 10000$.")
 		else
-			reward=[:DARKPLATE,:TM79,:DUSKSTONE]
+			reward=[:DREADPLATE,:TM79,:DUSKSTONE]
 			pbItemBall(reward.sample,1)
 		end
 	elsif bossnumber==2	
