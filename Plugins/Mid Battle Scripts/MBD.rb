@@ -606,7 +606,8 @@ class Battle
   def pbSwitchInBetween(idxBattler,checkLaxOnly=false,canCancel=false)
     return pbPartyScreen(idxBattler,checkLaxOnly,canCancel) if pbOwnedByPlayer?(idxBattler)
     ret = @battleAI.pbDefaultChooseNewEnemy(idxBattler)
-    if BattleScripting.hasOrderData?
+	turnmoves=[:CIRCLETHROW,:DRAGONTAIL,:ROAR,:WHIRLWIND,:UTURN,:VOLTSWITCH,:BATONPASS,:FLIPTURN,:PARTINGSHOT,:TELEPORT,:CHILLYRECEPTION,:SHEDTAIL]
+    if BattleScripting.hasOrderData? && !(turnmoves.include?(lastMoveUsed))
       orderArr = BattleScripting.getOrderOf(idxBattler)
       return ret if orderArr.length == 0
       numFainted = 0
