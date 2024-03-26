@@ -11,6 +11,7 @@ BLACKLIST = [:MASTERBALL]
 RECMART=80
 
 def recMart
+  $game_variables[RECMART]=DEFAULT_MART if $game_variables[RECMART]==0
   $RecArray=$game_variables[RECMART]
   $RecArray = DEFAULT_MART if pbGet(RECMART)==0
   commands = []
