@@ -30,7 +30,6 @@ def pbChooseRandomPokemon(whiteList=nil, blackList=nil, addList=nil,
   if whiteList
     whiteList.each_with_index do |s, i|
       whiteList[i] = GameData::Species.try_get(s)
-	  echoln whiteList[i].id
     end
     if base_only
       whiteList.each { |s| arr.push(s.id) if !blackList.include?(s.id) && s.id == s.get_baby_species }

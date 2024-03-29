@@ -318,12 +318,12 @@ def visited_maps(size)
 	return map
 end
 
-def baseimage(coord)
+def baseimage1(coord)
 	loot=pbGet(64)[pbGet(55)[0]][pbGet(55)[1]]
 	if loot[0]=="normal" || loot[0]=="rare" || loot[1]=="exit"
 			image="encounter"
 	elsif loot[0]=="boss"
-		for pkmn in [:REGIROCK,:REGICE,:REGISTEEL,:REGIDRAGO,:REGIELEKI]
+		for pkmn in [:REGIROCK,:REGICE,:REGISTEEL,:REGIDRAGO,:REGIELEKI,:REGIGIGAS]
 			if loot[1]==pkmn
 				image=pkmn.to_s
 			end
@@ -338,7 +338,6 @@ def baseimage(coord)
 	end
 	return([image,ex])
 end
-
 
 def secretmap(map,coord)
 	if ($game_variables[MOVELIST].include?(:EXPLOSION) || $game_variables[MOVELIST].include?(:SELFDESTRUCT)) && $game_switches[81]		

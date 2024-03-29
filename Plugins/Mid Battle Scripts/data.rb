@@ -974,16 +974,15 @@ battle.decision=1
 			else
 				pbMessage("\\bFIRING MY LASER!")
 				battle.pbAnimation(:HYPERBEAM,battle.battlers[1],battle.battlers[0])
-				battle.pbLowerHP(battle.battlers[0],3)
-				battle.pbLowerHP(battle.battlers[2],3)
+				battle.pbLowerHP(battle.battlers[0],4)
+				battle.pbLowerHP(battle.battlers[2],4)
 			end
 		end
 	}
 	
 	Choiceroom=Proc.new{|battle|
 	echoln(pbGet(55))
-	b=baseimage(pbGet(64)[pbGet(55)[0]][pbGet(55)[1]])
-	echoln(b)
+	b=baseimage1(pbGet(64)[pbGet(55)[0]][pbGet(55)[1]])
 	base=b[0]
 	ex=b[1]
 	if !pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]].include?("Left")
@@ -1009,18 +1008,17 @@ battle.decision=1
 	if ex!="exit"
 		ex="void"
 	end
+	echoln([base,imageup,imageright,imagedown,imageleft,ex])
 	battle.scene.appearsprite([base,imageup,imageright,imagedown,imageleft,ex])
-	#pbMessage("\\f"+$game_variables[55].to_s+"You are here.\\wt[60]")
 		if $game_variables[55].include?("exit")
 			battle.scene.pbRecall(0)
 			battle.scene.pbRecall(2)
 			pbMessage("\\rYou reached the exit! Well played!")
 			battle.decision=3
-		end
-		#pbMessage("\\f"+$game_variables[55].to_s+"You are here.\\wt[60]")			
+		end		
 		cmd= battle.pbShowCommands("Which direction are you chosing?",pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]])
-		battle.scene.disappearsprite
 		move=pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]][cmd]	#direction chosen
+		battle.scene.disappearsprite([base,imageup,imageright,imagedown,imageleft,ex])
 		$game_variables[55]=movement(move,$game_variables[55])	#changing coord
 		pbSEPlay("Door exit")
 		if $game_switches[77]

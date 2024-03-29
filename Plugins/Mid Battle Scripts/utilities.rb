@@ -93,7 +93,13 @@ class Battle::Scene
     unfadeAnim.dispose
   end
   
-  def disappearsprite
+  def disappearsprite(spritenames)
+	pbAddSprite("bob",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[0],@viewport)
+	pbAddSprite("bob2",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[1],@viewport)
+	pbAddSprite("bob3",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[2],@viewport)
+	pbAddSprite("bob4",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[3],@viewport)
+	pbAddSprite("bob5",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[4],@viewport)
+    pbAddSprite("bob6",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[5],@viewport)
     unfadeAnim = SpriteDisappearAnimation.new(@sprites,@viewport,@battle.battlers.length)
     @animations.push(unfadeAnim)
     loop do
@@ -155,12 +161,6 @@ class SpriteAppearAnimation < Battle::Scene::Animation
     topBar6.setOpacity(0,255)
     topBar6.setXY(0,Graphics.width,0)
     topBar6.moveXY(delay,10,(Graphics.width-toMoveTop2),0)
-    for i in 0...@battlers
-      if @sprites["dataBox_#{i}"]
-        boxes[i]= addSprite(@sprites["dataBox_#{i}"])
-        boxes[i].moveOpacity(delay,5,0)
-      end
-    end
   end
 end
 
@@ -173,38 +173,28 @@ class SpriteDisappearAnimation < Battle::Scene::Animation
   def createProcesses
     delay = 10
     boxes = []
+    toMoveTop = [@sprites["bob"].bitmap.width,Graphics.width].max
     topBar = addSprite(@sprites["bob"],PictureOrigin::TOP_LEFT)
-    topBar.setZ(0,200)
-    topBar = addSprite(@sprites["bob2"],PictureOrigin::TOP_LEFT)
-    topBar.setZ(0,200)
-	  topBar = addSprite(@sprites["bob3"],PictureOrigin::TOP_LEFT)
-    topBar.setZ(0,200)
-	  topBar = addSprite(@sprites["bob4"],PictureOrigin::TOP_LEFT)
-    topBar.setZ(0,200)
-	  topBar = addSprite(@sprites["bob5"],PictureOrigin::TOP_LEFT)
-    topBar.setZ(0,200)
-    topBar.setZ(0,200)
-    topBar = addSprite(@sprites["bob6"],PictureOrigin::TOP_LEFT)
-    topBar.moveOpacity(delay,8,0)
-    topBar.moveOpacity(delay,8,0)
-    for i in 0...@battlers
-      if @sprites["dataBox_#{i}"]
-        boxes[i]= addSprite(@sprites["dataBox_#{i}"])
-        boxes[i].setOpacity(0,0)
-        boxes[i].moveOpacity(delay,5,255)
-      end
-    end
-    topBar.setXY(delay+5,Graphics.width,0)
-  end
+    topBar.setOpacity(0,0)
+	
+	toMoveTop2 = [@sprites["bob2"].bitmap.width,Graphics.width].max
+    topBar2 = addSprite(@sprites["bob2"],PictureOrigin::TOP_LEFT)
+    topBar2.setOpacity(0,0)
+	
+	toMoveTop3 = [@sprites["bob3"].bitmap.width,Graphics.width].max
+    topBar3 = addSprite(@sprites["bob3"],PictureOrigin::TOP_LEFT)
+    topBar3.setOpacity(0,0)
+	
+	toMoveTop4 = [@sprites["bob4"].bitmap.width,Graphics.width].max
+    topBar4 = addSprite(@sprites["bob4"],PictureOrigin::TOP_LEFT)
+    topBar4.setOpacity(0,0)
+	
+	toMoveTop5 = [@sprites["bob5"].bitmap.width,Graphics.width].max
+    topBar5 = addSprite(@sprites["bob5"],PictureOrigin::TOP_LEFT)
+    topBar5.setOpacity(0,0)
 
-  def disappearsprite
-    unfadeAnim = SpriteDisappearAnimation.new(@sprites,@viewport,@battle.battlers.length)
-    @animations.push(unfadeAnim)
-    loop do
-      unfadeAnim.update
-      pbUpdate
-      break if unfadeAnim.animDone?
-    end
-    unfadeAnim.dispose
+	toMoveTop6 = [@sprites["bob6"].bitmap.width,Graphics.width].max
+	topBar6 = addSprite(@sprites["bob6"],PictureOrigin::TOP_LEFT)
+	topBar6.setOpacity(0,0)
   end
 end
