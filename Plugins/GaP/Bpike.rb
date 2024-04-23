@@ -148,7 +148,7 @@ end
 def randomstatus
 	r=rand(100)
 	if r<35	#poison 35%
-		for pkmn in $player.party
+		for pkmn in $player.party do
 			if pkmn.canInflictStatus?(:POISON)
 				if rand(100)<35
 					pkmn.inflictStatus(:POISON,1)
@@ -157,9 +157,9 @@ def randomstatus
 		end
 		pbFlash(Color.new(204, 0, 255, 255), 20)
 		pbSEPlay("PRSFX- Toxic1")
-		pbMessage("Dusclops used Toxic!")
+		# pbMessage("Dusclops used Toxic!")
 	elsif r<60 #paralysis 25%
-		for pkmn in $player.party
+		for pkmn in $player.party do
 			if pkmn.canInflictStatus?(:PARALYSIS)
 				if rand(100)<35
 					pkmn.inflictStatus(:PARALYSIS)
@@ -168,9 +168,9 @@ def randomstatus
 		end
 		pbFlash(Color.new(255, 255, 0, 255), 20)
 		pbSEPlay("PRSFX- Thunder Wave")
-		pbMessage("Dusclops used Thunder Wave!")
+		# pbMessage("Dusclops used Thunder Wave!")
 	elsif r<80 #burn 20%
-		for pkmn in $player.party
+		for pkmn in $player.party do
 			if pkmn.canInflictStatus?(:BURN)
 				if rand(100)<20
 					pkmn.inflictStatus(:BURN)
@@ -179,9 +179,9 @@ def randomstatus
 		end
 		pbFlash(Color.new(255, 0, 0, 255), 20)
 		pbSEPlay("PRSFX- Will O Wisp2")
-		pbMessage("Dusclops used Will-o-Wisp!")
+		# pbMessage("Dusclops used Will-o-Wisp!")
 	elsif r<90 #Sleep 10%
-		for pkmn in $player.party
+		for pkmn in $player.party do
 			if pkmn.canInflictStatus?(:SLEEP)
 				if rand(100)<15
 					pkmn.inflictStatus(:SLEEP)
@@ -191,9 +191,9 @@ def randomstatus
 		end
 		pbFlash(Color.new(255, 0, 255, 255), 20)
 		pbSEPlay("PRSFX- Hypnosis")
-		pbMessage("Dusclops used Hypnosis!\se[PRSFX- Hypnosis]")
+		# pbMessage("Dusclops used Hypnosis!")
 	else #Freeze 10%
-		for pkmn in $player.party
+		for pkmn in $player.party do
 			if pkmn.canInflictStatus?(:FREEZE)
 				if rand(100)<10
 					pkmn.inflictStatus(:FREEZE)
@@ -202,8 +202,8 @@ def randomstatus
 		end
 		pbFlash(Color.new(0, 204, 255, 255), 20)
 		pbSEPlay("PRSFX- Ice Beam")
-		pbMessage("Dusclops used Ice Beam!")
-	end	
+		# pbMessage("Dusclops used Ice Beam!")
+	end
 end
 
 def gettmlist
@@ -390,6 +390,7 @@ def getreward(type=nil,item=nil,qty=1)
 		pk.level=$player.party[0].level
 		pbAddPokemon(pk)
 	else
+		echoln(type)
 		pbItemBall(:PPUP,qty)
 	end
 end
@@ -495,24 +496,27 @@ end
 
 def pkmnmerchant
 	cmd=10
-	cmd= pbMessage("\\GDo you want to buy one of my Pokémons?",["Porygon 1000$","Dratini 3000$","Dreepy 3000$","Grookey 5000$","Honedge 2000$","Dracozolt 3000$","Hawlucha 3000$","Lucario 5000$","Beldum 3000$","Leave"],10,nil,0)
+	cmd= pbMessage("\\GDo you want to buy one of my Pokémons?",["Porygon 2000$","Dratini 10000$","Dreepy 7000$","Grookey 5000$","Honedge 5000$","Dracozolt 7000$","Hawlucha 5000$","Lucario 10000$","Beldum 5000$","Leave"],10,nil,0)
 	if cmd==0
-		if $player.money>=1000
+		if $player.money>=2000
 			pbAddPokemon(:PORYGON,$player.party[0].level)
+			$player.money-=2000
 		else
 			pbMessage("You don't have enough money.")
 		end
 	elsif cmd==1
-		if $player.money>=3000
+		if $player.money>=10000
 			pkmn = Pokemon.new(:DRATINI,$player.party[0].level)
 			pkmn.ability_index=2
+			$player.money-=10000
 			pbAddPokemon(pkmn)
 		else
 			pbMessage("You don't have enough money.")
 		end
 	elsif cmd==2
-		if $player.money>=3000
+		if $player.money>=7000
 			pbAddPokemon(:DREEPY,$player.party[0].level)
+			$player.money-=7000
 		else
 			pbMessage("You don't have enough money.")
 		end
@@ -522,18 +526,21 @@ def pkmnmerchant
 			pkmn.learn_move(:GRASSYGLIDE)
 			pkmn.ability_index=2
 			pbAddPokemon(pkmn)
+			$player.money-=5000
 		else
 			pbMessage("You don't have enough money.")
 		end
 	elsif cmd==4
-		if $player.money>=3000
+		if $player.money>=5000
 			pbAddPokemon(:HONEDGE,$player.party[0].level)
+			$player.money-=5000
 		else
 			pbMessage("You don't have enough money.")
 		end
 	elsif cmd==5
-		if $player.money>=5000
+		if $player.money>=7000
 			pbAddPokemon(:DRACOZOLT,$player.party[0].level)
+			$player.money-=7000
 		else
 			pbMessage("You don't have enough money.")
 		end
@@ -542,18 +549,21 @@ def pkmnmerchant
 			pkmn = Pokemon.new(:HAWLUCHA,$player.party[0].level)
 			pkmn.ability_index=1
 			pbAddPokemon(pkmn)
+			$player.money-=5000
 		else
 			pbMessage("You don't have enough money.")
 		end
 	elsif cmd==7
-		if $player.money>=5000
+		if $player.money>=10000
 			pbAddPokemon(:LUCARIO,$player.party[0].level)
+			$player.money-=10000
 		else
 			pbMessage("You don't have enough money.")
 		end
 	elsif cmd==8
-		if $player.money>=2000
+		if $player.money>=5000
 			pbAddPokemon(:BELDUM,$player.party[0].level)
+			$player.money-=5000
 		else
 			pbMessage("You don't have enough money.")
 		end

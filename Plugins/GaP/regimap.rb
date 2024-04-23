@@ -1,32 +1,3 @@
-def curchoices(coord,schema) #obsolete
-	u="Up"
-	r="Right"
-	l="Left"
-	d="Down"
-	if schema==0
-		map=[[[d,r],[l,r],[l,r,d],[l,r,d],[l]],
-		[[u,r],[r,l,d],[u,l,r],[u,l,r],[l,d]],
-		[[r],[l,r,u],[l,r,d],[r,l],[l,u,d]],
-		[[d,r],[r,l],[r,l,u],[l,d],[u,d]],
-		[[u,r],[l,r],["exit"],[l,u,r],[l,u]]]
-	elsif schema==1
-		map=[[[],[r],[l,r,d],[l],[]],
-		[[r,d],[r,l],[u,r,l],[l,r],[l,d]],
-		[[u,r,d],[r,l],[r,l,d],[l,r],[l,u,d]],
-		[[u,r,d],[l,r],[l,u],[d,r],[l,u]],
-		[[u,r],[l,r],["exit"],[l,u],[]]]
-	elsif schema==2
-		map=[[[r,d],[r,l],[r,d,l],[r,l],[l,d]],
-		[[u,r],[l,d],[u],[r,d],[l,u]],
-		[[d,r],[l,u],[],[u,r],[l,d]],
-		[[u,r],[l,d],[],[r,d],[u,l]],
-		[[],[u,r],["exit"],[u,l],[]]]
-	else
-		return([])
-	end		
-	return (map[coord[0]][coord[1]])
-end
-	
 def movement(choice,coord)
 	if choice=="Up"
 		coord[0]-=1
@@ -162,6 +133,7 @@ def createlabyrinth(basemap,bosscoord,exit,percentage)
 	end
 	return(map)
 end
+
 def genmap(size)	
 	map=[]
 	for i in 0...size
@@ -403,4 +375,211 @@ def isdoors(map=pbGet(63)[0],coord=pbGet(55))
 		directions.push("void")
 	end
 	return directions
+end
+
+module NpcType
+	NOTHING = 0
+	HEAL = 1
+	PKMN_SHOP = 2
+	TM_SHOP = 3
+	MOVE_TUTOR = 4
+	IV_UP = 5
+	TERACLOPE = 6
+
+	MAX = 7
+end
+
+module LootType
+	COMMON = "normal"
+	RARE = "rare"
+end
+
+module FuckYouType
+	COOLDUDE = 0
+	PAPYBOB = 1
+end
+
+class Event
+	def fire
+	end
+end
+
+class BossEvent < Event
+end
+
+class MiniBossEvent < Event
+	attr_accessor :regiName
+
+	def initialize(regiName)
+		@regiName = regiName
+	end
+end
+
+class NpcEvent < Event
+	attr_accessor :type
+
+	def initialize(type)
+		@type = type
+	end
+
+	def fire
+		#Display Npc here
+		$game_variables[44] = @type
+	end
+end
+
+class LootEvent < Event
+	def fire
+		#Display Pokeball here
+		$game_switches[84] = true
+	end
+end
+
+class FuckYouEvent < Event
+	attr_accessor :type
+
+	def initialize(type)
+		@type = type
+	end
+
+	def fire
+		#Trigger Battle here
+		$game_switches[85] = true
+		$game_variables[72] = @type
+	end
+end
+
+class ExitEvent < Event
+	def fire
+		#get Pokemon here
+		playerIdx = MathUtils.calcIdx(pbGet(63).size, pbGet(69))
+		getreward(*pbGet(63).rooms[playerIdx].loot)
+	end
+end
+
+class Room
+	attr_accessor :event
+	attr_accessor :isVisited
+	attr_accessor :loot
+	attr_accessor :doors
+	
+	def initialize
+		@event = nil
+		@isVisited = false
+		@loot = nil
+		@doors = ["up", "right", "left", "down"]
+	end
+	
+	def setVisited
+		@isVisited = true
+	end
+	
+	def onEnter
+		if(!@isVisited)
+			echoln(@event)
+			@event.fire()
+		end
+		#TODO
+	end
+	
+	def onExit
+		#TODO
+		$game_variables[44] = NpcType::NOTHING
+		self.setVisited()
+	end
+end
+
+class Labyrinth
+	attr_accessor :size
+	attr_accessor :rooms
+	attr_accessor :exitPos
+	attr_accessor :bossPos
+	
+	def initialize(size)
+		@size = size
+		@exitPos = nil
+		@bossPos = nil
+		@rooms = self.createRooms(size)
+	end
+
+	def createRooms(size)
+		rooms = Array.new(size ** 2) {|r| Room.new}
+
+        bossRoomIdx = rand(0, size ** 2 - 1)
+        @bossPos = MathUtils.calcCoords(size, bossRoomIdx)
+
+		begin	
+			exitRoomIdx = rand(0, size ** 2 - 1)
+			@exitPos = MathUtils.calcCoords(size, exitRoomIdx)
+		end while ((@bossPos[0] - @exitPos[0]).abs + (@bossPos[1] - @exitPos[1]).abs < 3)
+
+        echoln(@bossPos)
+        echoln(@exitPos)
+        echoln("")
+
+		rooms.each do |r|
+			case rand(0, 100)
+			when 0..10
+				r.event = NpcEvent.new(rand(0, NpcType::MAX))
+			when 11..60
+				r.loot = (rand(0, 100) <= 10) ? genreward(LootType::RARE) : genreward(LootType::COMMON)
+			  r.event = LootEvent.new
+			else
+				r.loot = (rand(0, 100) <= 20) ? genreward(LootType::RARE) : genreward(LootType::COMMON)
+			r.event = FuckYouEvent.new((rand(0, 100) <= 10) ? FuckYouType::PAPYBOB : FuckYouType::COOLDUDE)
+			end
+		end
+
+		rooms[bossRoomIdx].event = BossEvent.new
+		rooms[exitRoomIdx].event = ExitEvent.new
+		rooms[exitRoomIdx].loot = ["pokemon", nil, -1]
+
+		# regirock regice registeel regieleki regidrago
+
+		begin
+			regirockRoomIdx = rand(0, size ** 2 - 1)
+		end while (regirockRoomIdx == bossRoomIdx || regirockRoomIdx == exitRoomIdx)
+		rooms[regirockRoomIdx].event = MiniBossEvent.new(:REGIROCK)
+		echoln(MathUtils.calcCoords(size, regirockRoomIdx))
+
+		begin
+			regiceRoomIdx = rand(0, size ** 2 - 1)
+		end while (regiceRoomIdx == bossRoomIdx || regiceRoomIdx == exitRoomIdx || regiceRoomIdx == regirockRoomIdx)
+		rooms[regiceRoomIdx].event = MiniBossEvent.new(:REGICE)
+		echoln(MathUtils.calcCoords(size, regiceRoomIdx))
+
+		begin
+			registeelRoomIdx = rand(0, size ** 2 - 1)
+		end while (registeelRoomIdx == bossRoomIdx || registeelRoomIdx == exitRoomIdx || registeelRoomIdx == regirockRoomIdx || registeelRoomIdx == regiceRoomIdx)
+		rooms[registeelRoomIdx].event = MiniBossEvent.new(:REGISTEEL)
+		echoln(MathUtils.calcCoords(size, registeelRoomIdx))
+
+		begin
+			regielekiRoomIdx = rand(0, size ** 2 - 1)
+		end while (regielekiRoomIdx == bossRoomIdx || regielekiRoomIdx == exitRoomIdx || regielekiRoomIdx == regirockRoomIdx || regielekiRoomIdx == regiceRoomIdx || regielekiRoomIdx == registeelRoomIdx)
+		rooms[regielekiRoomIdx].event = MiniBossEvent.new(:REGIELEKI)
+		echoln(MathUtils.calcCoords(size, regielekiRoomIdx))
+
+		begin
+			regidragoRoomIdx = rand(0, size ** 2 - 1)
+		end while (regidragoRoomIdx == bossRoomIdx || regidragoRoomIdx == exitRoomIdx || regidragoRoomIdx == regirockRoomIdx || regidragoRoomIdx == regiceRoomIdx || regidragoRoomIdx == registeelRoomIdx || regidragoRoomIdx == regielekiRoomIdx)
+		rooms[regidragoRoomIdx].event = MiniBossEvent.new(:REGIDRAGO)
+		echoln(MathUtils.calcCoords(size, regidragoRoomIdx))
+
+		echoln("")
+
+		# LES PORTES MON GARS
+
+        return rooms
+	end
+end
+
+class MathUtils
+	def self.calcCoords(size, idx)
+        return [idx % size, idx / size]
+	end
+
+	def self.calcIdx(size, coords)
+		return coords[0] + coords[1] * size
+	end
 end
