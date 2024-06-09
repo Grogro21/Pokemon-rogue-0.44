@@ -7,15 +7,15 @@
 #------------------------------------------------------------------------------#
 WELCOME_MESSAGE = _INTL("Hiya! I'm taking suggestions for what to sell in my shop!")
 DEFAULT_MART = [:POTION]
-BLACKLIST = [:MASTERBALL]
-RECMART=80
+BLACKLIST = [:MASTERBALL, :REDORB, :POKEBALL]
+RECMART = 80
 
 def recMart
-  $game_variables[RECMART]=DEFAULT_MART if $game_variables[RECMART]==0
-  $RecArray=$game_variables[RECMART]
-  $RecArray = DEFAULT_MART if pbGet(RECMART)==0
+  $game_variables[RECMART] = DEFAULT_MART if $game_variables[RECMART] == 0
+  $RecArray = $game_variables[RECMART]
+  $RecArray = DEFAULT_MART if pbGet(RECMART) == 0
   commands = []
-  cmdBuy  = -1
+  cmdBuy = -1
   cmdRecommend = -1
   cmdRemove = -1
   cmdQuit = -1
@@ -33,24 +33,24 @@ def recMart
         screen.pbBuyScreen
       end
     elsif cmdRecommend >= 0 && cmd == cmdRecommend
-	 if $game_variables[60]>=2
-		pbMessage(_INTL("I can't invest right now."))
-	 else
-      pbMessage(_INTL("Okay! What would you like to unlock?"))
-      recItem = pbChooseItem
-      if recItem == nil
-        pbMessage(_INTL("Come again!"))
-	  else
-		itemdata = GameData::Item.get(recItem)
-		if itemdata.is_key_item? || itemdata.price == 0 || BLACKLIST.include?(recItem) || $RecArray.include?(recItem)
-			pbMessage(_INTL("I'm sorry. I can't sell that item in my shop."))
-		else
-			pbMessage(_INTL("A {1}? Good choice! I'll add it to my list!", itemdata.name))
-			$game_variables[60] += 1
-			$game_variables[RECMART].push(recItem)
-		end
-	  end
-	 end
+      if $game_variables[60] >= 2
+        pbMessage(_INTL("I can't invest right now."))
+      else
+        pbMessage(_INTL("Okay! What would you like to unlock?"))
+        recItem = pbChooseItem
+        if recItem == nil
+          pbMessage(_INTL("Come again!"))
+        else
+          itemdata = GameData::Item.get(recItem)
+          if itemdata.is_key_item? || itemdata.price == 0 || BLACKLIST.include?(recItem) || $RecArray.include?(recItem)
+            pbMessage(_INTL("I'm sorry. I can't sell that item in my shop."))
+          else
+            pbMessage(_INTL("A {1}? Good choice! I'll add it to my list!", itemdata.name))
+            $game_variables[60] += 1
+            $game_variables[RECMART].push(recItem)
+          end
+        end
+      end
     else
       pbMessage(_INTL("Have a good day!"))
       break

@@ -367,26 +367,7 @@ def getreward(type=nil,item=nil,qty=1)
 			pbItemBall(mint.sample)
 		end
 	elsif type=="secret"
-		if $game_variables[45]<=4
-			tier=["PU","PU","NU","NU","RU","UU"]
-			order=tier.shuffle()
-		elsif $game_variables[45]==5
-			tier=["NU","NU","NU","RU","RU","UU"]
-			order=tier.shuffle()
-		elsif $game_variables[45]==6
-			tier=["RU","RU","RU","RU","UU","UU"]
-			order=tier.shuffle()
-		elsif $game_variables[45]==7
-			tier=["RU","RU","RU","UU","UU","OU"]
-			order=tier.shuffle()
-		elsif $game_variables[45]==8
-			tier=["RU","UU","UU","UU","OU","OU"]
-			order=tier.shuffle()
-		else $game_variables[45]==9
-			tier=["UU","UU","UU","OU","OU","OU"]
-			order=tier.shuffle()
-		end
-		pk=genrandpkmn("Data/Rand_trainer/"+order[0]+".txt")
+		pk=genrandpkmn("Data/Rand_trainer/OU.txt")
 		pk.level=$player.party[0].level
 		pbAddPokemon(pk)
 	else

@@ -57,19 +57,20 @@ class Battle
       @decision=1 #win if the opponent has 0 pkmn left
     end
 	end
-end
 
-def throwitem(pkmn)
-	list=[:STICKYBARB,:IRONBALL,:CHOICEBAND,:CHOICESCARF,:CHOICESPECS,:BLACKSLUDGE,:EJECTBUTTON,:FLAMEORB,:TOXICORB,:FULLINCENSE,:LAGGINGTAIL,:MACHOBRACE,:RINGTARGET,:LEFTOVERS]
-	if pkmn.item!=nil
-		if list.include?(pkmn.item.id)
-			pbLowerHP(pkmn,8)
-		end
-	end
-	choice=list.sample
 
-	pkmn.item=choice
-	return choice
+  def throwitem(pkmn)
+	  list=[:STICKYBARB,:IRONBALL,:CHOICEBAND,:CHOICESCARF,:CHOICESPECS,:BLACKSLUDGE,:EJECTBUTTON,:FLAMEORB,:TOXICORB,:FULLINCENSE,:LAGGINGTAIL,:MACHOBRACE,:RINGTARGET,:LEFTOVERS]
+	  if pkmn.item!=nil
+      if list.include?(pkmn.item.id)
+        pbLowerHP(pkmn,8)
+      end
+    end
+    choice=list.sample
+
+    pkmn.item=choice
+    return choice
+    end
 end
 
 

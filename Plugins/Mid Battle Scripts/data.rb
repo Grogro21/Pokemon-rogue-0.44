@@ -107,13 +107,13 @@ module DialogueModule
 					    if !battle.battlers[1].fainted?
 							pbMessage("\\bTake this, thief!")
 							battle.pbAnimation(:FLING,battle.battlers[1],battle.battlers[0])
-							choice=throwitem(battle.battlers[0])
+							choice=battle.throwitem(battle.battlers[0])
 							pbMessage(_INTL("Kecleon threw a {1} at your {2}!",battle.battlers[0].item.name,battle.battlers[0].name))
 							battle.scene.disappearBar
 						else
 							pbMessage("\\bTake this, thief!")
 							battle.pbAnimation(:FLING,battle.battlers[1],battle.battlers[2])
-							choice=throwitem(battle.battlers[2])
+							choice=battle.throwitem(battle.battlers[2])
 							pbMessage(_INTL("Kecleon threw a {1} at your {2}!",battle.battlers[2].item.name,battle.battlers[2].name))
 							battle.scene.disappearBar
 						end
@@ -129,13 +129,13 @@ module DialogueModule
 						if !battle.battlers[2].fainted? 
 							pbMessage("\\bTake this, thief!")
 							battle.pbAnimation(:FLING,battle.battlers[3],battle.battlers[2])
-							choice=throwitem(battle.battlers[2])
+							choice=battle.throwitem(battle.battlers[2])
 							pbMessage(_INTL("Kecleon threw a {1} at your {2}!",battle.battlers[2].item.name,battle.battlers[2].name))
 							battle.scene.disappearBar
 						else
 							pbMessage("\\bTake this, thief!")
 							battle.pbAnimation(:FLING,battle.battlers[3],battle.battlers[0])
-							choice=throwitem(battle.battlers[0])
+							choice=battle.throwitem(battle.battlers[0])
 							pbMessage(_INTL("Kecleon threw a {1} at your {2}!",battle.battlers[0].item.name,battle.battlers[0].name))
 							battle.scene.disappearBar
 						end
@@ -948,7 +948,6 @@ battle.decision=1
 		pbMessage("Pointed rocks are scattered everywhere!")
 		pbWait(1)
 		pbMessage("\\rThe guardian looks too strong for you... You better run!")
-		$game_variables[56]=rand(3)   #layout version
 		$game_variables[57]=nil
 		$PokemonTemp.excludedialogue=[3]  #exclude summoned mons from lowlife dialogues
 		for i in 0...50
@@ -978,83 +977,74 @@ battle.decision=1
 				battle.pbLowerHP(battle.battlers[2],4)
 			end
 		end
-	}
-	
-	Choiceroom=Proc.new{|battle|
-	echoln(pbGet(55))
-	b=baseimage1(pbGet(64)[pbGet(55)[0]][pbGet(55)[1]])
-	base=b[0]
-	ex=b[1]
-	if !pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]].include?("Left")
-		imageleft="left"
-	else
-		imageleft="void"
-	end
-	if !pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]].include?("Up")
-		imageup="up"
-	else
-		imageup="void"
-	end
-	if !pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]].include?("Right")
-		imageright="right"
-	else
-		imageright="void"
-	end
-	if !pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]].include?("Down")
-		imagedown="down"
-	else
-		imagedown="void"
-	end
-	if ex!="exit"
-		ex="void"
-	end
-	echoln([base,imageup,imageright,imagedown,imageleft,ex])
-	battle.scene.appearsprite([base,imageup,imageright,imagedown,imageleft,ex])
-		if $game_variables[55].include?("exit")
+		playerIdx = MathUtils.calcIdx(pbGet(63).size, pbGet(69))
+		room = pbGet(63).rooms[playerIdx]
+		ex = room.getImage()[1]
+		if ex == "exit"
 			battle.scene.pbRecall(0)
 			battle.scene.pbRecall(2)
 			pbMessage("\\rYou reached the exit! Well played!")
-			battle.decision=3
-		end		
-		cmd= battle.pbShowCommands("Which direction are you chosing?",pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]])
-		move=pbGet(63)[0][pbGet(55)[0]][pbGet(55)[1]][cmd]	#direction chosen
-		battle.scene.disappearsprite([base,imageup,imageright,imagedown,imageleft,ex])
-		$game_variables[55]=movement(move,$game_variables[55])	#changing coord
+			battle.decision = 3
+		end
+
+		
+	}
+	
+	Choiceroom=Proc.new{|battle|
+		playerIdx = MathUtils.calcIdx(pbGet(63).size, pbGet(69))
+		room = pbGet(63).rooms[playerIdx]
+		directions = room.doors
+		b = room.getImage()
+		base = b[0]
+		ex = b[1]
+		imageleft = !directions.include?("left") ? "left" : "void"
+		imageup = !directions.include?("up") ? "up" : "void"
+		imageright = !directions.include?("right") ? "right" : "void"
+		imagedown = !directions.include?("down") ? "down" : "void"
+
+		battle.scene.appearsprite([base, imageup, imageright, imagedown, imageleft, ex])
+		cmd = battle.pbShowCommands("Which direction are you chosing?", directions)
+		move = directions[cmd] #direction chosen
+		battle.scene.disappearsprite([base, imageup, imageright, imagedown, imageleft, ex])
+
+		$game_variables[69]=movement(move, $game_variables[69]) #changing coord
 		pbSEPlay("Door exit")
 		if $game_switches[77]
 			pbMessage("Regigigas is throwing his rock!")
-			if move==$game_variables[57]
-				battle.pbAnimation(:ROCKTHROW,battle.battlers[3],battle.battlers[0])
-				battle.pbLowerHP(battle.battlers[0],2)
-				battle.pbLowerHP(battle.battlers[2],2)
+			if move == $game_variables[57]
+				battle.pbAnimation(:ROCKTHROW, battle.battlers[3], battle.battlers[0])
+				battle.pbLowerHP(battle.battlers[0], 2)
+				battle.pbLowerHP(battle.battlers[2], 2)
 			else
-			pbMessage("But it missed!")
+				pbMessage("But it missed!")
 			end
-			$game_switches[77]=false
+			$game_switches[77] = false
 		end
-		$game_variables[57]=move
+		$game_variables[57] = move
 		if battle.battlers[3]!=nil
-		  if battle.turnCount.remainder(3)==0 && !battle.battlers[3].fainted?
-			pbMessage("\\bINITIATING SELF-DESTRUCT PROTOCOL!")
-			battle.pbAnimation(:EXPLOSION,battle.battlers[3],battle.battlers[0])
-			battle.pbLowerHP(battle.battlers[3],1)
-			battle.pbLowerHP(battle.battlers[2],1.5)
-			battle.pbLowerHP(battle.battlers[0],1.5)
-		  end
+			if !battle.battlers[3].fainted?
+				if battle.turnCount.remainder(3) == 0 && !battle.battlers[3].fainted?
+					pbMessage("\\bINITIATING SELF-DESTRUCT PROTOCOL!")
+					battle.pbAnimation(:EXPLOSION, battle.battlers[3], battle.battlers[0])
+					battle.pbLowerHP(battle.battlers[3], 1)
+					battle.pbLowerHP(battle.battlers[2], 1.5)
+					battle.pbLowerHP(battle.battlers[0], 1.5)
+				end
+			end
 		end
 	}
 
 ###############Mewtwo############################################################
-Mewtwoinit=Proc.new{|battle|
+Mewtwoinit = Proc.new{|battle|
 		battle.battlers[0].effects[PBEffects::BossProtect] = true
 		battle.battlers[0].effects[PBEffects::Midhp] = true
 		battle.battlers[0].effects[PBEffects::MagnetRise] = 50
 		pbMessage("You are levitating!")
 		for i in 0...50
-			if rand(100)<20
-				BattleScripting.setInScript("turnEnd#{i}",:MewtwoRockthrow)
+			if rand(100) < 20
+				BattleScripting.setInScript("turnEnd#{i}", :MewtwoRockthrow)
 			else
-				BattleScripting.setInScript("turnEnd#{i}",:MewtwoPsywave)
+				BattleScripting.setInScript("turnEnd#{i}", :MewtwoPsywave)
 			end
 		end		
 	}

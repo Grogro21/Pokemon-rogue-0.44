@@ -473,18 +473,8 @@ end
 # All current battlers will perish after 3 more rounds. (Perish Song)
 #===============================================================================
 class Battle::Move::StartPerishCountsForAllBattlers < Battle::Move
-  def pbMoveFailed?(user, targets)
-    failed = true
-    targets.each do |b|
-      next if b.effects[PBEffects::PerishSong] > 0   # Heard it before
-      failed = false
-      break
-    end
-    if failed || targets.effects[PBEffects::BossProtect] #boss
-      @battle.pbDisplay(_INTL("But it failed!"))
-      return true
-    end
-    return false
+  def pbFailsAgainstTarget?(user, target, show_message)
+    return target.effects[PBEffects::PerishSong] > 0 || target.effects[PBEffects::BossProtect]  # Heard it before
   end
 end
 
