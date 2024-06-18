@@ -460,6 +460,9 @@ class Room
     end
 
     def onEnter
+        if @event.instance_of? ExitEvent
+            pbMapInterpreter.pbSetSelfSwitch(8, "A", true)
+        end
         unless @isVisited
             @event.fire()
             unless @event.instance_of? ExitEvent
@@ -473,6 +476,7 @@ class Room
     end
 
     def onExit
+        pbMapInterpreter.pbSetSelfSwitch(8, "A", false)
         $game_variables[44] = NpcType::NOTHING
         self.setVisited()
     end
@@ -508,55 +512,67 @@ class Labyrinth
         @size = size
         @exitPos = nil
         @bossPos = nil
-        @rooms = self.createRooms(size)
+        begin
+            @rooms = self.createRooms(size)
+            $game_variables[69] = @exitPos
+        end until self.isValid?
     end
 
-    def camefrom(movemap, choice, coord)
-        if choice == "up" && !movemap[coord[0]][coord[1]].include?("down")
-            movemap[coord[0]][coord[1]].push("down")
-        elsif choice == "down" && !movemap[coord[0]][coord[1]].include?("up")
-            movemap[coord[0]][coord[1]].push("up")
-        elsif choice == "left" && !movemap[coord[0]][coord[1]].include?("right")
-            movemap[coord[0]][coord[1]].push("right")
-        elsif choice == "right" && !movemap[coord[0]][coord[1]].include?("left")
-            movemap[coord[0]][coord[1]].push("left")
+    def cameFrom(moveMap, choice, coord)
+        case
+        when choice == "up" && !moveMap[coord[0]][coord[1]].include?("down")
+            moveMap[coord[0]][coord[1]].push("down")
+        when choice == "down" && !moveMap[coord[0]][coord[1]].include?("up")
+            moveMap[coord[0]][coord[1]].push("up")
+        when choice == "left" && !moveMap[coord[0]][coord[1]].include?("right")
+            moveMap[coord[0]][coord[1]].push("right")
+        when choice == "right" && !moveMap[coord[0]][coord[1]].include?("left")
+            moveMap[coord[0]][coord[1]].push("left")
+        else
+            echoln("mon uq!")
         end
-        return movemap
+
+        return moveMap
     end
 
-    def chosedir(map, coord, movemap)
-        for dir in rooms[linecoord].doors
-            if !movemap[coord[0]][coord[1]].include?(dir)
-                movemap[coord[0]][coord[1]].push(dir)
+    def choseDir(coord, moveMap)
+        lineCoord = MathUtils.calcIdx(@size, coord)
+
+        rooms[lineCoord].doors.each { |dir|
+            if !moveMap[coord[0]][coord[1]].include?(dir)
+                moveMap[coord[0]][coord[1]].push(dir)
+
                 return dir
             end
-        end
-        return(rooms[self.calcIdx(@size, coord)].doors.sample)
+        }
+
+        return rooms[lineCoord].doors.sample
     end
 
     def isValid?()
-        testlab = self.copy
-        coord = @exitPos
-        boss = @bossPos
+        coord = @exitPos.dup
+        boss = @bossPos.dup
         movemap = []
-        for i in 0...map.length
+        (0...@size).each { |i|
             movemap.push([])
-            for j in 0...map[0].length
+            (0...@size).each { |j|
                 movemap[i].push([])
-            end
-        end
-        linecoord = self.calcIdx(@size, coord)
+            }
+        }
+
         i = 0
-        while (i <= consigne && coord[0] != boss[0] && coord[1] != boss[1])
-            choice = chosedir(map, coord, movemap)
-            if !movemap[coord[0]][coord[1]].include?(choice)
+        maxMove = 50
+        while i <= maxMove && coord[0] != boss[0] && coord[1] != boss[1]
+            choice = choseDir(coord, movemap)
+            unless movemap[coord[0]][coord[1]].include?(choice)
                 movemap[coord[0]][coord[1]].push(choice)
             end
             coord = movement(choice, coord)
-            movemap = camefrom(movemap, choice, coord)
+            movemap = cameFrom(movemap, choice, coord)
             i += 1
         end
-        return i < 50
+
+        return i <= maxMove
     end
 
     def createRooms(size)
@@ -585,7 +601,7 @@ class Labyrinth
 
         # LES PORTES MON GARS
 
-        for i in (0..size ** 2 - 1)
+        (0..size ** 2 - 1).each { |i|
             if MathUtils.isEdge(size, i)
                 coords = MathUtils.calcCoords(size, i)
                 if coords[0] == 0
@@ -615,9 +631,9 @@ class Labyrinth
             if door[3] == 1
                 rooms[i].doors -= ["up"]
             end
-        end
+        }
 
-        for i in (1..size ** 2 - 1)
+        (1..size ** 2 - 1).each { |i|
             coords = MathUtils.calcCoords(size, i)
 
             if coords[0] > 0 && rooms[MathUtils.calcIdx(size, [coords[0] - 1, coords[1]])].doors.include?("right") && !rooms[i].doors.include?("left")
@@ -632,14 +648,14 @@ class Labyrinth
             if coords[1] < size - 1 && rooms[MathUtils.calcIdx(size, [coords[0], coords[1] + 1])].doors.include?("down") && !rooms[i].doors.include?("up")
                 rooms[i].doors += ["up"]
             end
-        end
+        }
 
-        for i in (1..size ** 2 - 1)
+        (1..size ** 2 - 1).each { |i|
             if rooms[i].doors == []
                 rooms[i].event = LootEvent.new
                 rooms[i].loot = genreward(LootType::SECRET)
             end
-        end
+        }
 
         rooms[bossRoomIdx].event = BossEvent.new(:REGIGIGAS)
         rooms[exitRoomIdx].event = ExitEvent.new
@@ -693,16 +709,18 @@ class MathUtils
 end
 
 def movement(choice, coord)
-    if choice == "up"
+    case choice
+    when "up"
         coord[1] += 1
-    elsif choice == "down"
+    when "down"
         coord[1] -= 1
-    elsif choice == "left"
+    when "left"
         coord[0] -= 1
-    elsif choice == "right"
+    when "right"
         coord[0] += 1
     else
         echoln("invalid choice")
     end
+
     return coord
 end
