@@ -46,3 +46,63 @@ BaseStats = 300,70,90,90,85,85
 FormName = Boss
 BaseStats = 10000,100,110,100,80,110
 #-------------------------------
+[ARCEUS,19]
+FormName = Mega Arceus
+MegaStone = ARCEUSITE
+Types = FIGHTING,FLYING,POISON,GROUND,ROCK,BUG,GHOST,STEEL,QMARKS,FIRE,WATER,GRASS,ELECTRIC,PSYCHIC,ICE,DRAGON,DARK,FAIRY
+BaseStats = 1200,130,130,130,130,130
+BaseExp = 1
+Abilities = CONTRARY
+HiddenAbilities = CONTRARY
+Height = 0
+Weight = 0
+Pokedex = Truite
+#-------------------------------
+[ARCEUS,20]
+FormName = Boss
+Types = NORMAL
+BaseStats = 1000,120,120,120,120,120
+Abilities = STALL
+HiddenAbilities = STALL
+#-------------------------------
+[ARCEUS,21]
+FormName = BossJ1
+Types = NORMAL,ROCK,GROUND,STEEL
+BaseStats = 1000,120,120,120,120,120
+Abilities = STALL
+HiddenAbilities = STALL
+#-------------------------------
+[ARCEUS,22]
+FormName = BossJ2
+Types = NORMAL,ROCK,GROUND,FIRE,FAIRY,ELECTRIC,STEEL
+BaseStats = 1000,120,120,120,120,120
+Abilities = STALL
+HiddenAbilities = STALL
+#-------------------------------
+[ARCEUS,23]
+FormName = BossJ3
+Types = NORMAL,ROCK,GROUND,FIRE,FAIRY,ELECTRIC,STEEL,WATER,ICE
+BaseStats = 1000,120,120,120,120,120
+Abilities = STALL
+HiddenAbilities = STALL
+#-------------------------------
+[ARCEUS,24]
+FormName = BossJ4
+Types = NORMAL,ROCK,GROUND,FIRE,FAIRY,ELECTRIC,STEEL,WATER,ICE,GRASS,BUG,FLYING
+BaseStats = 1000,120,120,120,120,120
+Abilities = STALL
+HiddenAbilities = STALL
+#-------------------------------
+[ARCEUS,25]
+FormName = BossJ5
+Types = NORMAL,ROCK,GROUND,FIRE,FAIRY,ELECTRIC,STEEL,WATER,ICE,GRASS,BUG,FLYING,PSYCHIC,FIGHTING,POISON
+BaseStats = 1000,120,120,120,120,120
+Abilities = STALL
+HiddenAbilities = STALL
+#-------------------------------
+[ARCEUS,26]
+FormName = BossJ6
+Types = NORMAL,ROCK,GROUND,FIRE,FAIRY,ELECTRIC,STEEL,WATER,ICE,GRASS,BUG,FLYING,PSYCHIC,FIGHTING,POISON,GHOST,DARK
+BaseStats = 1000,120,120,120,120,120
+Abilities = STALL
+HiddenAbilities = STALL

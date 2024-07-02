@@ -1,11 +1,8 @@
-Tapu Lele @ Twisted Spoon  
-Ability: Psychic Surge  
-EVs: 252 SpA / 4 SpD / 252 Spe  
-Timid Nature  
-IVs: 0 Atk  
-- Psychic  
-- Psyshock  
-- Moonblast  
-- Focus Blast
-
-
+Rayquaza
+Ability: Contrary
+Shiny: Yes
+Hasty Nature
+- V-create
+- Draco Meteor
+- Superpower
+- Ice Hammer
