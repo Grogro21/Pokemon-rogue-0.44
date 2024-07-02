@@ -4,7 +4,17 @@ Name = Bomb
 NamePlural = Bombs
 Pocket = 1
 Price = 5000
+BPPrice = 10
 FieldUse = Direct
-Flags = Fling_150
+Flags = Fling_300
 Description = An item that destroys walls. High damages if you fling it.
+#-------------------------------
+[ARCEUSITE]
+Name = Arceusite
+NamePlural = Arceusites
+Pocket = 1
+Price = 30000
+BPPrice = 0
+Flags = MegaStone,Fling_80
+Description = One of a variety of mysterious Mega Stones. Have Slowbro hold it, and it will be able to Mega Evolve.
 #-------------------------------

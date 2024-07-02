@@ -706,6 +706,10 @@ def sacreward(bossnumber)
             pkmn.form = 1
             pbAddPokemon(pkmn)
         elsif r < 15
+            unless $game_variables[80].includes?(:SCEPTILITE)
+                $game_variables[80].push(:SCEPTILITE)
+                pbItemBall(:SCEPTILITE, 1)
+            end
             pkmn = Pokemon.new(:SPIRITOMB, 20)
             pbAddPokemon(pkmn)
         elsif r < 35
@@ -729,11 +733,19 @@ def sacreward(bossnumber)
         end
         $bag.remove(itemsymb)
         if rareitem.include?(item.id)
+            unless $game_variables[80].includes?(:SLOWBRONITE)
+                $game_variables[80].push(:SLOWBRONITE)
+                pbItemBall(:SLOWBRONITE, 1)
+            end
             pbMessage("Oh, that's a nice item. You can take those TM's as a reward.")
             pbItemBall(getrandomtm, 1)
             pbItemBall(getrandomtm, 1)
             pbItemBall(getrandomtm, 1)
         elsif item.is_TM? || item.is_TR?
+            unless $game_variables[80].includes?(:TYRANITARITE)
+                $game_variables[80].push(:TYRANITARITE)
+                pbItemBall(:TYRANITARITE, 1)
+            end
             pbMessage("A TM? Hmm... Destruction tool it is!")
             pbItemBall(get_hm, 1)
         elsif commonitem.include?(item.id)

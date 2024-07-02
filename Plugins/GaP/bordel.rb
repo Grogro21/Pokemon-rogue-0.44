@@ -1,3 +1,3 @@
 def test()
-    pbBattlePointShop([:POKEBALL, :LEFTOVERS])
+    pbBattlePointShop([:MEGARING, :BOMB, :ARCEUSITE])
 end

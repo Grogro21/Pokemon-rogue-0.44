@@ -1,2 +1,2 @@
 # Pokemon-rogue-0.44
- pokemon rogue AI game
+A roguelike focused on boss battles. If you want to see what could be done with scripted boss battles, this game is made for you!
