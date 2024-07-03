@@ -1,3 +1,3 @@
 def test()
-    pbBattlePointShop([:MEGARING, :BOMB, :ARCEUSITE])
+    pbBattlePointShop([:MEGARING, :BOMB])
 end
