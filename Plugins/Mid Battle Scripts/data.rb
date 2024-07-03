@@ -1113,13 +1113,14 @@ module DialogueModule
         BattleScripting.setInScript("turnEnd#{1}", :ArceusJ2)
     }
     ArceusJ2 = Proc.new { |battle|
-        battle.scene.appearBar
-        pbMessage("At Day 2 came the light.")
-        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
-        battle.battlers[0].item = :PIXIEPLATE
-        battle.battlers[0].pbChangeForm(22, "")
         battler = battle.battlers[0]
         pkmn = battler.pokemon
+        battle.scene.appearBar
+        battle.pbStartWeather(battler, :Sun)
+        pbMessage("At Day 2 came the light.")
+        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
+        battler.item = :PIXIEPLATE
+        battler.pbChangeForm(22, "")
         pkmn.moves[1] = Pokemon::Move.new(:MOONBLAST) # Replaces current/total PP
         battler.moves[1] = Battle::Move.from_pokemon_move(battle, pkmn.moves[1])
         battle.scene.pbRefresh
@@ -1129,13 +1130,15 @@ module DialogueModule
     }
 
     ArceusJ3 = Proc.new { |battle|
-        battle.scene.appearBar
-        pbMessage("Day 3, too much water.")
-        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
-        battle.battlers[0].item = :SPLASHPLATE
-        battle.battlers[0].pbChangeForm(23, "")
         battler = battle.battlers[0]
         pkmn = battler.pokemon
+        battle.scene.appearBar
+        battle.pbStartWeather(battler, :Rain)
+        pbMessage("Day 3, too much water.")
+        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
+        battler.item = :SPLASHPLATE
+        battler.pbChangeForm(23, "")
+
         pkmn.moves[1] = Pokemon::Move.new(:HYDROPUMP) # Replaces current/total PP
         battler.moves[1] = Battle::Move.from_pokemon_move(battle, pkmn.moves[1])
         battle.scene.pbRefresh
@@ -1146,13 +1149,14 @@ module DialogueModule
     }
 
     ArceusJ4 = Proc.new { |battle|
-        battle.scene.appearBar
-        pbMessage("Day 4, Arceus created life.")
-        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
-        battle.battlers[0].item = :MEADOWPLATE
-        battle.battlers[0].pbChangeForm(24, "")
         battler = battle.battlers[0]
         pkmn = battler.pokemon
+        battle.scene.appearBar
+        battle.pbStartTerrain(battler, :Grassy)
+        pbMessage("Day 4, Arceus created life.")
+        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
+        battler.item = :MEADOWPLATE
+        battler.pbChangeForm(24, "")
         pkmn.moves[1] = Pokemon::Move.new(:ENERGYBALL) # Replaces current/total PP
         battler.moves[1] = Battle::Move.from_pokemon_move(battle, pkmn.moves[1])
         battle.scene.pbRefresh
@@ -1163,12 +1167,13 @@ module DialogueModule
 
     ArceusJ5 = Proc.new { |battle|
         battle.scene.appearBar
-        pbMessage("Day 5, Arceus added mind to matter.")
-        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
-        battle.battlers[0].item = :MINDPLATE
-        battle.battlers[0].pbChangeForm(25, "")
         battler = battle.battlers[0]
         pkmn = battler.pokemon
+        battle.pbStartTerrain(battler, :Psychic)
+        pbMessage("Day 5, Arceus added mind to matter.")
+        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
+        battler.item = :MINDPLATE
+        battler.pbChangeForm(25, "")
         pkmn.moves[1] = Pokemon::Move.new(:FUTURESIGHT) # Replaces current/total PP
         battler.moves[1] = Battle::Move.from_pokemon_move(battle, pkmn.moves[1])
         battle.scene.pbRefresh
@@ -1189,16 +1194,21 @@ module DialogueModule
         battler.moves[1] = Battle::Move.from_pokemon_move(battle, pkmn.moves[1])
         battle.scene.pbRefresh
         pbMessage("Arceus gained Dark and Ghost types!")
+        battle.battler[0].effects[PBEffects::Curse] = true
+        battle.pbAnimation(:CURSE, battle.battlers[1], battle.battlers[0])
         battle.scene.disappearBar
         BattleScripting.setInScript("turnEnd#{6}", :ArceusJ7)
     }
 
     ArceusJ7 = Proc.new { |battle|
+        battler = battle.battlers[0]
         battle.scene.appearBar
         pbMessage("Then he slept during Day 7.")
-        battle.battlers[0].pbSleepSelf(nil, 2)
+        battler.pbSleepSelf(nil, 2)
+        battle.field.terrain = :None
+        pbMessage("The psychic energy vanished.")
         battle.scene.disappearBar
-        battle.battlers[0].pbRecoverHP(battle.battlers[0].totalhp)
+        battler.pbRecoverHP(battler.totalhp)
         BattleScripting.setInScript("turnEnd#{7}", :ArceusP2)
     }
 
@@ -1215,6 +1225,26 @@ module DialogueModule
         battle.scene.pbRefresh
         pbMessage("Arceus gained the Dragon Type. They reached their final form.")
         battle.scene.disappearBar
+
+        BattleScripting.setInScript("turnEnd#{8}", :ArceusP2Buff)
+    }
+
+    ArceusP2Buff = Proc.new { |battle|
+        battler = battle.battlers[0]
+
+        case rand(100)
+        when 0..30
+            if battler.pbCanRaiseStatStage?(:SPEED)
+                battler.pbRaiseStatStage(:SPEED, 2, battler)
+            end
+        when 31..40
+        when 41..60
+        when 61..80
+        else
+            # NOTHING
+        end
+
+        BattleScripting.setInScript("turnEnd#{battle.turnCount + 1}", :ArceusP2Buff)
     }
     ##############Test######################################################
     Lmusic = Proc.new { |battle|
