@@ -249,7 +249,7 @@ def genreward(type, exclude = nil)
                 return(["potions", :MAXPOTION, 1])
             end
         elsif r == "gold"
-            return(["gold", nil, 1000 + $game_variables[36] * 100])
+            return(["gold", nil, 500 + $game_variables[45] * 500])
         elsif r == "item"
             item = [:AIRBALLOON, :BRIGHTPOWDER, :EVIOLITE, :FLOATSTONE, :DESTINYKNOT, :ROCKYHELMET,
                     :ASSAULTVEST, :SAFETYGOGGLES, :PROTECTIVEPADS, :HEAVYDUTYBOOTS, :UTILITYUMBRELLA,
@@ -294,7 +294,7 @@ def genreward(type, exclude = nil)
                     :CHOICESCARF, :CHOICESPECS, :LEFTOVERS, :LIFEORB, :EXPERTBELT, :FOCUSSASH]
             return(["item", item.sample, 1])
         elsif r == "gold"
-            return(["gold", nil, 1000 + $game_variables[36] * 200])
+            return(["gold", nil, 1000 + $game_variables[45] * 1000])
         elsif r == "mint"
             return(["mint", nil, 1])
         elsif r == "hm"
@@ -555,116 +555,53 @@ def pkmnmerchant
     end
 end
 
-def pbChangeLevel(pkmn, new_level)
-    if new_level > pkmn.level
-        # DemICE edit
-        evpool = 80 + pkmn.level * 8
-        evpool = (evpool.div(4)) * 4
-        evpool = 512 if evpool > 512
-        evcap = 40 + pkmn.level * 4
-        evcap = (evcap.div(4)) * 4
-        evcap = 252 if evcap > 252
-        increment = 4 * (new_level - pkmn.level)
-        evsum = pkmn.ev[:HP] + pkmn.ev[:ATTACK] + pkmn.ev[:DEFENSE] + pkmn.ev[:SPECIAL_DEFENSE] + pkmn.ev[:SPEED]
-        evsum += pkmn.ev[:SPECIAL_ATTACK] if Settings::PURIST_MODE
-        evarray = []
-        GameData::Stat.each_main do |s|
-            evarray.push(pkmn.ev[s.id])
-        end
-        if evsum > 0 && evpool > evsum && evarray.max < evcap && evarray.max_nth(2) < evcap
-            GameData::Stat.each_main do |s|
-                if pkmn.ev[s.id] == evarray.max
-                    pkmn.ev[s.id] += increment
-                    pkmn.calc_stats
-                    pkmn.ev[s.id] += increment if pkmn.ev[s.id] < evcap
-                    pkmn.calc_stats
-                end
-            end
-            evsum = pkmn.ev[:HP] + pkmn.ev[:ATTACK] + pkmn.ev[:DEFENSE] + pkmn.ev[:SPECIAL_DEFENSE] + pkmn.ev[:SPEED]
-            evsum += pkmn.ev[:SPECIAL_ATTACK] if Settings::PURIST_MODE
-            evarray = []
-            GameData::Stat.each_main do |s|
-                evarray.push(pkmn.ev[s.id])
-            end
-            if evpool > evsum
-                GameData::Stat.each_main do |s|
-                    if pkmn.ev[s.id] == evarray.max_nth(2)
-                        pkmn.ev[s.id] += increment
-                        pkmn.calc_stats
-                    end
-                end
-            end
-        end
-        # DemICE end
-    elsif new_level < pkmn.level
-        GameData::Stat.each_main do |s|
-            if pkmn.ev[s.id] = 0
-                pkmn.calc_stats
-            end
-        end
-    end
-    new_level = new_level.clamp(1, GameData::GrowthRate.max_level)
+def pbChangeLevelNoScene(pkmn, new_level)
+    new_level = new_level.clamp(1..GameData::GrowthRate.max_level)
+
     if pkmn.level == new_level
         return
     end
+
     old_level = pkmn.level
-    old_total_hp = pkmn.totalhp
-    old_attack = pkmn.attack
-    old_defense = pkmn.defense
-    old_special_attack = pkmn.spatk
-    old_special_defense = pkmn.spdef
-    old_speed = pkmn.speed
     pkmn.level = new_level
     pkmn.calc_stats
-    if old_level > new_level
-        total_hp_diff = pkmn.totalhp - old_total_hp
-        attack_diff = pkmn.attack - old_attack
-        defense_diff = pkmn.defense - old_defense
-        special_attack_diff = pkmn.spatk - old_special_attack
-        special_defense_diff = pkmn.spdef - old_special_defense
-        speed_diff = pkmn.speed - old_speed
+
+    if new_level < pkmn.level
+        GameData::Stat.each_main do |s|
+            pkmn.ev[s.id] = 0
+            pkmn.calc_stats
+        end
     else
-        pkmn.changeHappiness("vitamin")
-        total_hp_diff = pkmn.totalhp - old_total_hp
-        attack_diff = pkmn.attack - old_attack
-        defense_diff = pkmn.defense - old_defense
-        special_attack_diff = pkmn.spatk - old_special_attack
-        special_defense_diff = pkmn.spdef - old_special_defense
-        speed_diff = pkmn.speed - old_speed
-        # Learn new moves upon level up
-        movelist = pkmn.getMoveList
-        movelist.each do |i|
-            next if i[0] <= old_level || i[0] > pkmn.level
-            pbLearnMove(pkmn, i[1], true)
+        GameData::Stat.each_main do |s|
+            pkmn.ev[s.id] += (4 * (pkmn.level - old_level)) if pkmn.ev[s.id] < (40 + pkmn.level * 4).floor(0) && pkmn.ev[s.id] > 0 && pkmn.ev.select { |ev| ev != :SPECIAL_ATTACK }.max_by(2) { |k, v| v }.to_h.include?(s.id)
+            pkmn.calc_stats
         end
-        # Check for evolution
-        new_species = pkmn.check_evolution_on_level_up
-        if new_species
-            pbFadeOutInWithMusic {
-                evo = PokemonEvolutionScene.new
-                evo.pbStartScreen(pkmn, new_species)
-                evo.pbEvolution
-                evo.pbEndScreen
-            }
-        end
+    end
+
+    pkmn.changeHappiness("vitamin")
+
+    # Learn new moves upon level up
+    pkmn.getMoveList.each do |i|
+        next if i[0] <= old_level || i[0] > pkmn.level
+        pbLearnMove(pkmn, i[1], true)
+    end
+
+    # Check for evolution
+    new_species = pkmn.check_evolution_on_level_up
+    if new_species
+        pbFadeOutInWithMusic {
+            evo = PokemonEvolutionScene.new
+            evo.pbStartScreen(pkmn, new_species)
+            evo.pbEvolution
+            evo.pbEndScreen
+        }
     end
 end
 
 def lvlup(pkmn, qty)
-    if pkmn.level >= GameData::GrowthRate.max_level
-        new_species = pkmn.check_evolution_on_level_up
-        if new_species
-            # Check for evolution
-            pbFadeOutInWithMusic {
-                evo = PokemonEvolutionScene.new
-                evo.pbStartScreen(pkmn, new_species)
-                evo.pbEvolution
-                evo.pbEndScreen
-            }
-        end
-    end
     # Level up
-    pbChangeLevel(pkmn, pkmn.level + qty)
+    pbChangeLevelNoScene(pkmn, pkmn.level + qty)
+    pkmn.calc_stats
 end
 
 def sacreward(bossnumber)
