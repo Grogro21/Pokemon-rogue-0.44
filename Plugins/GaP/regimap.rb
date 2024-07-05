@@ -374,6 +374,12 @@ class NpcEvent < Event
     def fire
         # Display Npc here
         $game_variables[44] = @type
+
+        if @type == NpcType::TM_SHOP
+            $game_variables[49] = [:ABILITYCAPSULE, :ABILITYPATCH,
+                                   getrandomtm, getrandomtm, getrandomtm, getrandomtm, getrandomtm,
+                                   getrandomtm, getrandomtm, getrandomtm, getrandomtm, getrandomtm]
+        end
     end
 end
 
