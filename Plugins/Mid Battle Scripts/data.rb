@@ -372,7 +372,7 @@ module DialogueModule
                         battle.pbLowerHP(battle.battlers[0], 4)
                         pbMessage("The opposing Jirachi threw a King's Rock at you.")
                     else
-                        echoln item
+                        echoln(item)
                     end
 
                 end
@@ -547,16 +547,19 @@ module DialogueModule
     }
 
     Bfaint = Proc.new { |battle|
+        battle.scene.appearBar
         zapdos = battle.battlers[1]
         moltres = battle.battlers[3]
         articuno = battle.battlers[5]
         zapdos.pbRecoverHP(zapdos.totalhp) if !zapdos.fainted?
         articuno.pbRecoverHP(articuno.totalhp) if !articuno.fainted?
         moltres.pbRecoverHP(moltres.totalhp) if !moltres.fainted?
+        battle.scene.disappearBar
         BattleScripting.setInScript("lowHPOpp", :Blow)
     }
 
     Blow = Proc.new { |battle|
+        battle.scene.appearBar
         BattleScripting.setInScript("faintedOpp", :Bfaint)
         $PokemonTemp.dialogueDone["faintedOpp"] = 2
         zapdos = battle.battlers[1]
@@ -597,8 +600,10 @@ module DialogueModule
                 articuno.pbRecoverHP(articuno.totalhp) if !articuno.fainted?
             end
         end
+        battle.scene.disappearBar
     }
     Bstart = Proc.new { |battle|
+        battle.scene.appearBar
         zapdos = battle.battlers[1]
         moltres = battle.battlers[3]
         articuno = battle.battlers[5]
@@ -810,11 +815,13 @@ module DialogueModule
                 end
             end
         end
+        battle.scene.disappearBar
     }
 
     ####################Regi battle##########################################################
     ####################Regice battle##########################################################
     Regicinit = Proc.new { |battle|
+        battle.scene.appearBar
         battle.battlers[1].effects[PBEffects::BossProtect] = true
         pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
         pbWait(1)
@@ -823,24 +830,30 @@ module DialogueModule
         battle.pbAnimation(:BLIZZARD, battle.battlers[1], battle.battlers[0])
         pbMessage("The temperature drops!")
         battle.pbStartWeather(battle.battlers[1], :Hail)
+        battle.scene.disappearBar
     }
 
     Regicexplode1 = Proc.new { |battle|
+        battle.scene.appearBar
         pbMessage("\\bCRITICAL FAILURE!")
         pbWait(1)
         pbMessage("\\bSTARTING SAFETY PROCESS!")
+        battle.scene.disappearBar
     }
 
     Regicexplode2 = Proc.new { |battle|
+        battle.scene.appearBar
         pbMessage("BOOOM!")
         battle.pbAnimation(:EXPLOSION, battle.battlers[1], battle.battlers[0])
         battle.pbLowerHP(battle.battlers[1], 1)
         battle.pbLowerHP(battle.battlers[0], 1)
         battle.decision = 1
+        battle.scene.disappearBar
     }
 
     ####################Regirock battle##########################################################
     Regirockinit = Proc.new { |battle|
+        battle.scene.appearBar
         battle.battlers[1].effects[PBEffects::BossProtect] = true
         pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
         pbWait(1)
@@ -849,24 +862,30 @@ module DialogueModule
         battle.pbAnimation(:STEALTHROCK, battle.battlers[1], battle.battlers[0])
         battle.battlers[1].pbOpposingSide.effects[PBEffects::StealthRock] = true
         pbMessage("Pointed rocks are scattered everywhere!")
+        battle.scene.disappearBar
     }
 
     Regirockexplode1 = Proc.new { |battle|
+        battle.scene.appearBar
         pbMessage("\\bCRITICAL FAILURE!")
         pbWait(1)
         pbMessage("\\bSTARTING SAFETY PROCESS!")
+        battle.scene.disappearBar
     }
 
     Regirockexplode2 = Proc.new { |battle|
+        battle.scene.appearBar
         pbMessage("BOOOM!")
         battle.pbAnimation(:EXPLOSION, battle.battlers[1], battle.battlers[0])
         battle.pbLowerHP(battle.battlers[1], 1)
         battle.pbLowerHP(battle.battlers[0], 1)
         battle.decision = 1
+        battle.scene.disappearBar
     }
 
     ####################Registeel battle##########################################################
     Registeelinit = Proc.new { |battle|
+        battle.scene.appearBar
         battle.battlers[1].effects[PBEffects::BossProtect] = true
         pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
         pbWait(1)
@@ -874,71 +893,89 @@ module DialogueModule
         pbMessage("The doors have just closed!")
         battle.pbAnimation(:IRONDEFENSE, battle.battlers[1], battle.battlers[0])
         battle.battlers[1].pbRaiseStatStage(:SPECIAL_DEFENSE, 1, battle.battlers[1])
+        battle.scene.disappearBar
     }
 
     Registeelexplode1 = Proc.new { |battle|
+        battle.scene.appearBar
         pbMessage("\\bCRITICAL FAILURE!")
         pbWait(1)
         pbMessage("\\bSTARTING SAFETY PROCESS!")
+        battle.scene.disappearBar
     }
 
     Registeelexplode2 = Proc.new { |battle|
+        battle.scene.appearBar
         pbMessage("BOOOM!")
         battle.pbAnimation(:EXPLOSION, battle.battlers[1], battle.battlers[0])
         battle.pbLowerHP(battle.battlers[1], 1)
         battle.pbLowerHP(battle.battlers[0], 1)
         battle.decision = 1
+        battle.scene.disappearBar
     }
 
     ####################Regieleki battle##########################################################
     Regielekinit = Proc.new { |battle|
+        battle.scene.appearBar
         battle.battlers[1].effects[PBEffects::BossProtect] = true
         pbMessage("\\bINTRUDER DETECTED! STARTING ERADICATION PROTOCOL!")
         pbWait(1)
         pbSEPlay("Battle damage normal")
         pbMessage("The doors have just closed!")
         battle.pbStartTerrain(battle.battlers[1], :Electric)
+        battle.scene.disappearBar
     }
 
     Regielekexplode1 = Proc.new { |battle|
+        battle.scene.appearBar
         pbMessage("\\bCRITICAL FAILURE!")
         pbWait(1)
         pbMessage("\\bSTARTING SAFETY PROCESS!")
+        battle.scene.disappearBar
     }
 
     Regielekexplode2 = Proc.new { |battle|
+        battle.scene.appearBar
         pbMessage("BOOOM!")
         battle.pbAnimation(:EXPLOSION, battle.battlers[1], battle.battlers[0])
         battle.pbLowerHP(battle.battlers[1], 1)
         battle.pbLowerHP(battle.battlers[0], 1)
         battle.decision = 1
+        battle.scene.disappearBar
     }
 
     ####################Regidrago battle##########################################################
     Regidragoinit = Proc.new { |battle|
+        battle.scene.appearBar
         battle.battlers[1].effects[PBEffects::BossProtect] = true
         pbMessage("\\bINTRUDER DETECTED! STARTING ERADICATION PROTOCOL!")
         pbWait(1)
         pbSEPlay("Battle damage normal")
         pbMessage("The doors have just closed!")
         battle.battlers[1].pbRaiseStatStage(:SPEED, 1, battle.battlers[1])
+        battle.scene.disappearBar
     }
 
     Regidragoexplode1 = Proc.new { |battle|
+        battle.scene.appearBar
         pbMessage("\\bCRITICAL FAILURE!")
         pbWait(1)
         pbMessage("\\bSTARTING SAFETY PROCESS!")
+        battle.scene.disappearBar
     }
 
     Regidragoexplode2 = Proc.new { |battle|
+        battle.scene.appearBar
         pbMessage("BOOOM!")
         battle.pbAnimation(:EXPLOSION, battle.battlers[1], battle.battlers[0])
         battle.pbLowerHP(battle.battlers[1], 1)
         battle.pbLowerHP(battle.battlers[0], 1)
         battle.decision = 1
+        battle.scene.disappearBar
     }
     ####################Regigigas battle##########################################################
     Reginit = Proc.new { |battle|
+        battle.scene.appearBar
         battle.battlers[1].effects[PBEffects::BossProtect] = true
         battle.battlers[1].effects[PBEffects::Lowhp] = true
         pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
@@ -947,16 +984,18 @@ module DialogueModule
         battle.battlers[1].pbOpposingSide.effects[PBEffects::StealthRock] = true
         pbMessage("Pointed rocks are scattered everywhere!")
         pbWait(1)
-        pbMessage("\\rThe guardian looks too strong for you... You better run!")
+        pbMessage("\\rThe guardian looks too strong for you... You better run! If you can remember where the exit is...")
         $game_variables[57] = nil
         $PokemonTemp.excludedialogue = [3] # exclude summoned mons from lowlife dialogues
         for i in 0...50
             BattleScripting.setInScript("turnStart#{i + 1}", :Regturn)
             BattleScripting.setInScript("turnEnd#{i}", :Choiceroom)
         end
+        battle.scene.disappearBar
     }
 
     Regturn = Proc.new { |battle|
+        battle.scene.appearBar
         if rand(100) < 50
             pbMessage("Regigigas picked up a big rock!")
             $game_switches[77] = true
@@ -986,6 +1025,7 @@ module DialogueModule
             pbMessage("\\rYou reached the exit! Well played!")
             battle.decision = 3
         end
+        battle.scene.disappearBar
 
     }
 
@@ -1005,7 +1045,7 @@ module DialogueModule
         cmd = battle.pbShowCommands("Which direction are you chosing?", directions)
         move = directions[cmd] # direction chosen
         battle.scene.disappearsprite([base, imageup, imageright, imagedown, imageleft, ex])
-
+        battle.scene.appearBar
         $game_variables[69] = movement(move, $game_variables[69]) # changing coord
         pbSEPlay("Door exit")
         if $game_switches[77]
@@ -1031,6 +1071,7 @@ module DialogueModule
                 end
             end
         end
+        battle.scene.disappearBar
     }
 
     ###############Mewtwo############################################################
@@ -1049,6 +1090,7 @@ module DialogueModule
     }
 
     MewtwoPsywave = Proc.new { |battle|
+        battle.scene.appearBar
         battle.pbAnimation(:PSYWAVE, battle.battlers[0], battle.battlers[1])
         pbMessage("You radiate psychic energy!")
         dmg = rand(3, 11)
@@ -1060,17 +1102,21 @@ module DialogueModule
         if rand(100) < 10 && !battle.battlers[3].fainted? && pbCanConfuse?(battle.battlers[3], false)
             battle.battlers[3].pbConfuse
         end
+        battle.scene.disappearBar
     }
 
     MewtwoRockthrow = Proc.new { |battle|
+        battle.scene.appearBar
         battle.pbAnimation(:FUTURESIGHT, battle.battlers[0], battle.battlers[1])
         battle.pbAnimation(:ROCKTHROW, battle.battlers[0], battle.battlers[1])
         battle.pbLowerHP(battle.battlers[1], 4)
         if rand(100) < 20
             battle.battlers[1].pbParalyze if pbCanParalyze?(battle.battlers[1], false)
         end
+        battle.scene.disappearBar
     }
     Mewtwomid = Proc.new { |battle|
+        battle.scene.appearBar
         battle.pbAnimation(:GROWL, battle.battlers[0], battle.battlers[1])
         battle.battlers[0].effects[PBEffects::MagnetRise] = 0
         pbMessage("You can't keep levitating.")
@@ -1078,9 +1124,11 @@ module DialogueModule
         battle.battlers[0].pbRaiseStatStage(:SPECIAL_ATTACK, 1, battle.battlers[0])
         battle.battlers[0].effects[PBEffects::Midhp] = false
         battle.battlers[0].effects[PBEffects::Lowhp] = true
+        battle.scene.disappearBar
     }
 
     Mewtwolow = Proc.new { |battle|
+        battle.scene.appearBar
         battle.pbAnimation(:GROWL, battle.battlers[0], battle.battlers[1])
         pbMessage("Your pain is so high!")
         battle.battlers[0].pbRaiseStatStage(:SPECIAL_ATTACK, 1, battle.battlers[0])
@@ -1088,6 +1136,7 @@ module DialogueModule
         battle.battlers[0].effects[PBEffects::FocusEnergy] = 99
         battle.battlers[0].pbLowerStatStage(:DEFENSE, 2, battle.battlers[0])
         battle.battlers[0].pbLowerStatStage(:SPECIAL_DEFENSE, 2, battle.battlers[0])
+        battle.scene.disappearBar
 
     }
 
@@ -1113,13 +1162,14 @@ module DialogueModule
         BattleScripting.setInScript("turnEnd#{1}", :ArceusJ2)
     }
     ArceusJ2 = Proc.new { |battle|
-        battle.scene.appearBar
-        pbMessage("At Day 2 came the light.")
-        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
-        battle.battlers[0].item = :PIXIEPLATE
-        battle.battlers[0].pbChangeForm(22, "")
         battler = battle.battlers[0]
         pkmn = battler.pokemon
+        battle.scene.appearBar
+        battle.pbStartWeather(battler, :Sun)
+        pbMessage("At Day 2 came the light.")
+        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
+        battler.item = :PIXIEPLATE
+        battler.pbChangeForm(22, "")
         pkmn.moves[1] = Pokemon::Move.new(:MOONBLAST) # Replaces current/total PP
         battler.moves[1] = Battle::Move.from_pokemon_move(battle, pkmn.moves[1])
         battle.scene.pbRefresh
@@ -1129,13 +1179,15 @@ module DialogueModule
     }
 
     ArceusJ3 = Proc.new { |battle|
-        battle.scene.appearBar
-        pbMessage("Day 3, too much water.")
-        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
-        battle.battlers[0].item = :SPLASHPLATE
-        battle.battlers[0].pbChangeForm(23, "")
         battler = battle.battlers[0]
         pkmn = battler.pokemon
+        battle.scene.appearBar
+        battle.pbStartWeather(battler, :Rain)
+        pbMessage("Day 3, too much water.")
+        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
+        battler.item = :SPLASHPLATE
+        battler.pbChangeForm(23, "")
+
         pkmn.moves[1] = Pokemon::Move.new(:HYDROPUMP) # Replaces current/total PP
         battler.moves[1] = Battle::Move.from_pokemon_move(battle, pkmn.moves[1])
         battle.scene.pbRefresh
@@ -1146,13 +1198,14 @@ module DialogueModule
     }
 
     ArceusJ4 = Proc.new { |battle|
-        battle.scene.appearBar
-        pbMessage("Day 4, Arceus created life.")
-        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
-        battle.battlers[0].item = :MEADOWPLATE
-        battle.battlers[0].pbChangeForm(24, "")
         battler = battle.battlers[0]
         pkmn = battler.pokemon
+        battle.scene.appearBar
+        battle.pbStartTerrain(battler, :Grassy)
+        pbMessage("Day 4, Arceus created life.")
+        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
+        battler.item = :MEADOWPLATE
+        battler.pbChangeForm(24, "")
         pkmn.moves[1] = Pokemon::Move.new(:ENERGYBALL) # Replaces current/total PP
         battler.moves[1] = Battle::Move.from_pokemon_move(battle, pkmn.moves[1])
         battle.scene.pbRefresh
@@ -1163,12 +1216,13 @@ module DialogueModule
 
     ArceusJ5 = Proc.new { |battle|
         battle.scene.appearBar
-        pbMessage("Day 5, Arceus added mind to matter.")
-        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
-        battle.battlers[0].item = :MINDPLATE
-        battle.battlers[0].pbChangeForm(25, "")
         battler = battle.battlers[0]
         pkmn = battler.pokemon
+        battle.pbStartTerrain(battler, :Psychic)
+        pbMessage("Day 5, Arceus added mind to matter.")
+        battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
+        battler.item = :MINDPLATE
+        battler.pbChangeForm(25, "")
         pkmn.moves[1] = Pokemon::Move.new(:FUTURESIGHT) # Replaces current/total PP
         battler.moves[1] = Battle::Move.from_pokemon_move(battle, pkmn.moves[1])
         battle.scene.pbRefresh
@@ -1189,16 +1243,21 @@ module DialogueModule
         battler.moves[1] = Battle::Move.from_pokemon_move(battle, pkmn.moves[1])
         battle.scene.pbRefresh
         pbMessage("Arceus gained Dark and Ghost types!")
+        battle.battler[0].effects[PBEffects::Curse] = true
+        battle.pbAnimation(:CURSE, battle.battlers[1], battle.battlers[0])
         battle.scene.disappearBar
         BattleScripting.setInScript("turnEnd#{6}", :ArceusJ7)
     }
 
     ArceusJ7 = Proc.new { |battle|
+        battler = battle.battlers[0]
         battle.scene.appearBar
         pbMessage("Then he slept during Day 7.")
-        battle.battlers[0].pbSleepSelf(nil, 2)
+        battler.pbSleepSelf(nil, 2)
+        battle.field.terrain = :None
+        pbMessage("The psychic energy vanished.")
         battle.scene.disappearBar
-        battle.battlers[0].pbRecoverHP(battle.battlers[0].totalhp)
+        battler.pbRecoverHP(battler.totalhp)
         BattleScripting.setInScript("turnEnd#{7}", :ArceusP2)
     }
 
@@ -1215,6 +1274,26 @@ module DialogueModule
         battle.scene.pbRefresh
         pbMessage("Arceus gained the Dragon Type. They reached their final form.")
         battle.scene.disappearBar
+
+        BattleScripting.setInScript("turnEnd#{8}", :ArceusP2Buff)
+    }
+
+    ArceusP2Buff = Proc.new { |battle|
+        battler = battle.battlers[0]
+
+        case rand(100)
+        when 0..30
+            if battler.pbCanRaiseStatStage?(:SPEED)
+                battler.pbRaiseStatStage(:SPEED, 2, battler)
+            end
+        when 31..40
+        when 41..60
+        when 61..80
+        else
+            # NOTHING
+        end
+
+        BattleScripting.setInScript("turnEnd#{battle.turnCount + 1}", :ArceusP2Buff)
     }
     ##############Test######################################################
     Lmusic = Proc.new { |battle|

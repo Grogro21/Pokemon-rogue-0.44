@@ -44,7 +44,7 @@ BaseStats = 300,70,90,90,85,85
 #-------------------------------
 [REGIGIGAS,1]
 FormName = Boss
-BaseStats = 10000,100,110,100,80,110
+BaseStats = 10000,160,110,100,80,110
 #-------------------------------
 [ARCEUS,19]
 FormName = Mega Arceus

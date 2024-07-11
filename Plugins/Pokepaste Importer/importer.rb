@@ -27,31 +27,39 @@ def cutfile(file, pknum)
     for i in 0...c
         team.pop()
     end
-    return(team)
+
+    return team
 end
 
 def nametospecies(name)
     # make the pkmn name something the game can read
     if name == "Nidoran-M" # nidoran being weird in pbs files
-        return(:NIDORANmA)
+        return :NIDORANmA
     end
     if name == "Nidoran-F"
-        return(:NIDORANfE)
+        return :NIDORANfE
+    end
+    if name == "Farfetch’d"
+        return :FARFETCHD
+    end
+    if name == "Sirfetch’d"
+        return :SIRFETCHD
     end
     GameData::Species.each_species do |species|
         if species.real_name == name
-            return(species.id)
+            return species.id
         end
     end
     if name != nil
         n = name.split("-")
         GameData::Species.each_species do |species|
             if species.real_name == n[0]
-                return(species.id)
+                return species.id
             end
         end
     end
-    return(nil)
+
+    return nil
 end
 
 def nametoitem(pkmn, iname)
