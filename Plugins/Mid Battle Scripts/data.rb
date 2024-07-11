@@ -372,7 +372,7 @@ module DialogueModule
                         battle.pbLowerHP(battle.battlers[0], 4)
                         pbMessage("The opposing Jirachi threw a King's Rock at you.")
                     else
-                        echoln item
+                        echoln(item)
                     end
 
                 end

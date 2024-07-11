@@ -566,8 +566,6 @@ def pbChangeLevelNoScene(pkmn, new_level)
     pkmn.level = new_level
     pkmn.calc_stats
 
-    echoln(pkmn.ev.select { |ev| ev != :SPECIAL_ATTACK }.reduce(0) { |s, v| s + v[1] })
-
     if new_level < pkmn.level
         GameData::Stat.each_main do |s|
             pkmn.ev[s.id] = 0
