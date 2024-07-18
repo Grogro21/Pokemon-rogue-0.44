@@ -41,3 +41,13 @@ SurfCharset = trainer_Mewtwo
 DiveCharset = trainer_Mewtwo
 FishCharset = trainer_Mewtwo
 SurfFishCharset = trainer_Mewtwo
+#-------------------------------
+[4]
+TrainerType = POKEMONTRAINER_Gliched
+WalkCharset = trainer_POKEMONTRAINER_Glitched
+RunCharset = trainer_POKEMONTRAINER_Glitched
+CycleCharset = trainer_Mewtwo
+SurfCharset = trainer_Mewtwo
+DiveCharset = trainer_Mewtwo
+FishCharset = trainer_Mewtwo
+SurfFishCharset = trainer_Mewtwo
