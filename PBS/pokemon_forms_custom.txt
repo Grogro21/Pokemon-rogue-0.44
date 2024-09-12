@@ -106,3 +106,11 @@ Types = NORMAL,ROCK,GROUND,FIRE,FAIRY,ELECTRIC,STEEL,WATER,ICE,GRASS,BUG,FLYING,
 BaseStats = 1000,120,120,120,120,120
 Abilities = STALL
 HiddenAbilities = STALL
+#-------------------------------
+[MEWTWO,3]
+FormName = Armored
+Types = PSYCHIC,STEEL
+BaseStats = 606,110,90,130,204,90
+Abilities = PRESSURE
+HiddenAbilities = PRESSURE
+Moves = 70,PSYCHIC,70,FLASHCANNON,70,ICEBEAM,70,THUNDERBOLT

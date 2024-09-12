@@ -1076,9 +1076,9 @@ module DialogueModule
 
     ###############Mewtwo############################################################
     Mewtwoinit = Proc.new { |battle|
-        battle.battlers[0].effects[PBEffects::BossProtect] = true
         battle.battlers[0].effects[PBEffects::Midhp] = true
         battle.battlers[0].effects[PBEffects::MagnetRise] = 50
+        battle.pbAnimation(:MAGNETRISE, battle.battlers[1], battle.battlers[0])
         pbMessage("You are levitating!")
         for i in 0...50
             if rand(100) < 20
@@ -1093,27 +1093,23 @@ module DialogueModule
         battle.scene.appearBar
         battle.pbAnimation(:PSYWAVE, battle.battlers[0], battle.battlers[1])
         pbMessage("You radiate psychic energy!")
+        battle.scene.disappearBar
         dmg = rand(3, 11)
         battle.pbLowerHP(battle.battlers[1], dmg) if !battle.battlers[1].fainted?
-        battle.pbLowerHP(battle.battlers[3], dmg) if !battle.battlers[3].fainted?
-        if rand(100) < 10 && !battle.battlers[1].fainted? && pbCanConfuse?(battle.battlers[1], false)
+        if rand(100) < 10 && !battle.battlers[1].fainted? && battle.battlers[0].pbCanConfuse?(battle.battlers[1], false)
             battle.battlers[1].pbConfuse
         end
-        if rand(100) < 10 && !battle.battlers[3].fainted? && pbCanConfuse?(battle.battlers[3], false)
-            battle.battlers[3].pbConfuse
-        end
-        battle.scene.disappearBar
     }
 
     MewtwoRockthrow = Proc.new { |battle|
         battle.scene.appearBar
         battle.pbAnimation(:FUTURESIGHT, battle.battlers[0], battle.battlers[1])
         battle.pbAnimation(:ROCKTHROW, battle.battlers[0], battle.battlers[1])
+        battle.scene.disappearBar
         battle.pbLowerHP(battle.battlers[1], 4)
         if rand(100) < 20
-            battle.battlers[1].pbParalyze if pbCanParalyze?(battle.battlers[1], false)
+            battle.battlers[1].pbParalyze if battle.battlers[0].pbCanParalyze?(battle.battlers[1], false)
         end
-        battle.scene.disappearBar
     }
     Mewtwomid = Proc.new { |battle|
         battle.scene.appearBar
@@ -1121,23 +1117,22 @@ module DialogueModule
         battle.battlers[0].effects[PBEffects::MagnetRise] = 0
         pbMessage("You can't keep levitating.")
         battle.pbStartTerrain(battle.battlers[0], :Psychic)
-        battle.battlers[0].pbRaiseStatStage(:SPECIAL_ATTACK, 1, battle.battlers[0])
+        battle.scene.disappearBar
+        battle.battlers[0].pbRaiseStatStage(:ATTACK, 1, battle.battlers[0])
         battle.battlers[0].effects[PBEffects::Midhp] = false
         battle.battlers[0].effects[PBEffects::Lowhp] = true
-        battle.scene.disappearBar
     }
 
     Mewtwolow = Proc.new { |battle|
         battle.scene.appearBar
         battle.pbAnimation(:GROWL, battle.battlers[0], battle.battlers[1])
         pbMessage("Your pain is so high!")
+        battle.scene.disappearBar
         battle.battlers[0].pbRaiseStatStage(:SPECIAL_ATTACK, 1, battle.battlers[0])
         battle.battlers[0].effects[PBEffects::Lowhp] = false
         battle.battlers[0].effects[PBEffects::FocusEnergy] = 99
         battle.battlers[0].pbLowerStatStage(:DEFENSE, 2, battle.battlers[0])
         battle.battlers[0].pbLowerStatStage(:SPECIAL_DEFENSE, 2, battle.battlers[0])
-        battle.scene.disappearBar
-
     }
 
     ##################ARCEUSE##########################################
@@ -1150,9 +1145,9 @@ module DialogueModule
         battle.scene.appearBar
         pbMessage("Day 1, Arceus created the Earth.")
         battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
-        battle.battlers[0].item = :EARTHPLATE
-        battle.battlers[0].pbChangeForm(21, "")
-        battler = battle.battlers[0]
+        battle.battlers[1].item = :EARTHPLATE
+        battle.battlers[1].pbChangeForm(21, "")
+        battler = battle.battlers[1]
         pkmn = battler.pokemon
         pkmn.moves[1] = Pokemon::Move.new(:EARTHPOWER) # Replaces current/total PP
         battler.moves[1] = Battle::Move.from_pokemon_move(battle, pkmn.moves[1])
@@ -1162,7 +1157,7 @@ module DialogueModule
         BattleScripting.setInScript("turnEnd#{1}", :ArceusJ2)
     }
     ArceusJ2 = Proc.new { |battle|
-        battler = battle.battlers[0]
+        battler = battle.battlers[1]
         pkmn = battler.pokemon
         battle.scene.appearBar
         battle.pbStartWeather(battler, :Sun)
@@ -1179,7 +1174,7 @@ module DialogueModule
     }
 
     ArceusJ3 = Proc.new { |battle|
-        battler = battle.battlers[0]
+        battler = battle.battlers[1]
         pkmn = battler.pokemon
         battle.scene.appearBar
         battle.pbStartWeather(battler, :Rain)
@@ -1198,7 +1193,7 @@ module DialogueModule
     }
 
     ArceusJ4 = Proc.new { |battle|
-        battler = battle.battlers[0]
+        battler = battle.battlers[1]
         pkmn = battler.pokemon
         battle.scene.appearBar
         battle.pbStartTerrain(battler, :Grassy)
@@ -1216,7 +1211,7 @@ module DialogueModule
 
     ArceusJ5 = Proc.new { |battle|
         battle.scene.appearBar
-        battler = battle.battlers[0]
+        battler = battle.battlers[1]
         pkmn = battler.pokemon
         battle.pbStartTerrain(battler, :Psychic)
         pbMessage("Day 5, Arceus added mind to matter.")
@@ -1235,22 +1230,22 @@ module DialogueModule
         battle.scene.appearBar
         pbMessage("Humans are stupid so, at Day 6, Arceus created Death.")
         battle.pbCommonAnimation("MegaEvolution", battle.battlers[1], nil)
-        battle.battlers[0].item = :DREADPLATE
-        battle.battlers[0].pbChangeForm(26, "")
-        battler = battle.battlers[0]
+        battle.battlers[1].item = :DREADPLATE
+        battle.battlers[1].pbChangeForm(26, "")
+        battler = battle.battlers[1]
         pkmn = battler.pokemon
         pkmn.moves[1] = Pokemon::Move.new(:BRUTALSWING) # Replaces current/total PP
         battler.moves[1] = Battle::Move.from_pokemon_move(battle, pkmn.moves[1])
         battle.scene.pbRefresh
         pbMessage("Arceus gained Dark and Ghost types!")
-        battle.battler[0].effects[PBEffects::Curse] = true
+        battle.battlers[0].effects[PBEffects::Curse] = true
         battle.pbAnimation(:CURSE, battle.battlers[1], battle.battlers[0])
         battle.scene.disappearBar
         BattleScripting.setInScript("turnEnd#{6}", :ArceusJ7)
     }
 
     ArceusJ7 = Proc.new { |battle|
-        battler = battle.battlers[0]
+        battler = battle.battlers[1]
         battle.scene.appearBar
         pbMessage("Then he slept during Day 7.")
         battler.pbSleepSelf(nil, 2)
@@ -1265,7 +1260,7 @@ module DialogueModule
         battle.scene.appearBar
         GameData::Species.play_cry_from_species(:GIRATINA)
         pbMessage("But Giratina betrayed them!")
-        battler = battle.battlers[0]
+        battler = battle.battlers[1]
         battler.item = :DRACOPLATE
         battler.pbChangeForm(19, "")
         pkmn = battler.pokemon
@@ -1279,7 +1274,7 @@ module DialogueModule
     }
 
     ArceusP2Buff = Proc.new { |battle|
-        battler = battle.battlers[0]
+        battler = battle.battlers[1]
 
         case rand(100)
         when 0..30

@@ -145,6 +145,15 @@ def pbHasType?(type)
     return activeTypes.include?(GameData::Type.get(type).id)
 end
 
+def virusParty
+    for pkmn in $player.party do
+        pbFlash(Color.new(204, 0, 255, 255), 20)
+        pbSEPlay("PRSFX- Toxic1")
+        pkmn.inflictStatus(:POISON, 1)
+        pkmn.givePokerus
+    end
+end
+
 def randomstatus
     r = rand(100)
     if r < 35 # poison 35%
