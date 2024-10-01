@@ -60,3 +60,17 @@ FunctionCode = ParalyzeTarget
 Flags = CanProtect
 EffectChance = 25
 Description = A strong electric blast is loosed at the target. It may also leave the target with paralysis.
+#-----------------------------
+[GLITCH]
+Name = 0x8000ffff
+Type = BUG
+Category = Special
+Power = 123
+Accuracy = 100
+TotalPP = 17
+Target = NearOther
+FunctionCode = FreezeTarget
+Flags = CanProtect
+EffectChance = 20
+Description = Catastrophic failure! High chance of freezing the target.
+#-----------------------------

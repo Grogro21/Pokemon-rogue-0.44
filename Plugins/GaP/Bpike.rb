@@ -154,6 +154,14 @@ def virusParty
     end
 end
 
+def burnParty
+    for pkmn in $player.party do
+        pbFlash(Color.new(255, 0, 0, 255), 20)
+        pbSEPlay("PRSFX- Will O Wisp2")
+        pkmn.inflictStatus(:BURN)
+    end
+end
+
 def randomstatus
     r = rand(100)
     if r < 35 # poison 35%
@@ -487,18 +495,20 @@ def display_next_room # bientot obsolete
 end
 
 def pkmnmerchant
+
     cmd = 10
     cmd = pbMessage("\\GDo you want to buy one of my Pokémons?", ["Porygon 2000$", "Dratini 10000$", "Dreepy 7000$", "Grookey 5000$", "Honedge 5000$", "Dracozolt 7000$", "Hawlucha 5000$", "Lucario 10000$", "Beldum 5000$", "Leave"], 10, nil, 0)
+    species = $game_variables[45] < 6 ? nil : :DITTO
     if cmd == 0
         if $player.money >= 2000
-            pbAddPokemon(:PORYGON, $player.party[0].level)
+            pbAddPokemon(!species ? :PORYGON : species, $player.party[0].level)
             $player.money -= 2000
         else
             pbMessage("You don't have enough money.")
         end
     elsif cmd == 1
         if $player.money >= 10000
-            pkmn = Pokemon.new(:DRATINI, $player.party[0].level)
+            pkmn = Pokemon.new(!species ? :DRATINI : species, $player.party[0].level)
             pkmn.ability_index = 2
             $player.money -= 10000
             pbAddPokemon(pkmn)
@@ -507,14 +517,14 @@ def pkmnmerchant
         end
     elsif cmd == 2
         if $player.money >= 7000
-            pbAddPokemon(:DREEPY, $player.party[0].level)
+            pbAddPokemon(!species ? :DREEPY : species, $player.party[0].level)
             $player.money -= 7000
         else
             pbMessage("You don't have enough money.")
         end
     elsif cmd == 3
         if $player.money >= 5000
-            pkmn = Pokemon.new(:GROOKEY, $player.party[0].level)
+            pkmn = Pokemon.new(!species ? :GROOKEY : species, $player.party[0].level)
             pkmn.learn_move(:GRASSYGLIDE)
             pkmn.ability_index = 2
             pbAddPokemon(pkmn)
@@ -524,21 +534,21 @@ def pkmnmerchant
         end
     elsif cmd == 4
         if $player.money >= 5000
-            pbAddPokemon(:HONEDGE, $player.party[0].level)
+            pbAddPokemon(!species ? :HONEDGE : species, $player.party[0].level)
             $player.money -= 5000
         else
             pbMessage("You don't have enough money.")
         end
     elsif cmd == 5
         if $player.money >= 7000
-            pbAddPokemon(:DRACOZOLT, $player.party[0].level)
+            pbAddPokemon(!species ? :DRACOZOLT : species, $player.party[0].level)
             $player.money -= 7000
         else
             pbMessage("You don't have enough money.")
         end
     elsif cmd == 6
         if $player.money >= 5000
-            pkmn = Pokemon.new(:HAWLUCHA, $player.party[0].level)
+            pkmn = Pokemon.new(!species ? :HAWLUCHA : species, $player.party[0].level)
             pkmn.ability_index = 1
             pbAddPokemon(pkmn)
             $player.money -= 5000
@@ -547,20 +557,24 @@ def pkmnmerchant
         end
     elsif cmd == 7
         if $player.money >= 10000
-            pbAddPokemon(:LUCARIO, $player.party[0].level)
+            pbAddPokemon(!species ? :LUCARIO : species, $player.party[0].level)
             $player.money -= 10000
         else
             pbMessage("You don't have enough money.")
         end
     elsif cmd == 8
         if $player.money >= 5000
-            pbAddPokemon(:BELDUM, $player.party[0].level)
+            pbAddPokemon(!species ? :BELDUM : species, $player.party[0].level)
             $player.money -= 5000
         else
             pbMessage("You don't have enough money.")
         end
     else
-        pbMessage("Come back if you want to buy a Pokémon")
+        pbMessage("Come back if you want to buy a Pokémon.")
+        if species
+            pbMessage("And Buuuurn!")
+            burnParty()
+        end
     end
 end
 

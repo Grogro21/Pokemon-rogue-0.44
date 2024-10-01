@@ -1290,6 +1290,13 @@ module DialogueModule
 
         BattleScripting.setInScript("turnEnd#{battle.turnCount + 1}", :ArceusP2Buff)
     }
+    #######################MISSINGNO#######################################################
+    MissingInit = Proc.new { |battle|
+        battle.battlers[1].effects[PBEffects::BossProtect] = true
+        battle.battlers[1].effects[PBEffects::Midhp] = true
+        $bag.randomize_bag
+        # $bag.items[5].count = 255
+    }
     ##############Test######################################################
     Lmusic = Proc.new { |battle|
         pbBGMPlay("Surfing")

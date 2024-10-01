@@ -35,18 +35,18 @@ module BaseStatsProperty
   end
 end
 ###########custom functions ###########################################
-class Battle	
+class Battle
 	def pbLowerHP(pkmn,value)
 		pkmn.pbReduceHP(pkmn.totalhp/value)
 		pkmn.pbItemHPHealCheck
-		if pkmn.fainted? 
-			pkmn.pbFaint 
-			if pbAbleCount(0)>=pbSideSize(0)  
+		if pkmn.fainted?
+			pkmn.pbFaint
+			if pbAbleCount(0)>=pbSideSize(0)
 				newPkmn = pbGetReplacementPokemonIndex(pkmn.index)   # Owner chooses
-				return false if newPkmn < 0  
+				return false if newPkmn < 0
 				pbRecallAndReplace(pkmn.index, newPkmn)
 				pbClearChoice(pkmn.index)   # Replacement Pokémon does nothing this round
-				moldBreaker = false 
+				moldBreaker = false
 				pbOnBattlerEnteringBattle(pkmn.index)
 			end
 		end
@@ -93,7 +93,7 @@ class Battle::Scene
     end
     unfadeAnim.dispose
   end
-  
+
   def disappearsprite(spritenames)
 	pbAddSprite("bob",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[0],@viewport)
 	pbAddSprite("bob2",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[1],@viewport)
@@ -127,35 +127,35 @@ class SpriteAppearAnimation < Battle::Scene::Animation
     topBar.setOpacity(0,255)
     topBar.setXY(0,Graphics.width,0)
     topBar.moveXY(delay,10,(Graphics.width-toMoveTop),0)
-	
+
 	toMoveTop2 = [@sprites["bob2"].bitmap.width,Graphics.width].max
     topBar2 = addSprite(@sprites["bob2"],PictureOrigin::TOP_LEFT)
     topBar2.setZ(0,200)
     topBar2.setOpacity(0,255)
     topBar2.setXY(0,Graphics.width,0)
     topBar2.moveXY(delay,10,(Graphics.width-toMoveTop2),0)
-	
+
 	toMoveTop3 = [@sprites["bob3"].bitmap.width,Graphics.width].max
     topBar3 = addSprite(@sprites["bob3"],PictureOrigin::TOP_LEFT)
     topBar3.setZ(0,200)
     topBar3.setOpacity(0,255)
     topBar3.setXY(0,Graphics.width,0)
     topBar3.moveXY(delay,10,(Graphics.width-toMoveTop2),0)
-	
+
 	toMoveTop4 = [@sprites["bob4"].bitmap.width,Graphics.width].max
     topBar4 = addSprite(@sprites["bob4"],PictureOrigin::TOP_LEFT)
     topBar4.setZ(0,200)
     topBar4.setOpacity(0,255)
     topBar4.setXY(0,Graphics.width,0)
     topBar4.moveXY(delay,10,(Graphics.width-toMoveTop2),0)
-	
+
 	toMoveTop5 = [@sprites["bob5"].bitmap.width,Graphics.width].max
     topBar5 = addSprite(@sprites["bob5"],PictureOrigin::TOP_LEFT)
     topBar5.setZ(0,200)
     topBar5.setOpacity(0,255)
     topBar5.setXY(0,Graphics.width,0)
     topBar5.moveXY(delay,10,(Graphics.width-toMoveTop2),0)
-	
+
   toMoveTop6 = [@sprites["bob6"].bitmap.width,Graphics.width].max
     topBar6 = addSprite(@sprites["bob6"],PictureOrigin::TOP_LEFT)
     topBar6.setZ(0,200)
@@ -177,19 +177,19 @@ class SpriteDisappearAnimation < Battle::Scene::Animation
     toMoveTop = [@sprites["bob"].bitmap.width,Graphics.width].max
     topBar = addSprite(@sprites["bob"],PictureOrigin::TOP_LEFT)
     topBar.setOpacity(0,0)
-	
+
 	toMoveTop2 = [@sprites["bob2"].bitmap.width,Graphics.width].max
     topBar2 = addSprite(@sprites["bob2"],PictureOrigin::TOP_LEFT)
     topBar2.setOpacity(0,0)
-	
+
 	toMoveTop3 = [@sprites["bob3"].bitmap.width,Graphics.width].max
     topBar3 = addSprite(@sprites["bob3"],PictureOrigin::TOP_LEFT)
     topBar3.setOpacity(0,0)
-	
+
 	toMoveTop4 = [@sprites["bob4"].bitmap.width,Graphics.width].max
     topBar4 = addSprite(@sprites["bob4"],PictureOrigin::TOP_LEFT)
     topBar4.setOpacity(0,0)
-	
+
 	toMoveTop5 = [@sprites["bob5"].bitmap.width,Graphics.width].max
     topBar5 = addSprite(@sprites["bob5"],PictureOrigin::TOP_LEFT)
     topBar5.setOpacity(0,0)

@@ -23,3 +23,27 @@ Pokedex = ???
 Generation = 8
 Flags = Legendary
 #-------------------------------
+[MISSINGNO]
+Name = Missing.No
+Types = QMARKS,BUG
+BaseStats = 642,169,57,23,169,48
+GenderRatio = Genderless
+GrowthRate = Slow
+BaseExp = 250
+EVs = HP,3
+CatchRate = 3
+Happiness = 0
+Abilities = SWARM
+Moves = 1,SKYATTACK,1,WATERGUN,1,GLITCH
+TutorMoves = UNKNOWNBEAM
+EggGroups = Undiscovered
+HatchSteps = 30720
+Height = 2.1
+Weight = 1.1
+Color = Gray
+Shape = Bipedal
+Category = Bug
+Pokedex = ???
+Generation = 1
+Flags = Legendary
+#-------------------------------------------------------------------------------------------------------------------
