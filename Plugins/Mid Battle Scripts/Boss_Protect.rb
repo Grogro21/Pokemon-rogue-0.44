@@ -642,8 +642,11 @@ class Battle::Battler
             end
             return false
         end
+        if self.effects[PBEffects::BossProtect]
+            @battle.pbDisplay(_INTL("{1} is immune!", pbThis)) if showMessages
+        end
         # Safeguard immunity
-        if (pbOwnSide.effects[PBEffects::Safeguard] > 0 || self.effects[PBEffects::BossProtect]) && !selfInflicted && move &&
+        if (pbOwnSide.effects[PBEffects::Safeguard] > 0) && !selfInflicted && move &&
             !(user && user.hasActiveAbility?(:INFILTRATOR))
             @battle.pbDisplay(_INTL("{1}'s team is protected by Safeguard!", pbThis)) if showMessages
             return false

@@ -121,6 +121,9 @@ def pbPablo()
         loop do
             pbGlitchFogOpacity
             Thread.pass
+            if $game_switches[91]
+                Thread.exit
+            end
         end
     end
     Thread.new do
@@ -136,9 +139,27 @@ def pbPablo()
                 $game_map.refresh
             end
             Thread.pass
+            if $game_switches[91]
+                Thread.exit
+            end
         end
     end
 end
+
+class Pokemon
+    # Sets this Pokémon's level. The given level must be between 1 and the
+    # maximum level (defined in {GameData::GrowthRate}).
+    # @param value [Integer] new level (between 1 and the maximum level)
+    def level=(value)
+        if value < 1
+            raise ArgumentError.new(_INTL("The level number ({1}) is invalid.", value))
+        end
+        @exp = growth_rate.minimum_exp_for_level(value)
+        @level = value
+    end
+end
+
+def fill_with_boss() end
 
 # class Game_Player
 #     alias origUpdate update

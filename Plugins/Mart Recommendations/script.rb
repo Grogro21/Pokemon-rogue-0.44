@@ -7,7 +7,7 @@
 #------------------------------------------------------------------------------#
 WELCOME_MESSAGE = _INTL("Hiya! I'm taking suggestions for what to sell in my shop!")
 DEFAULT_MART = [:POTION, :BEEDRILLITE, :PIDGEOTITE, :AMPHAROSITE, :STEELIXITE,
-                :HOUNDOOMINITE, :SABLENITE, :MAWILITE, :MEDICHAMITE, :MANECTITE,
+                :HOUNDOOMINITE, :SABLENITE, :MAWILITE, :BLASTOISINITE, :MANECTITE,
                 :SHARPEDONITE, :CAMERUPTITE, :ALTARIANITE, :BANETTITE, :GLALITITE,
                 :LOPUNNITE, :ABOMASITE, :AUDINITE]
 BLACKLIST = [:MASTERBALL, :REDORB, :POKEBALL]

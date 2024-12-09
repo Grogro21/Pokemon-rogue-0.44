@@ -1,0 +1,56 @@
+Kecleon-Boss (M) @ Assault Vest  
+Ability: Protean  
+Shiny: Yes    
+EVs: 252 Atk / 252 HP 
+Adamant Nature  
+- Fire Punch  
+- Frustration  
+- Rock Slide  
+- Aqua Tail  
+
+Moltres-Boss @ Iapapa Berry  
+Ability: Flame Body  
+EVs: 252 HP / 252 Atk / 4 Spe  
+Modest Nature  
+IVs: 0 Atk  
+- Heat Wave  
+- Aerial Ace
+- Sacred Fire
+- Hurricane  
+
+Zapdos-Boss @ Flying Gem  
+Ability: Static   
+EVs: 252 Atk / 252 Spe  
+Adamant Nature  
+- Acrobatics  
+- U-turn  
+- Volt Switch  
+- Brave Bird 
+
+Articuno-Boss @ Choice Band  
+Ability: Snow Cloak    
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- Dual Wingbeat  
+- Aeroblast
+- U-turn  
+- Triple Axel  
+
+Jirachi-Boss @ Leftovers  
+Ability: Serene Grace   
+EVs: 4 Def / 252 Atk / 252 Spe  
+Hasty Nature  
+- Iron Head  
+- Zen Headbutt
+- Dark Pulse 
+- Rock Slide
+
+Mewtwo-Boss @ Expert Belt 
+Ability: Unnerve   
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Hurricane  
+- Flamethrower  
+- Stone Edge 
+- Aerial Ace

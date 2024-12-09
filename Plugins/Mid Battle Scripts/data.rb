@@ -1291,12 +1291,119 @@ module DialogueModule
         BattleScripting.setInScript("turnEnd#{battle.turnCount + 1}", :ArceusP2Buff)
     }
     #######################MISSINGNO#######################################################
-    MissingInit = Proc.new { |battle|
-        battle.battlers[1].effects[PBEffects::BossProtect] = true
-        battle.battlers[1].effects[PBEffects::Midhp] = true
+    MissingInit1 = Proc.new { |battle|
+        boss = battle.battlers[1]
+        boss.effects[PBEffects::Midhp] = true
+        boss.effects[PBEffects::BossProtect] = true
+
         $bag.randomize_bag
-        # $bag.items[5].count = 255
+        boss.pbChangeMove(3, boss.get_random_move)
+
+        BattleScripting.setInScript("turnStart#{battle.turnCount + 1}", :MissingEndTurn1)
+        BattleScripting.setInScript("halfHPOpp", :MissingMidHP)
+
     }
+
+    MissingEndTurn1 = Proc.new { |battle|
+        boss = battle.battlers[1]
+        wam = battle.battlers[0]
+
+        wam = battle.battlers[0]
+
+        boss.pbChangeMove(3, boss.get_random_move)
+
+        pbChangeBattlerSpecies(wam.pokemon, wam, battle)
+        wam.pbChangeForm(-1, "")
+        wam.pbChangeForm(0, "WTF Bro?")
+        battle.scene.pbRefresh
+
+        wam.pbChangeMove(0, wam.get_random_move)
+        wam.pbChangeMove(1, wam.get_random_move)
+        wam.pbChangeMove(2, wam.get_random_move)
+        wam.pbChangeMove(3, wam.get_random_move)
+
+        boss.pbRandomizeStats(6)
+
+        BattleScripting.setInScript("turnStart#{battle.turnCount + 1}", :MissingEndTurn1)
+    }
+
+    MissingMidHP = Proc.new { |battle|
+        BattleScripting.setInScript("turnEnd#{battle.turnCount}", :MissingMidHPAfter)
+    }
+
+    MissingMidHPAfter = Proc.new { |battle|
+        boss = battle.battlers[1]
+        wam = battle.battlers[0]
+
+        boss.effects[PBEffects::Midhp] = false
+
+        battle.scene.disappearDatabox
+        battle.scene.appearDatabox
+        battle.scene.disappearDatabox
+        battle.scene.appearDatabox
+        battle.scene.disappearDatabox
+        battle.scene.appearDatabox
+
+        battle.pbAnimation(:PSYCHIC, boss, wam)
+        $player.party.each do |pkmn|
+            pkmn.hp = rand(10..100) / 100.0 * pkmn.totalhp
+        end
+        wam.hp = wam.pokemon.hp
+
+        battle.scene.pbRefresh
+    }
+
+    #################Part 2###########################################################################
+    MissingInit2 = Proc.new { |battle|
+        boss = battle.battlers[1]
+        boss.effects[PBEffects::Midhp] = true
+        boss.effects[PBEffects::BossProtect] = true
+
+        $bag.randomize_bag
+        boss.pbChangeMove(3, boss.get_random_move)
+        BattleScripting.setInScript("turnStart#{battle.turnCount + 1}", :MissingEndTurn2)
+        BattleScripting.setInScript("halfHPOpp", :MissingMidHP2)
+    }
+
+    MissingEndTurn2 = Proc.new { |battle|
+        boss = battle.battlers[1]
+        wam = battle.battlers[0]
+
+        battle.roar(wam)
+        wam = battle.battlers[0]
+
+        boss.pbChangeMove(3, boss.get_random_move)
+
+        wam.pbChangeMove(rand(4), wam.get_random_move)
+
+        boss.pbRandomizeStats(3)
+
+        BattleScripting.setInScript("turnStart#{battle.turnCount + 1}", :MissingEndTurn2)
+    }
+
+    MissingMidHP2 = Proc.new { |battle|
+        BattleScripting.setInScript("turnEnd#{battle.turnCount}", :MissingMidHPAfter2)
+    }
+
+    MissingMidHPAfter2 = Proc.new { |battle|
+        boss = battle.battlers[1]
+        wam = battle.battlers[0]
+
+        boss.effects[PBEffects::Midhp] = false
+
+        battle.scene.disappearDatabox
+        battle.scene.appearDatabox
+        battle.scene.disappearDatabox
+        battle.scene.appearDatabox
+        battle.scene.disappearDatabox
+        battle.scene.appearDatabox
+
+        battle.pbAnimation(:PSYCHIC, boss, wam)
+        randomstatus
+
+        battle.scene.pbRefresh
+    }
+
     ##############Test######################################################
     Lmusic = Proc.new { |battle|
         pbBGMPlay("Surfing")

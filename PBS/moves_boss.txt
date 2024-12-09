@@ -74,3 +74,16 @@ Flags = CanProtect
 EffectChance = 20
 Description = Catastrophic failure! High chance of freezing the target.
 #-----------------------------
+[SKYBUG]
+Name = Sky Attack?
+Type = FLYING
+Category = Physical
+Power = 100
+Accuracy = 100
+TotalPP = 30
+Target = Other
+FunctionCode = FlinchTarget
+Flags = CanProtect,CanMirrorMove,HighCriticalHitRate
+EffectChance = 20
+Description = A boom boom attack move where critical hits land more easily. It may also make the target flinch.
+#-----------------------------

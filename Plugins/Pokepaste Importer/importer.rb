@@ -381,6 +381,17 @@ def genteam(file, inf, sup)
     end
 end
 
+def genteamsilent(file, inf, sup)
+    # main script
+    cut = cutfile(file, sup)
+    if sup > cut.length
+        sup = cut.length
+    end
+    for i in inf...sup
+        pbAddPokemonSilent(caracpkmn(cut[i]))
+    end
+end
+
 def genrandpkmn(file)
     sup = 10000
     cut = cutfile(file, sup)

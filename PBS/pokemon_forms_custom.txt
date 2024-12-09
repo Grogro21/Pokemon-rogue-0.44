@@ -32,15 +32,15 @@ Moves = 1,THUNDERFANG,1,FIREFANG,1,ICEFANG,1,BODYSLAM
 #-------------------------------
 [ARTICUNO,2]
 FormName = Boss
-BaseStats = 300,65,100,85,75,125
+BaseStats = 300,75,100,85,75,125
 #-------------------------------
 [ZAPDOS,2]
 FormName = Boss
-BaseStats = 300,70,85,100,85,90
+BaseStats = 300,85,85,100,85,90
 #-------------------------------
 [MOLTRES,2]
 FormName = Boss
-BaseStats = 300,70,90,90,85,85
+BaseStats = 300,85,90,90,85,85
 #-------------------------------
 [REGIGIGAS,1]
 FormName = Boss
@@ -108,9 +108,14 @@ Abilities = STALL
 HiddenAbilities = STALL
 #-------------------------------
 [MEWTWO,3]
-FormName = Armored
+FormName = Boss
 Types = PSYCHIC,STEEL
 BaseStats = 606,110,90,130,204,90
 Abilities = PRESSURE
-HiddenAbilities = PRESSURE
+HiddenAbilities = UNNERVE
 Moves = 70,PSYCHIC,70,FLASHCANNON,70,ICEBEAM,70,THUNDERBOLT
+#-------------------------------
+[MISSINGNO,1]
+FormName = Boss
+BaseStats = 94,13,5,9,7,6
+

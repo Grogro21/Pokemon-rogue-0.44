@@ -1,201 +1,230 @@
 module BaseStatsProperty
-  def self.set(settingname, oldsetting)
-    return oldsetting if !oldsetting
-    properties = []
-    data = []
-    stat_ids = []
-    GameData::Stat.each_main do |s|
-      next if s.pbs_order < 0
-      properties[s.pbs_order] = [_INTL("Base {1}", s.name), NonzeroLimitProperty.new(999999999999),
-                                 _INTL("Base {1} stat of the Pokémon.", s.name)]
-      data[s.pbs_order] = oldsetting[s.id] || 10
-      stat_ids[s.pbs_order] = s.id
+    def self.set(settingname, oldsetting)
+        return oldsetting if !oldsetting
+        properties = []
+        data = []
+        stat_ids = []
+        GameData::Stat.each_main do |s|
+            next if s.pbs_order < 0
+            properties[s.pbs_order] = [_INTL("Base {1}", s.name), NonzeroLimitProperty.new(999999999999),
+                                       _INTL("Base {1} stat of the Pokémon.", s.name)]
+            data[s.pbs_order] = oldsetting[s.id] || 10
+            stat_ids[s.pbs_order] = s.id
+        end
+        if pbPropertyList(settingname, data, properties, true)
+            ret = {}
+            stat_ids.each_with_index { |s, i| ret[s] = data[i] || 10 }
+            oldsetting = ret
+        end
+        return oldsetting
     end
-    if pbPropertyList(settingname, data, properties, true)
-      ret = {}
-      stat_ids.each_with_index { |s, i| ret[s] = data[i] || 10 }
-      oldsetting = ret
-    end
-    return oldsetting
-  end
 
-  def self.defaultValue
-    ret = {}
-    GameData::Stat.each_main { |s| ret[s.id] = 10 if s.pbs_order >= 0 }
-    return ret
-  end
-
-  def self.format(value)
-    array = []
-    GameData::Stat.each_main do |s|
-      next if s.pbs_order < 0
-      array[s.pbs_order] = value[s.id] || 0
+    def self.defaultValue
+        ret = {}
+        GameData::Stat.each_main { |s| ret[s.id] = 10 if s.pbs_order >= 0 }
+        return ret
     end
-    return array.join(",")
-  end
+
+    def self.format(value)
+        array = []
+        GameData::Stat.each_main do |s|
+            next if s.pbs_order < 0
+            array[s.pbs_order] = value[s.id] || 0
+        end
+        return array.join(",")
+    end
 end
 ###########custom functions ###########################################
 class Battle
-	def pbLowerHP(pkmn,value)
-		pkmn.pbReduceHP(pkmn.totalhp/value)
-		pkmn.pbItemHPHealCheck
-		if pkmn.fainted?
-			pkmn.pbFaint
-			if pbAbleCount(0)>=pbSideSize(0)
-				newPkmn = pbGetReplacementPokemonIndex(pkmn.index)   # Owner chooses
-				return false if newPkmn < 0
-				pbRecallAndReplace(pkmn.index, newPkmn)
-				pbClearChoice(pkmn.index)   # Replacement Pokémon does nothing this round
-				moldBreaker = false
-				pbOnBattlerEnteringBattle(pkmn.index)
-			end
-		end
-		if pbAbleCount(0)==0
-			@decision=2  #loss if you have no able pokémon left
-		end
-    if pbAbleCount(1)==0
-      @decision=1 #win if the opponent has 0 pkmn left
+    attr_accessor :last_pkmn
+    alias ctor initialize
+
+    def initialize(scene, p1, p2, player, opponent)
+        @last_pkmn = 0
+
+        ctor(scene, p1, p2, player, opponent)
     end
-	end
 
-
-  def throwitem(pkmn)
-	  list=[:STICKYBARB,:IRONBALL,:CHOICEBAND,:CHOICESCARF,:CHOICESPECS,:BLACKSLUDGE,:EJECTBUTTON,:FLAMEORB,:TOXICORB,:FULLINCENSE,:LAGGINGTAIL,:MACHOBRACE,:RINGTARGET,:LEFTOVERS]
-	  if pkmn.item!=nil
-      if list.include?(pkmn.item.id)
-        pbLowerHP(pkmn,8)
-      end
+    def pbLowerHP(battler, value)
+        battler.pbReduceHP(battler.totalhp / value)
+        battler.pbItemHPHealCheck
+        if battler.fainted?
+            battler.pbFaint
+            if pbAbleCount(0) > pbSideSize(0)
+                newPkmn = pbGetReplacementPokemonIndex(battler.index) # Owner chooses
+                return false if newPkmn < 0
+                pbRecallAndReplace(battler.index, newPkmn)
+                pbClearChoice(battler.index) # Replacement Pokémon does nothing this round
+                moldBreaker = false
+                pbOnBattlerEnteringBattle(battler.index)
+            end
+        end
+        if pbAbleCount(0) == 0
+            @decision = 2 # loss if you have no able pokémon left
+        end
+        if pbAbleCount(1) == 0
+            @decision = 1 # win if the opponent has 0 pkmn left
+        end
     end
-    choice=list.sample
 
-    pkmn.item=choice
-    return choice
+    def roar(target_battler)
+        if pbAbleCount(0) > pbSideSize(0)
+            newPkmn = -1
+            loop do
+                newPkmn = rand(0...pbPlayer.party.length)
+                break if !pbPlayer.party[newPkmn].fainted? && newPkmn != last_pkmn
+            end
+            @last_pkmn = newPkmn
+            return false if newPkmn < 0
+            pbRecallAndReplace(target_battler.index, newPkmn)
+            pbClearChoice(target_battler.index) # Replacement Pokémon does nothing this round
+            moldBreaker = false
+            pbOnBattlerEnteringBattle(target_battler.index)
+        end
+        if pbAbleCount(0) == 0
+            @decision = 2 # loss if you have no able pokémon left
+        end
+        if pbAbleCount(1) == 0
+            @decision = 1 # win if the opponent has 0 pkmn left
+        end
+    end
+
+    def throwitem(pkmn)
+        list = [:STICKYBARB, :IRONBALL, :CHOICEBAND, :CHOICESCARF, :CHOICESPECS, :BLACKSLUDGE, :EJECTBUTTON, :FLAMEORB, :TOXICORB, :FULLINCENSE, :LAGGINGTAIL, :MACHOBRACE, :RINGTARGET, :LEFTOVERS]
+        if pkmn.item != nil
+            if list.include?(pkmn.item.id)
+                pbLowerHP(pkmn, 8)
+            end
+        end
+        choice = list.sample
+
+        pkmn.item = choice
+        return choice
     end
 end
-
 
 ##########Battle pictures######################################
 
 class Battle::Scene
-  def appearsprite(spritenames)
-    pbAddSprite("bob",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[0],@viewport)
-	  pbAddSprite("bob2",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[1],@viewport)
-	  pbAddSprite("bob3",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[2],@viewport)
-	  pbAddSprite("bob4",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[3],@viewport)
-	  pbAddSprite("bob5",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[4],@viewport)
-    pbAddSprite("bob6",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[5],@viewport)
-    unfadeAnim = SpriteAppearAnimation.new(@sprites,@viewport,@battle.battlers.length)
-    @animations.push(unfadeAnim)
-    loop do
-      unfadeAnim.update
-      pbUpdate
-      break if unfadeAnim.animDone?
+    def appearsprite(spritenames)
+        pbAddSprite("bob", Graphics.width, 0, "Graphics/Battle animations/pictures/" + spritenames[0], @viewport)
+        pbAddSprite("bob2", Graphics.width, 0, "Graphics/Battle animations/pictures/" + spritenames[1], @viewport)
+        pbAddSprite("bob3", Graphics.width, 0, "Graphics/Battle animations/pictures/" + spritenames[2], @viewport)
+        pbAddSprite("bob4", Graphics.width, 0, "Graphics/Battle animations/pictures/" + spritenames[3], @viewport)
+        pbAddSprite("bob5", Graphics.width, 0, "Graphics/Battle animations/pictures/" + spritenames[4], @viewport)
+        pbAddSprite("bob6", Graphics.width, 0, "Graphics/Battle animations/pictures/" + spritenames[5], @viewport)
+        unfadeAnim = SpriteAppearAnimation.new(@sprites, @viewport, @battle.battlers.length)
+        @animations.push(unfadeAnim)
+        loop do
+            unfadeAnim.update
+            pbUpdate
+            break if unfadeAnim.animDone?
+        end
+        unfadeAnim.dispose
     end
-    unfadeAnim.dispose
-  end
 
-  def disappearsprite(spritenames)
-	pbAddSprite("bob",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[0],@viewport)
-	pbAddSprite("bob2",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[1],@viewport)
-	pbAddSprite("bob3",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[2],@viewport)
-	pbAddSprite("bob4",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[3],@viewport)
-	pbAddSprite("bob5",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[4],@viewport)
-    pbAddSprite("bob6",Graphics.width,0,"Graphics/Battle animations/pictures/"+spritenames[5],@viewport)
-    unfadeAnim = SpriteDisappearAnimation.new(@sprites,@viewport,@battle.battlers.length)
-    @animations.push(unfadeAnim)
-    loop do
-      unfadeAnim.update
-      pbUpdate
-      break if unfadeAnim.animDone?
+    def disappearsprite(spritenames)
+        pbAddSprite("bob", Graphics.width, 0, "Graphics/Battle animations/pictures/" + spritenames[0], @viewport)
+        pbAddSprite("bob2", Graphics.width, 0, "Graphics/Battle animations/pictures/" + spritenames[1], @viewport)
+        pbAddSprite("bob3", Graphics.width, 0, "Graphics/Battle animations/pictures/" + spritenames[2], @viewport)
+        pbAddSprite("bob4", Graphics.width, 0, "Graphics/Battle animations/pictures/" + spritenames[3], @viewport)
+        pbAddSprite("bob5", Graphics.width, 0, "Graphics/Battle animations/pictures/" + spritenames[4], @viewport)
+        pbAddSprite("bob6", Graphics.width, 0, "Graphics/Battle animations/pictures/" + spritenames[5], @viewport)
+        unfadeAnim = SpriteDisappearAnimation.new(@sprites, @viewport, @battle.battlers.length)
+        @animations.push(unfadeAnim)
+        loop do
+            unfadeAnim.update
+            pbUpdate
+            break if unfadeAnim.animDone?
+        end
+        unfadeAnim.dispose
     end
-    unfadeAnim.dispose
-  end
 end
 
 class SpriteAppearAnimation < Battle::Scene::Animation
-  def initialize(sprites,viewport,battlers)
-    @battlers = battlers
-    super(sprites,viewport)
-  end
+    def initialize(sprites, viewport, battlers)
+        @battlers = battlers
+        super(sprites, viewport)
+    end
 
-  def createProcesses
-    delay = 10
-    boxes = []
-    toMoveTop = [@sprites["bob"].bitmap.width,Graphics.width].max
-    topBar = addSprite(@sprites["bob"],PictureOrigin::TOP_LEFT)
-    topBar.setZ(0,200)
-    topBar.setOpacity(0,255)
-    topBar.setXY(0,Graphics.width,0)
-    topBar.moveXY(delay,10,(Graphics.width-toMoveTop),0)
+    def createProcesses
+        delay = 10
+        boxes = []
+        toMoveTop = [@sprites["bob"].bitmap.width, Graphics.width].max
+        topBar = addSprite(@sprites["bob"], PictureOrigin::TOP_LEFT)
+        topBar.setZ(0, 200)
+        topBar.setOpacity(0, 255)
+        topBar.setXY(0, Graphics.width, 0)
+        topBar.moveXY(delay, 10, (Graphics.width - toMoveTop), 0)
 
-	toMoveTop2 = [@sprites["bob2"].bitmap.width,Graphics.width].max
-    topBar2 = addSprite(@sprites["bob2"],PictureOrigin::TOP_LEFT)
-    topBar2.setZ(0,200)
-    topBar2.setOpacity(0,255)
-    topBar2.setXY(0,Graphics.width,0)
-    topBar2.moveXY(delay,10,(Graphics.width-toMoveTop2),0)
+        toMoveTop2 = [@sprites["bob2"].bitmap.width, Graphics.width].max
+        topBar2 = addSprite(@sprites["bob2"], PictureOrigin::TOP_LEFT)
+        topBar2.setZ(0, 200)
+        topBar2.setOpacity(0, 255)
+        topBar2.setXY(0, Graphics.width, 0)
+        topBar2.moveXY(delay, 10, (Graphics.width - toMoveTop2), 0)
 
-	toMoveTop3 = [@sprites["bob3"].bitmap.width,Graphics.width].max
-    topBar3 = addSprite(@sprites["bob3"],PictureOrigin::TOP_LEFT)
-    topBar3.setZ(0,200)
-    topBar3.setOpacity(0,255)
-    topBar3.setXY(0,Graphics.width,0)
-    topBar3.moveXY(delay,10,(Graphics.width-toMoveTop2),0)
+        toMoveTop3 = [@sprites["bob3"].bitmap.width, Graphics.width].max
+        topBar3 = addSprite(@sprites["bob3"], PictureOrigin::TOP_LEFT)
+        topBar3.setZ(0, 200)
+        topBar3.setOpacity(0, 255)
+        topBar3.setXY(0, Graphics.width, 0)
+        topBar3.moveXY(delay, 10, (Graphics.width - toMoveTop2), 0)
 
-	toMoveTop4 = [@sprites["bob4"].bitmap.width,Graphics.width].max
-    topBar4 = addSprite(@sprites["bob4"],PictureOrigin::TOP_LEFT)
-    topBar4.setZ(0,200)
-    topBar4.setOpacity(0,255)
-    topBar4.setXY(0,Graphics.width,0)
-    topBar4.moveXY(delay,10,(Graphics.width-toMoveTop2),0)
+        toMoveTop4 = [@sprites["bob4"].bitmap.width, Graphics.width].max
+        topBar4 = addSprite(@sprites["bob4"], PictureOrigin::TOP_LEFT)
+        topBar4.setZ(0, 200)
+        topBar4.setOpacity(0, 255)
+        topBar4.setXY(0, Graphics.width, 0)
+        topBar4.moveXY(delay, 10, (Graphics.width - toMoveTop2), 0)
 
-	toMoveTop5 = [@sprites["bob5"].bitmap.width,Graphics.width].max
-    topBar5 = addSprite(@sprites["bob5"],PictureOrigin::TOP_LEFT)
-    topBar5.setZ(0,200)
-    topBar5.setOpacity(0,255)
-    topBar5.setXY(0,Graphics.width,0)
-    topBar5.moveXY(delay,10,(Graphics.width-toMoveTop2),0)
+        toMoveTop5 = [@sprites["bob5"].bitmap.width, Graphics.width].max
+        topBar5 = addSprite(@sprites["bob5"], PictureOrigin::TOP_LEFT)
+        topBar5.setZ(0, 200)
+        topBar5.setOpacity(0, 255)
+        topBar5.setXY(0, Graphics.width, 0)
+        topBar5.moveXY(delay, 10, (Graphics.width - toMoveTop2), 0)
 
-  toMoveTop6 = [@sprites["bob6"].bitmap.width,Graphics.width].max
-    topBar6 = addSprite(@sprites["bob6"],PictureOrigin::TOP_LEFT)
-    topBar6.setZ(0,200)
-    topBar6.setOpacity(0,255)
-    topBar6.setXY(0,Graphics.width,0)
-    topBar6.moveXY(delay,10,(Graphics.width-toMoveTop2),0)
-  end
+        toMoveTop6 = [@sprites["bob6"].bitmap.width, Graphics.width].max
+        topBar6 = addSprite(@sprites["bob6"], PictureOrigin::TOP_LEFT)
+        topBar6.setZ(0, 200)
+        topBar6.setOpacity(0, 255)
+        topBar6.setXY(0, Graphics.width, 0)
+        topBar6.moveXY(delay, 10, (Graphics.width - toMoveTop2), 0)
+    end
 end
 
 class SpriteDisappearAnimation < Battle::Scene::Animation
-  def initialize(sprites,viewport,battlers)
-    @battlers = battlers
-    super(sprites,viewport)
-  end
+    def initialize(sprites, viewport, battlers)
+        @battlers = battlers
+        super(sprites, viewport)
+    end
 
-  def createProcesses
-    delay = 10
-    boxes = []
-    toMoveTop = [@sprites["bob"].bitmap.width,Graphics.width].max
-    topBar = addSprite(@sprites["bob"],PictureOrigin::TOP_LEFT)
-    topBar.setOpacity(0,0)
+    def createProcesses
+        delay = 10
+        boxes = []
+        toMoveTop = [@sprites["bob"].bitmap.width, Graphics.width].max
+        topBar = addSprite(@sprites["bob"], PictureOrigin::TOP_LEFT)
+        topBar.setOpacity(0, 0)
 
-	toMoveTop2 = [@sprites["bob2"].bitmap.width,Graphics.width].max
-    topBar2 = addSprite(@sprites["bob2"],PictureOrigin::TOP_LEFT)
-    topBar2.setOpacity(0,0)
+        toMoveTop2 = [@sprites["bob2"].bitmap.width, Graphics.width].max
+        topBar2 = addSprite(@sprites["bob2"], PictureOrigin::TOP_LEFT)
+        topBar2.setOpacity(0, 0)
 
-	toMoveTop3 = [@sprites["bob3"].bitmap.width,Graphics.width].max
-    topBar3 = addSprite(@sprites["bob3"],PictureOrigin::TOP_LEFT)
-    topBar3.setOpacity(0,0)
+        toMoveTop3 = [@sprites["bob3"].bitmap.width, Graphics.width].max
+        topBar3 = addSprite(@sprites["bob3"], PictureOrigin::TOP_LEFT)
+        topBar3.setOpacity(0, 0)
 
-	toMoveTop4 = [@sprites["bob4"].bitmap.width,Graphics.width].max
-    topBar4 = addSprite(@sprites["bob4"],PictureOrigin::TOP_LEFT)
-    topBar4.setOpacity(0,0)
+        toMoveTop4 = [@sprites["bob4"].bitmap.width, Graphics.width].max
+        topBar4 = addSprite(@sprites["bob4"], PictureOrigin::TOP_LEFT)
+        topBar4.setOpacity(0, 0)
 
-	toMoveTop5 = [@sprites["bob5"].bitmap.width,Graphics.width].max
-    topBar5 = addSprite(@sprites["bob5"],PictureOrigin::TOP_LEFT)
-    topBar5.setOpacity(0,0)
+        toMoveTop5 = [@sprites["bob5"].bitmap.width, Graphics.width].max
+        topBar5 = addSprite(@sprites["bob5"], PictureOrigin::TOP_LEFT)
+        topBar5.setOpacity(0, 0)
 
-	toMoveTop6 = [@sprites["bob6"].bitmap.width,Graphics.width].max
-	topBar6 = addSprite(@sprites["bob6"],PictureOrigin::TOP_LEFT)
-	topBar6.setOpacity(0,0)
-  end
+        toMoveTop6 = [@sprites["bob6"].bitmap.width, Graphics.width].max
+        topBar6 = addSprite(@sprites["bob6"], PictureOrigin::TOP_LEFT)
+        topBar6.setOpacity(0, 0)
+    end
 end
