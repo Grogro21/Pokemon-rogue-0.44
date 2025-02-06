@@ -39,6 +39,7 @@ end
 class Battle::Battler
     # adds the moves used to the list
     def pbUseMove(choice, specialUsage = false)
+
         # NOTE: This is intentionally determined before a multi-turn attack can
         #       set specialUsage to true.
         skipAccuracyCheck = (specialUsage && choice[2] != @battle.struggle)

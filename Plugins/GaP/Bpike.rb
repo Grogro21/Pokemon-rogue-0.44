@@ -1,3 +1,52 @@
+def reset_all_self_switches
+    $game_variables[71] = [:REGIROCK, :REGICE, :REGISTEEL, :REGIDRAGO, :REGIELEKI]
+    pbSetSelfSwitch(4, "A", false, 89)
+    pbSetSelfSwitch(8, "A", false, 95)
+    pbSetSelfSwitch(24, "A", false, 90)
+    pbSetSelfSwitch(5, "A", false, 90)
+    pbSetSelfSwitch(4, "A", false, 85)
+    pbSetSelfSwitch(1, "A", false, 88)
+    pbSetSelfSwitch(3, "A", false, 99)
+    pbSetSelfSwitch(4, "A", false, 99)
+    pbSetSelfSwitch(5, "A", false, 99)
+    pbSetSelfSwitch(6, "A", false, 99)
+    pbSetSelfSwitch(8, "A", false, 103)
+    pbSetSelfSwitch(7, "A", false, 103)
+    pbSetSelfSwitch(1, "A", false, 99)
+    pbSetSelfSwitch(3, "A", false, 99)
+    pbSetSelfSwitch(7, "A", false, 104)
+    pbSetSelfSwitch(20, "A", false, 33)
+    pbSetSelfSwitch(1, "A", false, 84)
+    pbSetSelfSwitch(12, "A", false, 32)
+    pbSetSelfSwitch(5, "A", false, 85)
+    pbSetSelfSwitch(2, "A", false, 86)
+    pbSetSelfSwitch(8, "A", false, 98)
+    pbSetSelfSwitch(2, "A", false, 92)
+    pbSetSelfSwitch(2, "B", false, 92)
+    pbSetSelfSwitch(1, "A", false, 89)
+    pbSetSelfSwitch(8, "A", false, 32)
+    pbSetSelfSwitch(1, "A", false, 87)
+    pbSetSelfSwitch(8, "A", false, 97)
+    pbSetSelfSwitch(8, "A", false, 93)
+    pbSetSelfSwitch(8, "A", false, 94)
+    pbSetSelfSwitch(6, "A", false, 32)
+    pbSetSelfSwitch(4, "A", false, 32)
+    pbSetSelfSwitch(4, "B", false, 32)
+    pbSetSelfSwitch(1, "A", false, 81)
+    pbSetSelfSwitch(1, "A", false, 82)
+    pbSetSelfSwitch(2, "A", false, 82)
+    pbSetSelfSwitch(7, "A", false, 32)
+    pbSetSelfSwitch(2, "A", false, 90)
+    pbSetSelfSwitch(2, "B", false, 90)
+    pbSetSelfSwitch(15, "A", false, 90)
+    pbSetSelfSwitch(16, "A", false, 90)
+    pbSetSelfSwitch(21, "A", false, 90)
+    pbSetSelfSwitch(22, "A", false, 90)
+    pbSetSelfSwitch(3, "A", false, 90)
+    pbSetSelfSwitch(1, "A", false, 90)
+    pbSetSelfSwitch(1, "A", false, 104)
+end
+
 def starter(lvl)
     pkmn1 = pbChooseRandomPokemon(nil, "suggested", nil, true, nil)
     pkmn2 = pbChooseRandomPokemon(nil, "suggested", nil, true, nil)
@@ -240,12 +289,13 @@ def getrandomtm(itemlist = gettmlist)
 end
 
 def get_hm
-    hm = [:CUTITEM, :ROCKSMASHITEM, :STRENGTHITEM, :SURFITEM, :WATERFALLITEM, :DIVEITEM]
+    hm = [:CUTITEM, :ROCKSMASHITEM, :STRENGTHITEM, :SURFITEM]
     for item in hm
         if !$bag.has?(item)
             return item
         end
     end
+    return :FULLRESTORE
 end
 
 def genreward(type, exclude = nil)
@@ -311,7 +361,7 @@ def genreward(type, exclude = nil)
                     :CHOICESCARF, :CHOICESPECS, :LEFTOVERS, :LIFEORB, :EXPERTBELT, :FOCUSSASH]
             return(["item", item.sample, 1])
         elsif r == "gold"
-            return(["gold", nil, 1000 + $game_variables[45] * 1000])
+            return(["gold", nil, 500 + $game_variables[45] * 900])
         elsif r == "mint"
             return(["mint", nil, 1])
         elsif r == "hm"
@@ -420,7 +470,7 @@ def gen_type_rooms
     return([type, trainer])
 end
 
-def display_next_room # bientot obsolete
+def display_next_room
     $game_variables[37] = $game_variables[38]
     # current room
 
@@ -492,6 +542,31 @@ def display_next_room # bientot obsolete
         $game_variables[43] = 12 # boss
     end
     Graphics.update
+end
+
+def legendary_pkmn_merchant
+    pkmns = []
+    $game_variables[81].each do |pkmn|
+        p = GameData::Species.get(pkmn)
+        if p.form_name == nil
+            pkmns.push(p.name)
+        else
+            pkmns.push(p.name + " " + p.form_name)
+        end
+    end
+    pkmns.push("No thanks")
+
+    cmd = pbMessage("\\BDo you want to buy one of my Pokémons for 10 BP?", pkmns, pkmns.length, nil, 0)
+
+    if cmd == pkmns.length - 1
+        pbMessage("Bye!")
+        return
+    end
+
+    pkmn = Pokemon.new($game_variables[81][cmd], $player.party[0].level)
+    pbAddPokemon(pkmn)
+    $player.battle_points -= 10
+
 end
 
 def pkmnmerchant
@@ -666,7 +741,7 @@ def sacreward(bossnumber)
             pkmn.form = 1
             pbAddPokemon(pkmn)
         elsif r < 15
-            unless $game_variables[80].includes?(:SCEPTILITE)
+            unless $game_variables[80].include?(:SCEPTILITE)
                 $game_variables[80].push(:SCEPTILITE)
                 pbItemBall(:SCEPTILITE, 1)
             end
@@ -693,7 +768,7 @@ def sacreward(bossnumber)
         end
         $bag.remove(itemsymb)
         if rareitem.include?(item.id)
-            unless $game_variables[80].includes?(:SLOWBRONITE)
+            unless $game_variables[80].include?(:SLOWBRONITE)
                 $game_variables[80].push(:SLOWBRONITE)
                 pbItemBall(:SLOWBRONITE, 1)
             end
@@ -702,7 +777,7 @@ def sacreward(bossnumber)
             pbItemBall(getrandomtm, 1)
             pbItemBall(getrandomtm, 1)
         elsif item.is_TM? || item.is_TR?
-            unless $game_variables[80].includes?(:TYRANITARITE)
+            unless $game_variables[80].include?(:TYRANITARITE)
                 $game_variables[80].push(:TYRANITARITE)
                 pbItemBall(:TYRANITARITE, 1)
             end

@@ -3,7 +3,7 @@
 [POKEMONTRAINER_Red]
 Name = Pokémon Trainer
 Gender = Male
-BaseMoney = 60
+BaseMoney = 100
 #-------------------------------
 [POKEMONTRAINER_Gliched]
 Name = Pokémon Trainer

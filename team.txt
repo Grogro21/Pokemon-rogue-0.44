@@ -1,8 +1,1 @@
-Rayquaza
-Ability: Contrary
-Shiny: Yes
-Hasty Nature
-- V-create
-- Draco Meteor
-- Superpower
-- Ice Hammer
+exit

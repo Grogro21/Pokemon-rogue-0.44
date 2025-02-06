@@ -644,6 +644,8 @@ class Battle::Battler
         end
         if self.effects[PBEffects::BossProtect]
             @battle.pbDisplay(_INTL("{1} is immune!", pbThis)) if showMessages
+
+            return false
         end
         # Safeguard immunity
         if (pbOwnSide.effects[PBEffects::Safeguard] > 0) && !selfInflicted && move &&

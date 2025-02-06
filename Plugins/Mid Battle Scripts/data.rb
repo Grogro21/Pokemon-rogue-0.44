@@ -547,14 +547,12 @@ module DialogueModule
     }
 
     Bfaint = Proc.new { |battle|
-        battle.scene.appearBar
         zapdos = battle.battlers[1]
         moltres = battle.battlers[3]
         articuno = battle.battlers[5]
         zapdos.pbRecoverHP(zapdos.totalhp) if !zapdos.fainted?
         articuno.pbRecoverHP(articuno.totalhp) if !articuno.fainted?
         moltres.pbRecoverHP(moltres.totalhp) if !moltres.fainted?
-        battle.scene.disappearBar
         BattleScripting.setInScript("lowHPOpp", :Blow)
     }
 
@@ -603,7 +601,6 @@ module DialogueModule
         battle.scene.disappearBar
     }
     Bstart = Proc.new { |battle|
-        battle.scene.appearBar
         zapdos = battle.battlers[1]
         moltres = battle.battlers[3]
         articuno = battle.battlers[5]
@@ -815,7 +812,7 @@ module DialogueModule
                 end
             end
         end
-        battle.scene.disappearBar
+
     }
 
     ####################Regi battle##########################################################
@@ -952,8 +949,9 @@ module DialogueModule
         pbWait(1)
         pbSEPlay("Battle damage normal")
         pbMessage("The doors have just closed!")
-        battle.battlers[1].pbRaiseStatStage(:SPEED, 1, battle.battlers[1])
         battle.scene.disappearBar
+        battle.battlers[1].pbRaiseStatStage(:SPEED, 1, battle.battlers[1])
+
     }
 
     Regidragoexplode1 = Proc.new { |battle|
@@ -1274,20 +1272,36 @@ module DialogueModule
     }
 
     ArceusP2Buff = Proc.new { |battle|
-        battler = battle.battlers[1]
-
+        boss = battle.battlers[1]
+        wam = battle.battlers[0]
+        battle.scene.appearBar
         case rand(100)
         when 0..30
+            wam.effects[PBEffects::Disable] = 5
+            wam.effects[PBEffects::DisableMove] = wam.lastRegularMoveUsed
+            battle.pbAnimation(:DISABLE, boss, wam)
+            pbMessage("Arceus used Disable!")
+        when 31..60
+            battle.pbAnimation(:ROAROFTIME, boss, wam)
+            pokemon = wam.pokemon
+            pokemon.species = GameData::Species.get(pokemon.species).get_baby_species
+            form = pokemon.form
+            wam.pbChangeForm(-1, "")
+            wam.pbChangeForm(form, "")
+
+            battle.scene.pbRefresh
+        when 61..90
+            battle.pbAnimation(:SEISMICTOSS, boss, wam)
+            $player.party.each_with_index do |pkmn, i|
+                pbReducePkmnHP(pkmn, pkmn.totalhp / 10) if i > 0
+            end
+            battle.pbLowerHP(wam, 10)
+        else
             if battler.pbCanRaiseStatStage?(:SPEED)
                 battler.pbRaiseStatStage(:SPEED, 2, battler)
             end
-        when 31..40
-        when 41..60
-        when 61..80
-        else
-            # NOTHING
         end
-
+        battle.scene.disappearBar
         BattleScripting.setInScript("turnEnd#{battle.turnCount + 1}", :ArceusP2Buff)
     }
     #######################MISSINGNO#######################################################
@@ -1409,7 +1423,13 @@ module DialogueModule
         pbBGMPlay("Surfing")
     }
     Tlast = Proc.new { |battle|
-        pbMessage("Last poke!")
+        battle.scene.pbShowOpponent(0)
+        battle.scene.disappearDatabox
+        battle.scene.appearBar
+        pbMessage("bob")
+        battle.scene.disappearBar
+        battle.scene.appearDatabox
+        battle.scene.pbHideOpponent
     }
     Trand = Proc.new { |battle|
         pbMessage("Random!")

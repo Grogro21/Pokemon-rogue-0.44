@@ -1,5 +1,55 @@
+class BattlePointShopScreen
+    def pbBuyScreen
+        @scene.pbStartScene(@stock, @adapter)
+        item = nil
+        loop do
+            item = @scene.pbChooseItem
+            break if !item
+            quantity = 0
+            itemname = @adapter.getName(item)
+            itemnameplural = @adapter.getNamePlural(item)
+            price = @adapter.getPrice(item)
+            if @adapter.getBP < price
+                pbDisplayPaused(_INTL("You don't have enough BP."))
+                next
+            end
+            next if !pbConfirm(_INTL("You would like the {1}?\nThat will be {2} BP.",
+                                     itemname, price.to_s_formatted))
+            quantity = 1
+            if @adapter.getBP < price
+                pbDisplayPaused(_INTL("I'm sorry, you don't have enough BP."))
+                next
+            end
+            added = 0
+            quantity.times do
+                break if !@adapter.addItem(item)
+                added += 1
+            end
+            if added == quantity
+                pbGet(80).push(item) # add the item to the common mart
+                pbGet(78).delete(item) # remove the item from the BP mart
+                $stats.battle_points_spent += price
+                $stats.mart_items_bought += quantity
+                @adapter.setBP(@adapter.getBP - price)
+                @stock.delete_if { |itm| GameData::Item.get(itm).is_important? && $bag.has?(itm) }
+                pbDisplayPaused(_INTL("Here you are! Thank you!")) { pbSEPlay("Mart buy item") }
+                @scene.update
+            else
+                added.times do
+                    if !@adapter.removeItem(item)
+                        raise _INTL("Failed to delete stored items")
+                    end
+                end
+                pbDisplayPaused(_INTL("You have no room in your Bag."))
+            end
+        end
+
+        @scene.pbEndScene
+    end
+end
+
 def test()
-    pbBattlePointShop([:MEGARING, :BOMB])
+    pbBattlePointShop(pbGet(78))
 end
 
 class PokemonPauseMenu

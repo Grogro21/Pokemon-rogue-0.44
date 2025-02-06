@@ -1,7 +1,7 @@
 #------------------------------------------------------
 [LEADER_Giovanni,Giovanni]
 Items = MEGARING
-LoseText = Ntm
+LoseText = ...
 Pokemon = PERSIAN,70
 	Item = LIFEORB
 	Moves = FAKEOUT,FAKEOUT,UTURN,KNOCKOFF
@@ -244,3 +244,11 @@ Pokemon = DITTO,10
 Pokemon = DITTO,10
 Pokemon = DITTO,10
 #--------------------------------
+[POKEMONTRAINER_Red,Bob]
+LoseText = ...
+Pokemon = DITTO,1
+Pokemon = DITTO,4
+Pokemon = DITTO,2
+Pokemon = DITTO,1
+Pokemon = DITTO,1
+Pokemon = DITTO,2

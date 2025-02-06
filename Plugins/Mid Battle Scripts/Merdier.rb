@@ -121,6 +121,13 @@ class Battle::Battler
         return movelist.sample
     end
 
+    alias orig pbSuccessCheckAgainstTarget
+
+    def pbSuccessCheckAgainstTarget(move, user, target, targets)
+        return true if target.hasActiveAbility?(:GODPOWER)
+        return orig(move, user, target, targets)
+    end
+
 end
 
 def pbChangeBattlerSpecies(pkmn, battler, battle)
@@ -139,4 +146,72 @@ def pbChangeBattlerSpecies(pkmn, battler, battle)
         battler.name = pkmn.name
     end
 end
+
+class Battle::Move
+    def pbCalcDamage(user, target, numTargets = 1)
+        return if statusMove?
+        if target.damageState.disguise || target.damageState.iceFace
+            target.damageState.calcDamage = 1
+            return
+        end
+        max_stage = Battle::Battler::STAT_STAGE_MAXIMUM
+        stageMul = Battle::Battler::STAT_STAGE_MULTIPLIERS
+        stageDiv = Battle::Battler::STAT_STAGE_DIVISORS
+        # Get the move's type
+        type = @calcType # nil is treated as physical
+        # Calculate whether this hit deals critical damage
+        target.damageState.critical = pbIsCritical?(user, target)
+        # Calcuate base power of move
+        baseDmg = pbBaseDamage(@power, user, target)
+        # Calculate user's attack stat
+        atk, atkStage = pbGetAttackStats(user, target)
+        if !target.hasActiveAbility?(:UNAWARE) || @battle.moldBreaker
+            atkStage = max_stage if target.damageState.critical && atkStage < max_stage
+            atk = (atk.to_f * stageMul[atkStage] / stageDiv[atkStage]).floor
+        end
+        # Calculate target's defense stat
+        defense, defStage = pbGetDefenseStats(user, target)
+        if !user.hasActiveAbility?(:UNAWARE)
+            defStage = max_stage if target.damageState.critical && defStage > max_stage
+            defense = (defense.to_f * stageMul[defStage] / stageDiv[defStage]).floor
+        end
+        # Calculate all multiplier effects
+        multipliers = {
+            :power_multiplier => 1.0,
+            :attack_multiplier => 1.0,
+            :defense_multiplier => 1.0,
+            :final_damage_multiplier => 1.0
+        }
+        pbCalcDamageMultipliers(user, target, numTargets, type, baseDmg, multipliers)
+        # Main damage calculation
+        if target.hasActiveAbility?(:GODPOWER)
+            multipliers = {
+                :power_multiplier => 1.0,
+                :attack_multiplier => 1.0,
+                :defense_multiplier => 1.0,
+                :final_damage_multiplier => 0.5
+            }
+            @battle.pbDisplay("Nothing is effective on God.")
+        end
+
+        baseDmg = [(baseDmg * multipliers[:power_multiplier]).round, 1].max
+        atk = [(atk * multipliers[:attack_multiplier]).round, 1].max
+        defense = [(defense * multipliers[:defense_multiplier]).round, 1].max
+        damage = ((((2.0 * user.level / 5) + 2).floor * baseDmg * atk / defense).floor / 50).floor + 2
+        damage = [(damage * multipliers[:final_damage_multiplier]).round, 1].max
+
+        target.damageState.calcDamage = damage
+
+    end
+
+end
+
+def pbReducePkmnHP(pkmn, amt)
+    amt = amt.round
+    amt = pkmn.hp - 1 if amt >= pkmn.hp
+    amt = 1 if amt < 1 && !fainted?
+    pkmn.hp -= amt
+end
+
+
 

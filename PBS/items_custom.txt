@@ -14,7 +14,7 @@ Name = Arceusite
 NamePlural = Arceusites
 Pocket = 1
 Price = 30000
-BPPrice = 0
+BPPrice = 1000
 Flags = MegaStone,Fling_80
 Description = One of a variety of mysterious Mega Stones. Have Arceus hold it, and it will be able to Mega Evolve.
 #-------------------------------
