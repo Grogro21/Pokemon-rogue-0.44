@@ -818,7 +818,7 @@ module DialogueModule
     ####################Regi battle##########################################################
     ####################Regice battle##########################################################
     Regicinit = Proc.new { |battle|
-        battle.scene.appearBar
+
         battle.battlers[1].effects[PBEffects::BossProtect] = true
         pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
         pbWait(1)
@@ -827,7 +827,7 @@ module DialogueModule
         battle.pbAnimation(:BLIZZARD, battle.battlers[1], battle.battlers[0])
         pbMessage("The temperature drops!")
         battle.pbStartWeather(battle.battlers[1], :Hail)
-        battle.scene.disappearBar
+
     }
 
     Regicexplode1 = Proc.new { |battle|
@@ -850,7 +850,7 @@ module DialogueModule
 
     ####################Regirock battle##########################################################
     Regirockinit = Proc.new { |battle|
-        battle.scene.appearBar
+
         battle.battlers[1].effects[PBEffects::BossProtect] = true
         pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
         pbWait(1)
@@ -859,7 +859,6 @@ module DialogueModule
         battle.pbAnimation(:STEALTHROCK, battle.battlers[1], battle.battlers[0])
         battle.battlers[1].pbOpposingSide.effects[PBEffects::StealthRock] = true
         pbMessage("Pointed rocks are scattered everywhere!")
-        battle.scene.disappearBar
     }
 
     Regirockexplode1 = Proc.new { |battle|
@@ -882,7 +881,7 @@ module DialogueModule
 
     ####################Registeel battle##########################################################
     Registeelinit = Proc.new { |battle|
-        battle.scene.appearBar
+
         battle.battlers[1].effects[PBEffects::BossProtect] = true
         pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
         pbWait(1)
@@ -890,7 +889,7 @@ module DialogueModule
         pbMessage("The doors have just closed!")
         battle.pbAnimation(:IRONDEFENSE, battle.battlers[1], battle.battlers[0])
         battle.battlers[1].pbRaiseStatStage(:SPECIAL_DEFENSE, 1, battle.battlers[1])
-        battle.scene.disappearBar
+
     }
 
     Registeelexplode1 = Proc.new { |battle|
@@ -913,14 +912,14 @@ module DialogueModule
 
     ####################Regieleki battle##########################################################
     Regielekinit = Proc.new { |battle|
-        battle.scene.appearBar
+
         battle.battlers[1].effects[PBEffects::BossProtect] = true
         pbMessage("\\bINTRUDER DETECTED! STARTING ERADICATION PROTOCOL!")
         pbWait(1)
         pbSEPlay("Battle damage normal")
         pbMessage("The doors have just closed!")
         battle.pbStartTerrain(battle.battlers[1], :Electric)
-        battle.scene.disappearBar
+
     }
 
     Regielekexplode1 = Proc.new { |battle|
@@ -943,13 +942,13 @@ module DialogueModule
 
     ####################Regidrago battle##########################################################
     Regidragoinit = Proc.new { |battle|
-        battle.scene.appearBar
+
         battle.battlers[1].effects[PBEffects::BossProtect] = true
         pbMessage("\\bINTRUDER DETECTED! STARTING ERADICATION PROTOCOL!")
         pbWait(1)
         pbSEPlay("Battle damage normal")
         pbMessage("The doors have just closed!")
-        battle.scene.disappearBar
+
         battle.battlers[1].pbRaiseStatStage(:SPEED, 1, battle.battlers[1])
 
     }
@@ -973,7 +972,7 @@ module DialogueModule
     }
     ####################Regigigas battle##########################################################
     Reginit = Proc.new { |battle|
-        battle.scene.appearBar
+
         battle.battlers[1].effects[PBEffects::BossProtect] = true
         battle.battlers[1].effects[PBEffects::Lowhp] = true
         pbMessage("\\bINTRUDER DETECTED! INITIATING CONTAINMENT PROTOCOL!")
@@ -989,11 +988,11 @@ module DialogueModule
             BattleScripting.setInScript("turnStart#{i + 1}", :Regturn)
             BattleScripting.setInScript("turnEnd#{i}", :Choiceroom)
         end
-        battle.scene.disappearBar
+
     }
 
     Regturn = Proc.new { |battle|
-        battle.scene.appearBar
+
         if rand(100) < 50
             pbMessage("Regigigas picked up a big rock!")
             $game_switches[77] = true
@@ -1023,7 +1022,6 @@ module DialogueModule
             pbMessage("\\rYou reached the exit! Well played!")
             battle.decision = 3
         end
-        battle.scene.disappearBar
 
     }
 
@@ -1043,7 +1041,7 @@ module DialogueModule
         cmd = battle.pbShowCommands("Which direction are you chosing?", directions)
         move = directions[cmd] # direction chosen
         battle.scene.disappearsprite([base, imageup, imageright, imagedown, imageleft, ex])
-        battle.scene.appearBar
+        
         $game_variables[69] = movement(move, $game_variables[69]) # changing coord
         pbSEPlay("Door exit")
         if $game_switches[77]
@@ -1069,7 +1067,7 @@ module DialogueModule
                 end
             end
         end
-        battle.scene.disappearBar
+
     }
 
     ###############Mewtwo############################################################

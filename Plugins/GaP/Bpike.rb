@@ -563,7 +563,7 @@ def legendary_pkmn_merchant
         return
     end
 
-    pkmn = Pokemon.new($game_variables[81][cmd], $player.party[0].level)
+    pkmn = Pokemon.new($game_variables[81][cmd], 10)
     pbAddPokemon(pkmn)
     $player.battle_points -= 10
 
@@ -685,8 +685,8 @@ def pbChangeLevelNoScene(pkmn, new_level)
     end
 
     # Check for evolution
-    new_species = pkmn.check_evolution_on_level_up
-    if new_species
+    new_species = check_evo_thalasso(pkmn)
+    unless new_species == nil
         pbFadeOutInWithMusic {
             evo = PokemonEvolutionScene.new
             evo.pbStartScreen(pkmn, new_species)
@@ -694,6 +694,14 @@ def pbChangeLevelNoScene(pkmn, new_level)
             evo.pbEndScreen
         }
     end
+end
+
+def check_evo_thalasso(pkmn)
+    pEvo = pkmn.clone
+    setNewStage(pEvo)
+
+    return nil if pEvo.species == pkmn.species
+    return pEvo.species
 end
 
 def lvlup(pkmn, qty)

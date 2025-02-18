@@ -808,7 +808,7 @@ if Item_Surf[:active]
     return false if !$game_player.can_ride_vehicle_with_follower?
     if !pbCanUseItem(Item_Surf)
       item_name = GameData::Item.get(Item_Surf[:internal_name]).name
-      pbMessage(_INTL("You can't use the {1} yet.", item_name))
+
       return false
     end
     if pbConfirmMessage(_INTL("The water is a deep blue...\nWould you like to surf on it?"))
