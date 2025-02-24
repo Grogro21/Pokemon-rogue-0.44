@@ -557,7 +557,7 @@ module DialogueModule
     }
 
     Blow = Proc.new { |battle|
-        battle.scene.appearBar
+
         BattleScripting.setInScript("faintedOpp", :Bfaint)
         $PokemonTemp.dialogueDone["faintedOpp"] = 2
         zapdos = battle.battlers[1]
@@ -598,7 +598,7 @@ module DialogueModule
                 articuno.pbRecoverHP(articuno.totalhp) if !articuno.fainted?
             end
         end
-        battle.scene.disappearBar
+
     }
     Bstart = Proc.new { |battle|
         zapdos = battle.battlers[1]
@@ -1041,7 +1041,7 @@ module DialogueModule
         cmd = battle.pbShowCommands("Which direction are you chosing?", directions)
         move = directions[cmd] # direction chosen
         battle.scene.disappearsprite([base, imageup, imageright, imagedown, imageleft, ex])
-        
+
         $game_variables[69] = movement(move, $game_variables[69]) # changing coord
         pbSEPlay("Door exit")
         if $game_switches[77]
@@ -1248,7 +1248,7 @@ module DialogueModule
         battle.field.terrain = :None
         pbMessage("The psychic energy vanished.")
         battle.scene.disappearBar
-        battler.pbRecoverHP(battler.totalhp)
+        battler.pbRecoverHP(battler.totalhp / 4)
         BattleScripting.setInScript("turnEnd#{7}", :ArceusP2)
     }
 
