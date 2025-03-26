@@ -32,15 +32,15 @@ Moves = 1,THUNDERFANG,1,FIREFANG,1,ICEFANG,1,BODYSLAM
 #-------------------------------
 [ARTICUNO,2]
 FormName = Boss
-BaseStats = 300,75,100,85,75,125
+BaseStats = 200,75,100,85,75,125
 #-------------------------------
 [ZAPDOS,2]
 FormName = Boss
-BaseStats = 300,85,85,100,85,90
+BaseStats = 200,85,85,100,85,90
 #-------------------------------
 [MOLTRES,2]
 FormName = Boss
-BaseStats = 300,85,90,90,85,85
+BaseStats = 200,85,90,90,85,85
 #-------------------------------
 [REGIGIGAS,1]
 FormName = Boss
@@ -50,7 +50,7 @@ BaseStats = 10000,160,110,100,80,110
 FormName = Mega Arceus
 MegaStone = ARCEUSITE
 Types = FIGHTING,FLYING,POISON,GROUND,ROCK,BUG,GHOST,STEEL,QMARKS,FIRE,WATER,GRASS,ELECTRIC,PSYCHIC,ICE,DRAGON,DARK,FAIRY
-BaseStats = 1000,130,130,130,130,130
+BaseStats = 700,130,130,130,130,130
 BaseExp = 1
 Abilities = GODPOWER
 HiddenAbilities = GODPOWER

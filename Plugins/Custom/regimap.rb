@@ -249,6 +249,19 @@ class Labyrinth
         end until self.isValid?
     end
 
+    def to_s
+        str = ""
+        @rooms.each_with_index do |room, i|
+            if room.event.instance_of? BossEvent
+                str.concat(MathUtils.calcCoords(@size, i).to_s, " ", room.event.regiName.to_s, " ", room.doors.to_s, "\n")
+            else
+                str.concat(MathUtils.calcCoords(@size, i).to_s, " ", room.event.to_s, " ", room.doors.to_s, "\n")
+            end
+        end
+
+        return str
+    end
+
     def cameFrom(moveMap, choice, coord)
         case
         when choice == "up" && !moveMap[coord[0]][coord[1]].include?("down")
@@ -270,7 +283,7 @@ class Labyrinth
         lineCoord = MathUtils.calcIdx(@size, coord)
 
         rooms[lineCoord].doors.each { |dir|
-            if !moveMap[coord[0]][coord[1]].include?(dir)
+            unless moveMap[coord[0]][coord[1]].include?(dir)
                 moveMap[coord[0]][coord[1]].push(dir)
 
                 return dir
@@ -292,12 +305,9 @@ class Labyrinth
         }
 
         i = 0
-        maxMove = 50
-        while i <= maxMove && coord[0] != boss[0] && coord[1] != boss[1]
+        maxMove = 100
+        while i <= maxMove && !(coord[0] == boss[0] && coord[1] == boss[1])
             choice = choseDir(coord, movemap)
-            unless movemap[coord[0]][coord[1]].include?(choice)
-                movemap[coord[0]][coord[1]].push(choice)
-            end
             coord = movement(choice, coord)
             movemap = cameFrom(movemap, choice, coord)
             i += 1

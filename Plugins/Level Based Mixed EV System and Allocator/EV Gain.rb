@@ -7,7 +7,7 @@ def pbChangeLevel(pkmn, new_level, scene)
         # DemICE edit
         evpool = 80 + pkmn.level * 2 * EV_GROWTH_MULTIPLIER
         evpool = (evpool.div(4)) * 4
-        evpool = 512 if evpool > 512
+        evpool = 504 if evpool > 504
         evcap = 40 + pkmn.level * EV_GROWTH_MULTIPLIER
         evcap = (evcap.div(4)) * 4
         evcap = 252 if evcap > 252
@@ -67,7 +67,7 @@ class Battle
             # DemICE edit
             evpool = 80 + pkmn.level * 8
             evpool = (evpool.div(4)) * 4
-            evpool = 512 if evpool > 512
+            evpool = 504 if evpool > 504
             evcap = 40 + pkmn.level * 4
             evcap = (evcap.div(4)) * 4
             evcap = 252 if evcap > 252

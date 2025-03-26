@@ -349,7 +349,7 @@ module DialogueModule
                         battle.scene.appearDatabox
                         pbMessage("The opposing Jirachi threw some Bright Powder at you.")
                         if battle.battlers[0].pbCanSleep?(battle.battlers[1], false) && rand(100) < 30
-                            battle.battlers[0].pbInflictStatus(:SLEEP, pbSleepDuration(1), nil)
+                            battle.battlers[0].pbInflictStatus(:SLEEP, battle.battlers[0].pbSleepDuration(1), nil)
                         else
                             battle.pbLowerHP(battle.battlers[0], 8)
                         end
@@ -738,10 +738,8 @@ module DialogueModule
                 battle.pbStartTerrain(articuno, :None)
                 for i in allies
                     if !battle.battlers[i].fainted?
-                        battle.battlers[i].pbLowerStatStage(:ATTACK, 1, battle.battlers[i]) if articuno.pbCanLowerStatStage?(:ATTACK) && !battle.battlers[i].pbHasType?(:ICE) && !battle.battlers[i].inTwoTurnAttack?("TwoTurnAttackInvulnerableUnderground",
-                                                                                                                                                                                                                      "TwoTurnAttackInvulnerableUnderwater")
-                        battle.battlers[i].pbLowerStatStage(:SPECIAL_ATTACK, 1, battle.battlers[i]) if articuno.pbCanLowerStatStage?(:SPECIAL_ATTACK) && !battle.battlers[i].pbHasType?(:ICE) && !battle.battlers[i].inTwoTurnAttack?("TwoTurnAttackInvulnerableUnderground",
-                                                                                                                                                                                                                                      "TwoTurnAttackInvulnerableUnderwater")
+                        battle.battlers[i].pbLowerStatStage(:ATTACK, 1, battle.battlers[i]) if battle.battlers[i].pbCanLowerStatStage?(:ATTACK) && !battle.battlers[i].pbHasType?(:ICE)
+                        battle.battlers[i].pbLowerStatStage(:SPECIAL_ATTACK, 1, battle.battlers[i]) if battle.battlers[i].pbCanLowerStatStage?(:SPECIAL_ATTACK) && !battle.battlers[i].pbHasType?(:ICE)
                     end
                 end
             end
@@ -805,8 +803,8 @@ module DialogueModule
                             battle.pbLowerHP(battle.battlers[i], 4)
                         else
                             battle.battlers[i].pbBurn if battle.battlers[i].pbCanBurn?(battle.battlers[1], false)
-                            battle.battlers[i].pbLowerStatStage(:SPECIAL_DEFENSE, 2, battle.battlers[i]) if moltres.pbCanLowerStatStage?(:SPECIAL_DEFENSE) && !battle.battlers[i].pbHasType?(:FIRE) && !battle.battlers[i].inTwoTurnAttack?("TwoTurnAttackInvulnerableUnderground",
-                                                                                                                                                                                                                                            "TwoTurnAttackInvulnerableUnderwater")
+                            battle.battlers[i].pbLowerStatStage(:SPECIAL_DEFENSE, 1, battle.battlers[i]) if battle.battlers[i].pbCanLowerStatStage?(:SPECIAL_DEFENSE) && !battle.battlers[i].pbHasType?(:FIRE) && !battle.battlers[i].inTwoTurnAttack?("TwoTurnAttackInvulnerableUnderground",
+                                                                                                                                                                                                                                                       "TwoTurnAttackInvulnerableUnderwater")
                         end
                     end
                 end
@@ -1074,7 +1072,7 @@ module DialogueModule
     Mewtwoinit = Proc.new { |battle|
         battle.battlers[0].effects[PBEffects::Midhp] = true
         battle.battlers[0].effects[PBEffects::MagnetRise] = 50
-        battle.pbAnimation(:MAGNETRISE, battle.battlers[1], battle.battlers[0])
+        battle.pbAnimation(:MAGNETRISE, battle.battlers[0], battle.battlers[1])
         pbMessage("You are levitating!")
         for i in 0...50
             if rand(100) < 20
@@ -1295,8 +1293,8 @@ module DialogueModule
             end
             battle.pbLowerHP(wam, 10)
         else
-            if battler.pbCanRaiseStatStage?(:SPEED)
-                battler.pbRaiseStatStage(:SPEED, 2, battler)
+            if boss.pbCanRaiseStatStage?(:SPEED)
+                boss.pbRaiseStatStage(:SPEED, 2, battler)
             end
         end
         battle.scene.disappearBar

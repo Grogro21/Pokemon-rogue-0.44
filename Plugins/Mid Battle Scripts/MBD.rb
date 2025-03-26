@@ -861,13 +861,13 @@ class Battle::Move
         # Disguise takes the damage
         return if target.damageState.disguise || target.damageState.iceFace
         # Target takes the damage
-        if (target.hp - damage <= target.totalhp / 4 - 1) && target.effects[PBEffects::Highhp]
+        if (target.hp - damage <= 3 * target.totalhp / 4 - 1) && target.effects[PBEffects::Highhp]
             damage = target.hp - (3 * target.totalhp / 4 - 1)
         end
         if (target.hp - damage <= target.totalhp / 2 - 1) && target.effects[PBEffects::Midhp]
             damage = target.hp - (target.totalhp / 2 - 1)
         end
-        if (target.hp - damage <= 3 * target.hp / 4 - 1) && target.effects[PBEffects::Lowhp]
+        if (target.hp - damage <= target.hp / 4 - 1) && target.effects[PBEffects::Lowhp]
             damage = target.hp - (target.totalhp / 4 - 1)
         end
         if damage >= target.hp

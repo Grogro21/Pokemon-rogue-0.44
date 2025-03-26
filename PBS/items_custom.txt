@@ -18,3 +18,15 @@ BPPrice = 1000
 Flags = MegaStone,Fling_80
 Description = One of a variety of mysterious Mega Stones. Have Arceus hold it, and it will be able to Mega Evolve.
 #-------------------------------
+[LGBTSPRAY]
+Name = Shinyzator
+NamePlural = Shinyzator
+PortionName = spray of Shinyzator
+PortionNamePlural = sprays of Shinyzator
+Pocket = 2
+Price = 5000
+BPPrice = 1
+FieldUse = OnPokemon
+Flags = Fling_200
+Description = An innovative spray that can make your Pokémon shiny?
+#-------------------------------

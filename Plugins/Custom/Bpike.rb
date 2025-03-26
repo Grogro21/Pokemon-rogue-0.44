@@ -1,5 +1,8 @@
 def reset_all_self_switches
     $game_variables[71] = [:REGIROCK, :REGICE, :REGISTEEL, :REGIDRAGO, :REGIELEKI]
+    pbSetSelfSwitch(2, "A", false, 100)
+    pbSetSelfSwitch(9, "A", false, 103)
+    pbSetSelfSwitch(10, "A", false, 103)
     pbSetSelfSwitch(4, "A", false, 89)
     pbSetSelfSwitch(8, "A", false, 95)
     pbSetSelfSwitch(24, "A", false, 90)
@@ -544,9 +547,9 @@ def display_next_room
     Graphics.update
 end
 
-def legendary_pkmn_merchant
+def legendary_pkmn_merchant(pkmnlistnb, bpprice)
     pkmns = []
-    $game_variables[81].each do |pkmn|
+    $game_variables[pkmnlistnb].each do |pkmn|
         p = GameData::Species.get(pkmn)
         if p.form_name == nil
             pkmns.push(p.name)
@@ -556,17 +559,28 @@ def legendary_pkmn_merchant
     end
     pkmns.push("No thanks")
 
-    cmd = pbMessage("\\BDo you want to buy one of my Pokémons for 10 BP?", pkmns, pkmns.length, nil, 0)
+    cmd = pbMessage("\\BDo you want to buy one of my Pokémons for #{bpprice} BP?", pkmns, pkmns.length, nil, 0)
 
     if cmd == pkmns.length - 1
         pbMessage("Bye!")
         return
     end
 
-    pkmn = Pokemon.new($game_variables[81][cmd], 10)
+    pkmn = Pokemon.new($game_variables[pkmnlistnb][cmd], 10)
     pbAddPokemon(pkmn)
-    $player.battle_points -= 10
+    $player.battle_points -= bpprice
 
+end
+
+def init_legendary_shop
+    $game_variables[81] = [:KYOGRE, :GROUDON, :RAYQUAZA, :HOOH, :LUGIA, :DIALGA, :PALKIA, :SHAYMIN, :GIRATINA, :ZEKROM,
+                           :RESHIRAM, :GENESECT, :ZYGARDE, :XERNEAS, :YVELTAL, :SOLGALEO, :LUNALA, :ETERNATUS, :ZACIAN]
+
+    $game_variables[82] = [:LATIOS, :LATIAS, :MEW, :ENTEI, :SUICUNE, :RAIKOU, :LANDORUS, :THUNDURUS, :TORNADUS,
+                           :KYUREM, :VOLCANION, :HEATRAN, :HOOPA, :DIANCIE, :TAPUBULU, :TAPUKOKO,
+                           :TAPULELE, :TAPUFINI, :ZAMAZENTA, :GLASTRIER, :SPECTRIER, :CALYREX, :URSHIFU, :URSHIFU_1]
+
+    $game_variables[83] = [:UXIE, :AZELF, :MESPRIT, :NECROZMA, :ZARUDE, :ZYGARDE_1]
 end
 
 def pkmnmerchant

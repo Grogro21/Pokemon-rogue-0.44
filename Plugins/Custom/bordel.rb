@@ -52,6 +52,23 @@ def test()
     pbBattlePointShop(pbGet(78))
 end
 
+def bp_window_display_shut_up
+    windobe = Window_AdvancedTextPokemon.new("")
+    # pbPrepareWindow(windobe)
+    windobe.setSkin("Graphics/Windowskins/goldskin")
+    windobe.visible = true
+    windobe.viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
+    windobe.x = 0
+    windobe.y = 0
+    windobe.width = 120
+    windobe.height = 60
+    windobe.baseColor = Color.new(88, 88, 80)
+    windobe.shadowColor = Color.new(168, 184, 184)
+    windobe.text = _INTL("BP: {1}", $player.battle_points)
+
+    return windobe
+end
+
 class PokemonPauseMenu
 
     alias orig pbStartPokemonMenu
@@ -208,8 +225,6 @@ class Pokemon
         @level = value
     end
 end
-
-def fill_with_boss() end
 
 # class Game_Player
 #     alias origUpdate update

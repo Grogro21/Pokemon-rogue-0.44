@@ -197,6 +197,20 @@ def pbboom
     end
 end
 
-ItemHandlers::UseInField.add(:BOMB, proc { |item|
+def pbShinizePkmn(pkmn)
+    pkmn.shiny = true
+
+    return true if (pkmn.gender == 2)
+
+    pkmn.gender = pkmn.gender == 1 ? 0 : 1
+
+    return true
+end
+
+ItemHandlers::UseInField.add(:BOMB, proc { |_|
     next pbboom
+})
+
+ItemHandlers::UseOnPokemon.add(:LGBTSPRAY, proc { |_, _, pkmn|
+    next pbShinizePkmn(pkmn)
 })

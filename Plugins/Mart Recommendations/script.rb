@@ -6,7 +6,7 @@
 #                                 issues with it!                              #
 #------------------------------------------------------------------------------#
 WELCOME_MESSAGE = _INTL("Hiya! I'm taking suggestions for what to sell in my shop!")
-DEFAULT_MART = [:POTION]
+DEFAULT_MART = [:POTION, :ETHER]
 BLACKLIST = [:MASTERBALL, :POKEBALL]
 RECMART = 80
 

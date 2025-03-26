@@ -1,4 +1,14 @@
 class PokemonBag
+    def initialize_clone(source)
+        @pockets = []
+        source.pockets.each do |pocket|
+            # de la merde et ça marche
+            @pockets.push(pocket.clone)
+        end
+
+        self
+    end
+
     def randomize_bag
         $game_switches[90] = true
         reset_last_selections
@@ -212,6 +222,3 @@ def pbReducePkmnHP(pkmn, amt)
     amt = 1 if amt < 1 && !fainted?
     pkmn.hp -= amt
 end
-
-
-

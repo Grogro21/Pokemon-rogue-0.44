@@ -180,7 +180,7 @@ def setabilhack(pkmn)
     if new_ability && new_ability != pkmn.ability_id
         pkmn.ability = new_ability
     end
-    
+
 end
 
 def pbChooseFromGameDataList(game_data, default = nil)
@@ -511,8 +511,5 @@ class SpeciesLister
         return @ids[index]
     end
 
-    def refresh(index)
-        ;
-    end
 end
 
