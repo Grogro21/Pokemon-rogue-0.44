@@ -48,13 +48,12 @@ class BattlePointShopScreen
     end
 end
 
-def test()
+def pb_battle_point_shop
     pbBattlePointShop(pbGet(78))
 end
 
 def bp_window_display_shut_up
     windobe = Window_AdvancedTextPokemon.new("")
-    # pbPrepareWindow(windobe)
     windobe.setSkin("Graphics/Windowskins/goldskin")
     windobe.visible = true
     windobe.viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
@@ -225,27 +224,3 @@ class Pokemon
         @level = value
     end
 end
-
-# class Game_Player
-#     alias origUpdate update
-#     alias origCtor initialize
-#     attr_accessor :is_disable_movement
-#
-#     def initialize(*arg)
-#         @is_disable_movement = false
-#
-#         origCtor(arg)
-#     end
-#
-#     def togglePlayerMove()
-#         @is_disable_movement = !@is_disable_movement
-#     end
-#
-#     def update
-#         if @is_disable_movement
-#             return
-#         end
-#
-#         origUpdate
-#     end
-# end
