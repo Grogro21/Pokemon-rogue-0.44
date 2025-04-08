@@ -50,7 +50,7 @@ BaseStats = 10000,160,110,100,80,110
 FormName = Mega Arceus
 MegaStone = ARCEUSITE
 Types = FIGHTING,FLYING,POISON,GROUND,ROCK,BUG,GHOST,STEEL,QMARKS,FIRE,WATER,GRASS,ELECTRIC,PSYCHIC,ICE,DRAGON,DARK,FAIRY
-BaseStats = 700,130,130,130,130,130
+BaseStats = 1000,130,130,130,130,130
 BaseExp = 1
 Abilities = GODPOWER
 HiddenAbilities = GODPOWER
@@ -62,55 +62,55 @@ Pokedex = Truite
 FormName = Boss
 Types = NORMAL
 BaseStats = 1000,120,120,120,120,120
-Abilities = STALL
-HiddenAbilities = STALL
+Abilities = GODSHIELD
+HiddenAbilities = GODSHIELD
 #-------------------------------
 [ARCEUS,21]
 FormName = BossJ1
 Types = NORMAL,ROCK,GROUND,STEEL
 BaseStats = 1000,120,120,120,120,120
-Abilities = STALL
-HiddenAbilities = STALL
+Abilities = GODSHIELD
+HiddenAbilities = GODSHIELD
 #-------------------------------
 [ARCEUS,22]
 FormName = BossJ2
 Types = NORMAL,ROCK,GROUND,FIRE,FAIRY,ELECTRIC,STEEL
 BaseStats = 1000,120,120,120,120,120
-Abilities = STALL
-HiddenAbilities = STALL
+Abilities = GODSHIELD
+HiddenAbilities = GODSHIELD
 #-------------------------------
 [ARCEUS,23]
 FormName = BossJ3
 Types = NORMAL,ROCK,GROUND,FIRE,FAIRY,ELECTRIC,STEEL,WATER,ICE
 BaseStats = 1000,120,120,120,120,120
-Abilities = STALL
-HiddenAbilities = STALL
+Abilities = GODSHIELD
+HiddenAbilities = GODSHIELD
 #-------------------------------
 [ARCEUS,24]
 FormName = BossJ4
 Types = NORMAL,ROCK,GROUND,FIRE,FAIRY,ELECTRIC,STEEL,WATER,ICE,GRASS,BUG,FLYING
 BaseStats = 1000,120,120,120,120,120
-Abilities = STALL
-HiddenAbilities = STALL
+Abilities = GODSHIELD
+HiddenAbilities = GODSHIELD
 #-------------------------------
 [ARCEUS,25]
 FormName = BossJ5
 Types = NORMAL,ROCK,GROUND,FIRE,FAIRY,ELECTRIC,STEEL,WATER,ICE,GRASS,BUG,FLYING,PSYCHIC,FIGHTING,POISON
 BaseStats = 1000,120,120,120,120,120
-Abilities = STALL
-HiddenAbilities = STALL
+Abilities = GODSHIELD
+HiddenAbilities = GODSHIELD
 #-------------------------------
 [ARCEUS,26]
 FormName = BossJ6
 Types = NORMAL,ROCK,GROUND,FIRE,FAIRY,ELECTRIC,STEEL,WATER,ICE,GRASS,BUG,FLYING,PSYCHIC,FIGHTING,POISON,GHOST,DARK
 BaseStats = 1000,120,120,120,120,120
-Abilities = STALL
-HiddenAbilities = STALL
+Abilities = GODSHIELD
+HiddenAbilities = GODSHIELD
 #-------------------------------
 [MEWTWO,3]
 FormName = Boss
 Types = PSYCHIC,STEEL
-BaseStats = 606,110,90,130,204,90
+BaseStats = 606,110,90,110,184,90
 Abilities = PRESSURE
 HiddenAbilities = UNNERVE
 Moves = 70,PSYCHIC,70,FLASHCANNON,70,ICEBEAM,70,THUNDERBOLT
@@ -118,4 +118,4 @@ Moves = 70,PSYCHIC,70,FLASHCANNON,70,ICEBEAM,70,THUNDERBOLT
 [MISSINGNO,1]
 FormName = Boss
 BaseStats = 94,13,5,9,7,6
-
+#-------------------------------

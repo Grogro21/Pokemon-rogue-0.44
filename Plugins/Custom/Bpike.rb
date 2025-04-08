@@ -48,6 +48,7 @@ def reset_all_self_switches
     pbSetSelfSwitch(3, "A", false, 90)
     pbSetSelfSwitch(1, "A", false, 90)
     pbSetSelfSwitch(1, "A", false, 104)
+    $game_switches[90] = false
 end
 
 def starter(lvl)

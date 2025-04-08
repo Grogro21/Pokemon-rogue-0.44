@@ -1,3 +1,10 @@
+def remove_items
+    $bag.clear
+    $player.party.each do |pkmn|
+        pkmn.item = nil
+    end
+end
+
 class PokemonBag
     def initialize_clone(source)
         @pockets = []
@@ -44,6 +51,11 @@ class PokemonBag
 end
 
 class Battle::Battler
+
+    def pbObedienceCheck?(choice)
+        return true;
+    end
+
     def pbChangeMove(slot_id, move)
         @pokemon.moves[slot_id] = Pokemon::Move.new(move) # Replaces current/total PP
         @moves[slot_id] = Battle::Move.from_pokemon_move(@battle, @pokemon.moves[slot_id])
@@ -119,7 +131,6 @@ class Battle::Battler
             @battle.pbMessage("ACCURACY Down!")
         end
 
-        echoln(@stages)
     end
 
     def get_random_move
@@ -147,8 +158,7 @@ def pbChangeBattlerSpecies(pkmn, battler, battle)
         speciesTab.push(s)
     end
     specie = speciesTab.sample().id
-    echoln(specie)
-    echoln(pkmn.species)
+
     if specie != pkmn.species
         pkmn.species = specie
         battler.species = specie
@@ -201,7 +211,7 @@ class Battle::Move
                 :defense_multiplier => 1.0,
                 :final_damage_multiplier => 0.5
             }
-            @battle.pbDisplay("Nothing is effective on God.")
+
         end
 
         baseDmg = [(baseDmg * multipliers[:power_multiplier]).round, 1].max
@@ -222,3 +232,18 @@ def pbReducePkmnHP(pkmn, amt)
     amt = 1 if amt < 1 && !fainted?
     pkmn.hp -= amt
 end
+
+Battle::AbilityEffects::OnBeingHit.add(:GODPOWER,
+                                       proc { |ability, user, target, move, battle|
+                                           battle.pbShowAbilitySplash(target)
+                                           battle.pbDisplay("Nothing is effective on God.")
+                                           battle.pbHideAbilitySplash(target)
+                                       })
+
+Battle::AbilityEffects::OnBeingHit.add(:GODSHIELD,
+                                       proc { |ability, user, target, move, battle|
+
+                                           battle.pbShowAbilitySplash(target)
+                                           battle.pbDisplay("#{target.pbThis(true)}'s shield reduced your damages!")
+                                           battle.pbHideAbilitySplash(target)
+                                       })

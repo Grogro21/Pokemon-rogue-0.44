@@ -870,9 +870,14 @@ class Battle::Move
         if (target.hp - damage <= target.hp / 4 - 1) && target.effects[PBEffects::Lowhp]
             damage = target.hp - (target.totalhp / 4 - 1)
         end
+
+        # custom abil
+        if target.hasActiveAbility?(:GODSHIELD) && damage > target.totalhp / 5
+            damage = target.totalhp / 5
+        end
         if damage >= target.hp
             damage = target.hp
-            # Survive a lethal hit with 1 HP effects
+            # Survive a lethal hit with 1 HP effect
             if nonLethal?(user, target)
                 damage -= 1
             elsif target.effects[PBEffects::Endure]

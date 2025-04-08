@@ -3,6 +3,8 @@ class IntroEventScene < EventScene
     SPLASH_IMAGES = ["splash2"]
     SECONDS_PER_SPLASH = 8
 
+    attr_accessor :pikapika
+
     def initialize(viewport = nil)
         super(viewport)
         @pic = addImage(0, 0, "")
@@ -13,11 +15,20 @@ class IntroEventScene < EventScene
         @pic3.setOpacity(0, 0)
         # set opacity to 0 after waiting 0 frames
         @index = 0
+        @pikapika = false
         if SPLASH_IMAGES.empty?
             open_title_screen(self, nil)
         else
             open_splash(self, nil)
         end
+    end
+
+    def splash_update(scene, args)
+        if System.uptime - @timer >= SECONDS_PER_SPLASH - 1 && !@pikapika
+            pbSEPlay("Pikachu Voice Clips - Nadameru")
+            @pikapika = true
+        end
+        close_splash(scene, args) if System.uptime - @timer >= SECONDS_PER_SPLASH
     end
 
     def open_title_screen(_scene, *args)

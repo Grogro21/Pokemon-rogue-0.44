@@ -193,6 +193,7 @@ class Room
             pbMapInterpreter.pbSetSelfSwitch(8, "A", true)
         end
         unless @isVisited
+            pbboom if @doors.empty?
             @event.fire()
             unless @event.instance_of? ExitEvent
                 $player.party.each do |pkmn|

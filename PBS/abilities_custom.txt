@@ -3,3 +3,7 @@
 Name = God Power
 Description = Truite.
 #-------------------------------
+[GODSHIELD]
+Name = God Shield
+Description = Goat save the king.
+#-------------------------------
