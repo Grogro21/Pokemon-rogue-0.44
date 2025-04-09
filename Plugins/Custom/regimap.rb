@@ -15,7 +15,7 @@ def gen_reward(miniboss = false, coord = nil)
         trainer = false
     end
     reward = genreward(type)
-    return([type, trainer, reward])
+    return [type, trainer, reward]
 end
 
 def baseimage1(coord)
@@ -33,7 +33,7 @@ def baseimage1(coord)
         ex = "exit"
     end
 
-    return([image, ex])
+    return [image, ex]
 end
 
 def isdoors(map = pbGet(63)[0], coord = pbGet(55))
@@ -229,7 +229,7 @@ class Room
             ex = "exit"
         end
 
-        return([image, ex])
+        return [image, ex]
     end
 end
 
@@ -461,7 +461,6 @@ def movement(choice, coord)
     when "right"
         coord[0] += 1
     else
-        echoln("invalid choice")
     end
 
     return coord

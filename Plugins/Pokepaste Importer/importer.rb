@@ -193,8 +193,6 @@ def giveiv(pkmn, value, ivname)
         stat = :DEFENSE
     elsif ivname == "SpD"
         stat = :SPECIAL_DEFENSE
-    else
-        echoln(ivname)
     end
     pkmn.iv[stat] = value
 end

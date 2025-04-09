@@ -284,12 +284,12 @@ def gettmlist
             itemlist.push(i.id)
         end
     end
-    return(itemlist)
+    return itemlist
 end
 
 def getrandomtm(itemlist = gettmlist)
     item = itemlist.sample
-    return(item)
+    return item
 end
 
 def get_hm
@@ -308,19 +308,19 @@ def genreward(type, exclude = nil)
         reward.delete(exclude) if exclude != nil # if you want to get 2 different results
         r = reward.sample
         if r == "status"
-            return(["status", :FULLHEAL, 1])
+            return ["status", :FULLHEAL, 1]
         elsif r == "potions"
             if $game_variables[36] < 10
-                return(["potions", :POTION, 1])
+                return ["potions", :POTION, 1]
             elsif $game_variables[36] < 20
-                return(["potions", :SUPERPOTION, 1])
+                return ["potions", :SUPERPOTION, 1]
             elsif $game_variables[36] < 40
-                return(["potions", :HYPERPOTION, 1])
+                return ["potions", :HYPERPOTION, 1]
             else
-                return(["potions", :MAXPOTION, 1])
+                return ["potions", :MAXPOTION, 1]
             end
         elsif r == "gold"
-            return(["gold", nil, 500 + $game_variables[45] * 500])
+            return ["gold", nil, 500 + $game_variables[45] * 500]
         elsif r == "item"
             item = [:AIRBALLOON, :BRIGHTPOWDER, :EVIOLITE, :FLOATSTONE, :DESTINYKNOT, :ROCKYHELMET,
                     :ASSAULTVEST, :SAFETYGOGGLES, :PROTECTIVEPADS, :HEAVYDUTYBOOTS, :UTILITYUMBRELLA,
@@ -343,11 +343,11 @@ def genreward(type, exclude = nil)
                     :NORMALGEM, :LIGHTBALL, :THICKCLUB, :LEEK, :SOULDEW, :DEEPSEATOOTH, :DEEPSEASCALE,
                     :PRISMSCALE, :OVALSTONE, :FIRESTONE, :WATERSTONE, :LEAFSTONE, :THUNDERSTONE, :ICESTONE,
                     :SHINYSTONE, :DAWNSTONE, :DUSKSTONE, :SUNSTONE, :MOONSTONE]
-            return(["item", item.sample, 1])
+            return ["item", item.sample, 1]
         elsif r == "randpokemon"
-            return(["randpokemon", nil, 1])
+            return ["randpokemon", nil, 1]
         else
-            return(["berries", nil, 1])
+            return ["berries", nil, 1]
         end
     end
     if type == "rare"
@@ -355,36 +355,36 @@ def genreward(type, exclude = nil)
         reward.delete(exclude) if exclude != nil # if you want to get 2 different results
         r = reward.sample
         if r == "pokemon"
-            return(["pokemon", nil, 1])
+            return ["pokemon", nil, 1]
         elsif r == "potions"
-            return(["item", :FULLRESTORE, 1])
+            return ["item", :FULLRESTORE, 1]
         elsif r == "bomb"
-            return(["item", :BOMB, 1])
+            return ["item", :BOMB, 1]
         elsif r == "item"
             item = [:EVIOLITE, :ROCKYHELMET, :ASSAULTVEST, :HEAVYDUTYBOOTS, :CHOICEBAND,
                     :CHOICESCARF, :CHOICESPECS, :LEFTOVERS, :LIFEORB, :EXPERTBELT, :FOCUSSASH]
-            return(["item", item.sample, 1])
+            return ["item", item.sample, 1]
         elsif r == "gold"
-            return(["gold", nil, 500 + $game_variables[45] * 900])
+            return ["gold", nil, 500 + $game_variables[45] * 900]
         elsif r == "mint"
-            return(["mint", nil, 1])
+            return ["mint", nil, 1]
         elsif r == "hm"
-            return(["hm", get_hm, 1])
+            return ["hm", get_hm, 1]
         elsif r == "tm"
-            return(["tm", getrandomtm, 1])
+            return ["tm", getrandomtm, 1]
         else
-            return(["ppmax", :PPMAX, 1])
+            return ["ppmax", :PPMAX, 1]
         end
     end
     if type == "event"
         r = rand(10)
-        return(["event", nil, r])
+        return ["event", nil, r]
     end
     if type == "boss"
-        return(["boss", "nothing", 1])
+        return ["boss", "nothing", 1]
     end
     if type == "secret"
-        return(["secret", nil, 1])
+        return ["secret", nil, 1]
     end
 end
 
@@ -443,7 +443,6 @@ def getreward(type = nil, item = nil, qty = 1)
         pk.level = $player.party[0].level
         pbAddPokemon(pk)
     else
-        echoln(type)
         pbItemBall(:PPUP, qty)
     end
 end
@@ -471,7 +470,7 @@ def gen_type_rooms
     else
         trainer = false
     end
-    return([type, trainer])
+    return [type, trainer]
 end
 
 def display_next_room

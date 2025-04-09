@@ -77,8 +77,8 @@ end
 
 #######Level Scaling#######################################
 
-Firstevo = 30
-Secondevo = 45
+Firstevo = 35
+Secondevo = 35
 EventHandlers.add(:on_trainer_load, :simple_scaling,
                   proc { |trainer|
                       if trainer
@@ -106,7 +106,7 @@ EventHandlers.add(:on_trainer_load, :simple_scaling,
                                   tier = ["PU", "PU", "NU", "NU", "RU", "RU"]
                                   order = tier.shuffle()
                               else
-                                  tier = ["PU", "PU", "NU", "NU", "RU", "UU"]
+                                  tier = ["PU", "NU", "NU", "RU", "UU", "OU"]
                                   order = tier.shuffle()
                               end
                               for i in 0...trainer.party.length

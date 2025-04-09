@@ -185,8 +185,6 @@ def pbboom
             if coords[1] < size - 1 && rooms[MathUtils.calcIdx(size, [coords[0], coords[1] + 1])].doors.include?("down") && !rooms[i].doors.include?("up")
                 rooms[i].doors += ["up"]
             end
-
-            # echoln(rooms[i].doors)
         end
         $game_map.refresh
         Graphics.update
